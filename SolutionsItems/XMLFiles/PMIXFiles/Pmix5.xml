@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid XML Studio 6.1.18.0 - FREE Community Edition (http://www.liquid-technologies.com) -->
+<Response npVersion="6_1_4B1_PLT" creationDate="20090429 18:49:31" storeId="1250" storeName="MORRISVILLE" requestDataType="PMIX" requestReport="PMIX" requestPOD="" requestPOSList="" requestDate="" requestTime="">
+	<POS id="0001" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+	<POS id="0002" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+	<POS id="0003" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+	<POS id="0004" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+	<POS id="0012" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+	<POS id="0013" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+	<POS id="0014" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+</Response>

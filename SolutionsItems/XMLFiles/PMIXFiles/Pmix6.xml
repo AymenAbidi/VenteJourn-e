@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid XML Studio 6.1.18.0 - FREE Community Edition (http://www.liquid-technologies.com) -->
+<Response npVersion="6_1_4B1_PLT" creationDate="20090428 17:01:43" storeId="1250" storeName="MORRISVILLE" requestDataType="PMIX" requestReport="PMIX" requestPOD="" requestPOSList="" requestDate="20090428" requestTime="">
+	<ProductTable>
+		<ProductInfo id="32" name="HC SAU" familyGroup="BREAKFAST_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="46" name="EGG MF" familyGroup="BREAKFAST_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="62" name="SAU BI" familyGroup="BREAKFAST_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="83" name="SEC MF" familyGroup="BREAKFAST_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="85" name="BEC BI" familyGroup="BREAKFAST_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="88" name="SACHBI" familyGroup="BREAKFAST_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="92" name="S+E BI" familyGroup="BREAKFAST_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="93" name="EGGBIS" familyGroup="BREAKFAST_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="107" name="BIG BF" familyGroup="BREAKFAST_ENTREE" class="VALUE_MEAL" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="115" name="ORG BL" familyGroup="SHAKES" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="148" name="CHEESE" familyGroup="SHAKES" class="PRODUCT" department="QL" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="727" name="2EGGMF" familyGroup="BREAKFAST_ENTREE" class="VALUE_MEAL" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="831" name="HLCERT" familyGroup="NON_PRODUCT" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="936" name="GCERT1" familyGroup="GIFT_COUPON" class="COUPONS" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="937" name="GCERT5" familyGroup="GIFT_COUPON" class="COUPONS" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="2909" name="CINMLT" familyGroup="BREAKFAST_SIDE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="3149" name="SME2PK" familyGroup="BREAKFAST_ENTREE" class="VALUE_MEAL" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="3590" name="DLX BF" familyGroup="BREAKFAST_ENTREE" class="VALUE_MEAL" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="6110" name="SAU GD" familyGroup="BREAKFAST_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="8346" name="CHRTY1" familyGroup="NON_PRODUCT" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="8492" name="GCARD $5" familyGroup="GIFT_COUPON" class="NON_FOOD_PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="9839" name="BEC GD" familyGroup="BREAKFAST_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+		<ProductInfo id="9841" name="SEC GD" familyGroup="BREAKFAST_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+	</ProductTable>
+	<FamilyGroup groupCode="0" groupName="BREAKFAST_ENTREE">
+		<Product id="32" priceType="NET" takeoutPrice="2.30" takeoutTax="0.17">
+			<OperationType operationType="SALE">
+				<PMix qtyTakeOut="2" netAmtTakeOut="4.60" taxTakeOut="0.34" netBeforeDiscountTakeOut="4.60" taxBeforeDiscountTakeOut="0.34" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.30" saleTax="0.17">
+					<PMix qtyTakeOut="1" netAmtTakeOut="2.30" taxTakeOut="0.17" netBeforeDiscountTakeOut="2.30" taxBeforeDiscountTakeOut="0.17" />
+				</Price>
+				<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="2.30" saleTax="0.17">
+					<PMix qtyTakeOut="1" netAmtTakeOut="2.30" taxTakeOut="0.17" netBeforeDiscountTakeOut="2.30" taxBeforeDiscountTakeOut="0.17" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="46" priceType="NET" eatinPrice="2.00" eatinTax="0.15">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="2" netAmtEatIn="4.00" taxEatIn="0.30" netBeforeDiscountEatIn="4.00" taxBeforeDiscountEatIn="0.30" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+					<PMix qtyEatIn="2" netAmtEatIn="4.00" taxEatIn="0.30" netBeforeDiscountEatIn="4.00" taxBeforeDiscountEatIn="0.30" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="62" priceType="NET" takeoutPrice="1.50" takeoutTax="0.11">
+			<OperationType operationType="REFUND">
+				<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+				<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="1.50" saleTax="0.11">
+					<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="83" priceType="NET" eatinPrice="2.00" eatinTax="0.15" takeoutPrice="2.00" takeoutTax="0.15">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="1" netAmtTakeOut="2.00" taxTakeOut="0.15" netBeforeDiscountTakeOut="2.00" taxBeforeDiscountTakeOut="0.15" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+					<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="1" netAmtTakeOut="2.00" taxTakeOut="0.15" netBeforeDiscountTakeOut="2.00" taxBeforeDiscountTakeOut="0.15" />
+				</Price>
+			</OperationType>
+			<OperationType operationType="REFUND">
+				<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+					<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="85" priceType="NET" eatinPrice="2.00" eatinTax="0.15" takeoutPrice="2.00" takeoutTax="0.15">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="3" netAmtTakeOut="6.00" taxTakeOut="0.45" netBeforeDiscountTakeOut="6.00" taxBeforeDiscountTakeOut="0.45" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+					<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="2" netAmtTakeOut="4.00" taxTakeOut="0.30" netBeforeDiscountTakeOut="4.00" taxBeforeDiscountTakeOut="0.30" />
+				</Price>
+				<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+					<PMix qtyTakeOut="1" netAmtTakeOut="2.00" taxTakeOut="0.15" netBeforeDiscountTakeOut="2.00" taxBeforeDiscountTakeOut="0.15" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="88" priceType="NET" takeoutPrice="1.20" takeoutTax="0.09">
+			<OperationType operationType="SALE">
+				<PMix qtyTakeOut="1" netAmtTakeOut="0.78" taxTakeOut="0.06" netBeforeDiscountTakeOut="1.20" taxBeforeDiscountTakeOut="0.09" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="1.20" saleTax="0.09">
+					<PMix qtyTakeOut="1" netAmtTakeOut="0.78" taxTakeOut="0.06" netBeforeDiscountTakeOut="1.20" taxBeforeDiscountTakeOut="0.09" />
+				</Price>
+			</OperationType>
+			<OperationType operationType="REFUND">
+				<PMix qtyTakeOut="1" netAmtTakeOut="1.20" taxTakeOut="0.10" netBeforeDiscountTakeOut="1.20" taxBeforeDiscountTakeOut="0.10" />
+				<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="1.20" saleTax="0.09">
+					<PMix qtyTakeOut="1" netAmtTakeOut="1.20" taxTakeOut="0.10" netBeforeDiscountTakeOut="1.20" taxBeforeDiscountTakeOut="0.10" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="92" priceType="NET" eatinPrice="2.00" eatinTax="0.15" takeoutPrice="2.00" takeoutTax="0.15">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="2" netAmtTakeOut="4.00" taxTakeOut="0.30" netBeforeDiscountTakeOut="4.00" taxBeforeDiscountTakeOut="0.30" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+					<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="2" netAmtTakeOut="4.00" taxTakeOut="0.30" netBeforeDiscountTakeOut="4.00" taxBeforeDiscountTakeOut="0.30" />
+				</Price>
+			</OperationType>
+			<OperationType operationType="REFUND">
+				<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+					<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="93" priceType="NET" eatinPrice="0.89" eatinTax="0.07">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netAmtEatIn="0.89" taxEatIn="0.07" netBeforeDiscountEatIn="0.89" taxBeforeDiscountEatIn="0.07" />
+				<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="0.89" saleTax="0.07">
+					<PMix qtyEatIn="1" netAmtEatIn="0.89" taxEatIn="0.07" netBeforeDiscountEatIn="0.89" taxBeforeDiscountEatIn="0.07" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="107" priceType="NET" eatinPrice="2.60" eatinTax="0.20" takeoutPrice="2.60" takeoutTax="0.20">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netBeforeDiscountEatIn="2.60" taxBeforeDiscountEatIn="0.20" qtyTakeOut="1" netAmtTakeOut="2.60" taxTakeOut="0.20" netBeforeDiscountTakeOut="2.60" taxBeforeDiscountTakeOut="0.20" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.60" saleTax="0.20">
+					<PMix qtyEatIn="1" netBeforeDiscountEatIn="2.60" taxBeforeDiscountEatIn="0.20" qtyTakeOut="1" netAmtTakeOut="2.60" taxTakeOut="0.20" netBeforeDiscountTakeOut="2.60" taxBeforeDiscountTakeOut="0.20" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="727" priceType="NET" eatinPrice="3.00" eatinTax="0.23">
+			<OperationType operationType="REFUND">
+				<PMix qtyEatIn="1" netAmtEatIn="3.00" taxEatIn="0.23" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.23" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="3.00" saleTax="0.23">
+					<PMix qtyEatIn="1" netAmtEatIn="3.00" taxEatIn="0.23" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.23" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="3149" priceType="NET" eatinPrice="3.00" eatinTax="0.23" takeoutPrice="3.00" takeoutTax="0.23">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.22" qtyTakeOut="1" netAmtTakeOut="3.00" taxTakeOut="0.22" netBeforeDiscountTakeOut="3.00" taxBeforeDiscountTakeOut="0.22" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="3.00" saleTax="0.23">
+					<PMix qtyEatIn="1" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.22" qtyTakeOut="1" netAmtTakeOut="3.00" taxTakeOut="0.22" netBeforeDiscountTakeOut="3.00" taxBeforeDiscountTakeOut="0.22" />
+				</Price>
+			</OperationType>
+			<OperationType operationType="REFUND">
+				<PMix qtyEatIn="1" netAmtEatIn="3.00" taxEatIn="0.23" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.23" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="3.00" saleTax="0.23">
+					<PMix qtyEatIn="1" netAmtEatIn="3.00" taxEatIn="0.23" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.23" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="3590" priceType="NET" eatinPrice="3.30" eatinTax="0.25" takeoutPrice="3.30" takeoutTax="0.25">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netBeforeDiscountEatIn="3.30" taxBeforeDiscountEatIn="0.25" qtyTakeOut="2" netAmtTakeOut="6.60" taxTakeOut="0.50" netBeforeDiscountTakeOut="6.60" taxBeforeDiscountTakeOut="0.50" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="3.30" saleTax="0.25">
+					<PMix qtyEatIn="1" netBeforeDiscountEatIn="3.30" taxBeforeDiscountEatIn="0.25" qtyTakeOut="1" netAmtTakeOut="3.30" taxTakeOut="0.25" netBeforeDiscountTakeOut="3.30" taxBeforeDiscountTakeOut="0.25" />
+				</Price>
+				<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="3.30" saleTax="0.25">
+					<PMix qtyTakeOut="1" netAmtTakeOut="3.30" taxTakeOut="0.25" netBeforeDiscountTakeOut="3.30" taxBeforeDiscountTakeOut="0.25" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="6110" priceType="NET" takeoutPrice="1.50" takeoutTax="0.11">
+			<OperationType operationType="SALE">
+				<PMix qtyTakeOut="2" netAmtTakeOut="1.94" taxTakeOut="0.15" netBeforeDiscountTakeOut="3.00" taxBeforeDiscountTakeOut="0.23" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="1.50" saleTax="0.11">
+					<PMix qtyTakeOut="2" netAmtTakeOut="1.94" taxTakeOut="0.15" netBeforeDiscountTakeOut="3.00" taxBeforeDiscountTakeOut="0.23" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="9839" priceType="NET" takeoutPrice="1.50" takeoutTax="0.11">
+			<OperationType operationType="SALE">
+				<PMix qtyTakeOut="1" netAmtTakeOut="0.98" taxTakeOut="0.07" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="1.50" saleTax="0.11">
+					<PMix qtyTakeOut="1" netAmtTakeOut="0.98" taxTakeOut="0.07" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+				</Price>
+			</OperationType>
+			<OperationType operationType="REFUND">
+				<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+				<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="1.50" saleTax="0.11">
+					<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="9841" priceType="NET" takeoutPrice="1.50" takeoutTax="0.11">
+			<OperationType operationType="SALE">
+				<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="1.50" saleTax="0.11">
+					<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+				</Price>
+			</OperationType>
+			<OperationType operationType="REFUND">
+				<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+				<Price weekDay="TUESDAY" saleTime="17" dayPart="DAY_MENU" salePrice="1.50" saleTax="0.11">
+					<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+				</Price>
+			</OperationType>
+		</Product>
+	</FamilyGroup>
+	<FamilyGroup groupCode="1" groupName="BREAKFAST_SIDE">
+		<Product id="2909" priceType="NET" eatinPrice="1.59" eatinTax="0.12">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netAmtEatIn="1.59" taxEatIn="0.12" netBeforeDiscountEatIn="1.59" taxBeforeDiscountEatIn="0.12" />
+				<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="1.59" saleTax="0.12">
+					<PMix qtyEatIn="1" netAmtEatIn="1.59" taxEatIn="0.12" netBeforeDiscountEatIn="1.59" taxBeforeDiscountEatIn="0.12" />
+				</Price>
+			</OperationType>
+		</Product>
+	</FamilyGroup>
+	<FamilyGroup groupCode="5" groupName="SHAKES">
+		<Product id="115" priceType="NET" eatinPrice="5.00" eatinTax="0.38">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netAmtEatIn="5.00" taxEatIn="0.38" netBeforeDiscountEatIn="5.00" taxBeforeDiscountEatIn="0.38" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="5.00" saleTax="0.38">
+					<PMix qtyEatIn="1" netAmtEatIn="5.00" taxEatIn="0.38" netBeforeDiscountEatIn="5.00" taxBeforeDiscountEatIn="0.38" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="148" priceType="NET" eatinPrice="0.30" eatinTax="0.02">
+			<OperationType operationType="REFUND">
+				<PMix qtyEatIn="1" netAmtEatIn="0.30" taxEatIn="0.01" netBeforeDiscountEatIn="0.30" taxBeforeDiscountEatIn="0.01" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="0.30" saleTax="0.02">
+					<PMix qtyEatIn="1" netAmtEatIn="0.30" taxEatIn="0.01" netBeforeDiscountEatIn="0.30" taxBeforeDiscountEatIn="0.01" />
+				</Price>
+			</OperationType>
+		</Product>
+	</FamilyGroup>
+	<FamilyGroup groupCode="8" groupName="NON_PRODUCT">
+		<Product id="831" priceType="NET" eatinPrice="1.00" eatinTax="0.00">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netAmtEatIn="1.00" netBeforeDiscountEatIn="1.00" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="1.00" saleTax="0.00">
+					<PMix qtyEatIn="1" netAmtEatIn="1.00" netBeforeDiscountEatIn="1.00" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="8346" priceType="NET" eatinPrice="1.00" eatinTax="0.00">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netAmtEatIn="1.00" netBeforeDiscountEatIn="1.00" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="1.00" saleTax="0.00">
+					<PMix qtyEatIn="1" netAmtEatIn="1.00" netBeforeDiscountEatIn="1.00" />
+				</Price>
+			</OperationType>
+		</Product>
+	</FamilyGroup>
+	<FamilyGroup groupCode="9" groupName="GIFT_COUPON">
+		<Product id="936" priceType="NET" eatinPrice="1.00" eatinTax="0.00">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="2" netAmtEatIn="2.00" netBeforeDiscountEatIn="2.00" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="1.00" saleTax="0.00">
+					<PMix qtyEatIn="2" netAmtEatIn="2.00" netBeforeDiscountEatIn="2.00" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="937" priceType="NET" eatinPrice="5.00" eatinTax="0.00">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="2" netAmtEatIn="10.00" netBeforeDiscountEatIn="10.00" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="5.00" saleTax="0.00">
+					<PMix qtyEatIn="2" netAmtEatIn="10.00" netBeforeDiscountEatIn="10.00" />
+				</Price>
+			</OperationType>
+		</Product>
+		<Product id="8492" priceType="NET" eatinPrice="5.00" eatinTax="0.00">
+			<OperationType operationType="SALE">
+				<PMix qtyEatIn="1" netAmtEatIn="5.00" netBeforeDiscountEatIn="5.00" />
+				<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="5.00" saleTax="0.00">
+					<PMix qtyEatIn="1" netAmtEatIn="5.00" netBeforeDiscountEatIn="5.00" />
+				</Price>
+			</OperationType>
+		</Product>
+	</FamilyGroup>
+	<POS id="0001" podShort="FC" businessDay="20090428" openedDate="20090428 16:47:52" status="OPLOGGED">
+		<OperatorSession id="3" name="Carl Sagan" login="20090428 16:48:00" logout="" initialGT="0.00" finalGT="344.35" initialCoupon="1057883267" finalCoupon="1057883287">
+			<Product id="936" priceType="NET" eatinPrice="1.00" eatinTax="0.00">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="2" netAmtEatIn="2.00" netBeforeDiscountEatIn="2.00" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="1.00" saleTax="0.00">
+						<PMix qtyEatIn="2" netAmtEatIn="2.00" netBeforeDiscountEatIn="2.00" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="937" priceType="NET" eatinPrice="5.00" eatinTax="0.00">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="2" netAmtEatIn="10.00" netBeforeDiscountEatIn="10.00" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="5.00" saleTax="0.00">
+						<PMix qtyEatIn="2" netAmtEatIn="10.00" netBeforeDiscountEatIn="10.00" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="8492" priceType="NET" eatinPrice="5.00" eatinTax="0.00">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netAmtEatIn="5.00" netBeforeDiscountEatIn="5.00" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="5.00" saleTax="0.00">
+						<PMix qtyEatIn="1" netAmtEatIn="5.00" netBeforeDiscountEatIn="5.00" />
+					</Price>
+				</OperationType>
+			</Product>
+		</OperatorSession>
+		<FamilyGroup groupCode="0" groupName="BREAKFAST_ENTREE">
+			<Product id="32" priceType="NET" takeoutPrice="2.30" takeoutTax="0.17">
+				<OperationType operationType="SALE">
+					<PMix qtyTakeOut="2" netAmtTakeOut="4.60" taxTakeOut="0.34" netBeforeDiscountTakeOut="4.60" taxBeforeDiscountTakeOut="0.34" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.30" saleTax="0.17">
+						<PMix qtyTakeOut="1" netAmtTakeOut="2.30" taxTakeOut="0.17" netBeforeDiscountTakeOut="2.30" taxBeforeDiscountTakeOut="0.17" />
+					</Price>
+					<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="2.30" saleTax="0.17">
+						<PMix qtyTakeOut="1" netAmtTakeOut="2.30" taxTakeOut="0.17" netBeforeDiscountTakeOut="2.30" taxBeforeDiscountTakeOut="0.17" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="46" priceType="NET" eatinPrice="2.00" eatinTax="0.15">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="2" netAmtEatIn="4.00" taxEatIn="0.30" netBeforeDiscountEatIn="4.00" taxBeforeDiscountEatIn="0.30" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+						<PMix qtyEatIn="2" netAmtEatIn="4.00" taxEatIn="0.30" netBeforeDiscountEatIn="4.00" taxBeforeDiscountEatIn="0.30" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="62" priceType="NET" takeoutPrice="1.50" takeoutTax="0.11">
+				<OperationType operationType="REFUND">
+					<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+					<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="1.50" saleTax="0.11">
+						<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="83" priceType="NET" eatinPrice="2.00" eatinTax="0.15" takeoutPrice="2.00" takeoutTax="0.15">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="1" netAmtTakeOut="2.00" taxTakeOut="0.15" netBeforeDiscountTakeOut="2.00" taxBeforeDiscountTakeOut="0.15" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+						<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="1" netAmtTakeOut="2.00" taxTakeOut="0.15" netBeforeDiscountTakeOut="2.00" taxBeforeDiscountTakeOut="0.15" />
+					</Price>
+				</OperationType>
+				<OperationType operationType="REFUND">
+					<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+						<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="85" priceType="NET" eatinPrice="2.00" eatinTax="0.15" takeoutPrice="2.00" takeoutTax="0.15">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="3" netAmtTakeOut="6.00" taxTakeOut="0.45" netBeforeDiscountTakeOut="6.00" taxBeforeDiscountTakeOut="0.45" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+						<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="2" netAmtTakeOut="4.00" taxTakeOut="0.30" netBeforeDiscountTakeOut="4.00" taxBeforeDiscountTakeOut="0.30" />
+					</Price>
+					<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+						<PMix qtyTakeOut="1" netAmtTakeOut="2.00" taxTakeOut="0.15" netBeforeDiscountTakeOut="2.00" taxBeforeDiscountTakeOut="0.15" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="88" priceType="NET" takeoutPrice="1.20" takeoutTax="0.09">
+				<OperationType operationType="SALE">
+					<PMix qtyTakeOut="1" netAmtTakeOut="0.78" taxTakeOut="0.06" netBeforeDiscountTakeOut="1.20" taxBeforeDiscountTakeOut="0.09" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="1.20" saleTax="0.09">
+						<PMix qtyTakeOut="1" netAmtTakeOut="0.78" taxTakeOut="0.06" netBeforeDiscountTakeOut="1.20" taxBeforeDiscountTakeOut="0.09" />
+					</Price>
+				</OperationType>
+				<OperationType operationType="REFUND">
+					<PMix qtyTakeOut="1" netAmtTakeOut="1.20" taxTakeOut="0.10" netBeforeDiscountTakeOut="1.20" taxBeforeDiscountTakeOut="0.10" />
+					<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="1.20" saleTax="0.09">
+						<PMix qtyTakeOut="1" netAmtTakeOut="1.20" taxTakeOut="0.10" netBeforeDiscountTakeOut="1.20" taxBeforeDiscountTakeOut="0.10" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="92" priceType="NET" eatinPrice="2.00" eatinTax="0.15" takeoutPrice="2.00" takeoutTax="0.15">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="2" netAmtTakeOut="4.00" taxTakeOut="0.30" netBeforeDiscountTakeOut="4.00" taxBeforeDiscountTakeOut="0.30" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+						<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" qtyTakeOut="2" netAmtTakeOut="4.00" taxTakeOut="0.30" netBeforeDiscountTakeOut="4.00" taxBeforeDiscountTakeOut="0.30" />
+					</Price>
+				</OperationType>
+				<OperationType operationType="REFUND">
+					<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.00" saleTax="0.15">
+						<PMix qtyEatIn="1" netAmtEatIn="2.00" taxEatIn="0.15" netBeforeDiscountEatIn="2.00" taxBeforeDiscountEatIn="0.15" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="93" priceType="NET" eatinPrice="0.89" eatinTax="0.07">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netAmtEatIn="0.89" taxEatIn="0.07" netBeforeDiscountEatIn="0.89" taxBeforeDiscountEatIn="0.07" />
+					<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="0.89" saleTax="0.07">
+						<PMix qtyEatIn="1" netAmtEatIn="0.89" taxEatIn="0.07" netBeforeDiscountEatIn="0.89" taxBeforeDiscountEatIn="0.07" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="107" priceType="NET" eatinPrice="2.60" eatinTax="0.20" takeoutPrice="2.60" takeoutTax="0.20">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netBeforeDiscountEatIn="2.60" taxBeforeDiscountEatIn="0.20" qtyTakeOut="1" netAmtTakeOut="2.60" taxTakeOut="0.20" netBeforeDiscountTakeOut="2.60" taxBeforeDiscountTakeOut="0.20" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="2.60" saleTax="0.20">
+						<PMix qtyEatIn="1" netBeforeDiscountEatIn="2.60" taxBeforeDiscountEatIn="0.20" qtyTakeOut="1" netAmtTakeOut="2.60" taxTakeOut="0.20" netBeforeDiscountTakeOut="2.60" taxBeforeDiscountTakeOut="0.20" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="727" priceType="NET" eatinPrice="3.00" eatinTax="0.23">
+				<OperationType operationType="REFUND">
+					<PMix qtyEatIn="1" netAmtEatIn="3.00" taxEatIn="0.23" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.23" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="3.00" saleTax="0.23">
+						<PMix qtyEatIn="1" netAmtEatIn="3.00" taxEatIn="0.23" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.23" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="3149" priceType="NET" eatinPrice="3.00" eatinTax="0.23" takeoutPrice="3.00" takeoutTax="0.23">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.22" qtyTakeOut="1" netAmtTakeOut="3.00" taxTakeOut="0.22" netBeforeDiscountTakeOut="3.00" taxBeforeDiscountTakeOut="0.22" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="3.00" saleTax="0.23">
+						<PMix qtyEatIn="1" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.22" qtyTakeOut="1" netAmtTakeOut="3.00" taxTakeOut="0.22" netBeforeDiscountTakeOut="3.00" taxBeforeDiscountTakeOut="0.22" />
+					</Price>
+				</OperationType>
+				<OperationType operationType="REFUND">
+					<PMix qtyEatIn="1" netAmtEatIn="3.00" taxEatIn="0.23" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.23" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="3.00" saleTax="0.23">
+						<PMix qtyEatIn="1" netAmtEatIn="3.00" taxEatIn="0.23" netBeforeDiscountEatIn="3.00" taxBeforeDiscountEatIn="0.23" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="3590" priceType="NET" eatinPrice="3.30" eatinTax="0.25" takeoutPrice="3.30" takeoutTax="0.25">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netBeforeDiscountEatIn="3.30" taxBeforeDiscountEatIn="0.25" qtyTakeOut="2" netAmtTakeOut="6.60" taxTakeOut="0.50" netBeforeDiscountTakeOut="6.60" taxBeforeDiscountTakeOut="0.50" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="3.30" saleTax="0.25">
+						<PMix qtyEatIn="1" netBeforeDiscountEatIn="3.30" taxBeforeDiscountEatIn="0.25" qtyTakeOut="1" netAmtTakeOut="3.30" taxTakeOut="0.25" netBeforeDiscountTakeOut="3.30" taxBeforeDiscountTakeOut="0.25" />
+					</Price>
+					<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="3.30" saleTax="0.25">
+						<PMix qtyTakeOut="1" netAmtTakeOut="3.30" taxTakeOut="0.25" netBeforeDiscountTakeOut="3.30" taxBeforeDiscountTakeOut="0.25" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="6110" priceType="NET" takeoutPrice="1.50" takeoutTax="0.11">
+				<OperationType operationType="SALE">
+					<PMix qtyTakeOut="2" netAmtTakeOut="1.94" taxTakeOut="0.15" netBeforeDiscountTakeOut="3.00" taxBeforeDiscountTakeOut="0.23" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="1.50" saleTax="0.11">
+						<PMix qtyTakeOut="2" netAmtTakeOut="1.94" taxTakeOut="0.15" netBeforeDiscountTakeOut="3.00" taxBeforeDiscountTakeOut="0.23" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="9839" priceType="NET" takeoutPrice="1.50" takeoutTax="0.11">
+				<OperationType operationType="SALE">
+					<PMix qtyTakeOut="1" netAmtTakeOut="0.98" taxTakeOut="0.07" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="1.50" saleTax="0.11">
+						<PMix qtyTakeOut="1" netAmtTakeOut="0.98" taxTakeOut="0.07" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+					</Price>
+				</OperationType>
+				<OperationType operationType="REFUND">
+					<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+					<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="1.50" saleTax="0.11">
+						<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="9841" priceType="NET" takeoutPrice="1.50" takeoutTax="0.11">
+				<OperationType operationType="SALE">
+					<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="1.50" saleTax="0.11">
+						<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+					</Price>
+				</OperationType>
+				<OperationType operationType="REFUND">
+					<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+					<Price weekDay="TUESDAY" saleTime="17" dayPart="DAY_MENU" salePrice="1.50" saleTax="0.11">
+						<PMix qtyTakeOut="1" netAmtTakeOut="1.50" taxTakeOut="0.11" netBeforeDiscountTakeOut="1.50" taxBeforeDiscountTakeOut="0.11" />
+					</Price>
+				</OperationType>
+			</Product>
+		</FamilyGroup>
+		<FamilyGroup groupCode="1" groupName="BREAKFAST_SIDE">
+			<Product id="2909" priceType="NET" eatinPrice="1.59" eatinTax="0.12">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netAmtEatIn="1.59" taxEatIn="0.12" netBeforeDiscountEatIn="1.59" taxBeforeDiscountEatIn="0.12" />
+					<Price weekDay="TUESDAY" saleTime="17" dayPart="BREAKFAST_MENU" salePrice="1.59" saleTax="0.12">
+						<PMix qtyEatIn="1" netAmtEatIn="1.59" taxEatIn="0.12" netBeforeDiscountEatIn="1.59" taxBeforeDiscountEatIn="0.12" />
+					</Price>
+				</OperationType>
+			</Product>
+		</FamilyGroup>
+		<FamilyGroup groupCode="5" groupName="SHAKES">
+			<Product id="115" priceType="NET" eatinPrice="5.00" eatinTax="0.38">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netAmtEatIn="5.00" taxEatIn="0.38" netBeforeDiscountEatIn="5.00" taxBeforeDiscountEatIn="0.38" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="5.00" saleTax="0.38">
+						<PMix qtyEatIn="1" netAmtEatIn="5.00" taxEatIn="0.38" netBeforeDiscountEatIn="5.00" taxBeforeDiscountEatIn="0.38" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="148" priceType="NET" eatinPrice="0.30" eatinTax="0.02">
+				<OperationType operationType="REFUND">
+					<PMix qtyEatIn="1" netAmtEatIn="0.30" taxEatIn="0.01" netBeforeDiscountEatIn="0.30" taxBeforeDiscountEatIn="0.01" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="BREAKFAST_MENU" salePrice="0.30" saleTax="0.02">
+						<PMix qtyEatIn="1" netAmtEatIn="0.30" taxEatIn="0.01" netBeforeDiscountEatIn="0.30" taxBeforeDiscountEatIn="0.01" />
+					</Price>
+				</OperationType>
+			</Product>
+		</FamilyGroup>
+		<FamilyGroup groupCode="8" groupName="NON_PRODUCT">
+			<Product id="831" priceType="NET" eatinPrice="1.00" eatinTax="0.00">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netAmtEatIn="1.00" netBeforeDiscountEatIn="1.00" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="1.00" saleTax="0.00">
+						<PMix qtyEatIn="1" netAmtEatIn="1.00" netBeforeDiscountEatIn="1.00" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="8346" priceType="NET" eatinPrice="1.00" eatinTax="0.00">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netAmtEatIn="1.00" netBeforeDiscountEatIn="1.00" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="1.00" saleTax="0.00">
+						<PMix qtyEatIn="1" netAmtEatIn="1.00" netBeforeDiscountEatIn="1.00" />
+					</Price>
+				</OperationType>
+			</Product>
+		</FamilyGroup>
+		<FamilyGroup groupCode="9" groupName="GIFT_COUPON">
+			<Product id="936" priceType="NET" eatinPrice="1.00" eatinTax="0.00">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="2" netAmtEatIn="2.00" netBeforeDiscountEatIn="2.00" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="1.00" saleTax="0.00">
+						<PMix qtyEatIn="2" netAmtEatIn="2.00" netBeforeDiscountEatIn="2.00" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="937" priceType="NET" eatinPrice="5.00" eatinTax="0.00">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="2" netAmtEatIn="10.00" netBeforeDiscountEatIn="10.00" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="5.00" saleTax="0.00">
+						<PMix qtyEatIn="2" netAmtEatIn="10.00" netBeforeDiscountEatIn="10.00" />
+					</Price>
+				</OperationType>
+			</Product>
+			<Product id="8492" priceType="NET" eatinPrice="5.00" eatinTax="0.00">
+				<OperationType operationType="SALE">
+					<PMix qtyEatIn="1" netAmtEatIn="5.00" netBeforeDiscountEatIn="5.00" />
+					<Price weekDay="TUESDAY" saleTime="16" dayPart="DAY_MENU" salePrice="5.00" saleTax="0.00">
+						<PMix qtyEatIn="1" netAmtEatIn="5.00" netBeforeDiscountEatIn="5.00" />
+					</Price>
+				</OperationType>
+			</Product>
+		</FamilyGroup>
+	</POS>
+	<POS id="0002" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+	<POS id="0003" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+	<POS id="0004" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+	<POS id="0012" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+	<POS id="0013" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+	<POS id="0014" podShort="" businessDay="" openedDate="" status="CLOSED">
+	</POS>
+</Response>
