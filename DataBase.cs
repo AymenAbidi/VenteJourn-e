@@ -31,6 +31,7 @@ namespace Mcd.App.GetXmlRpc
 
         public void SaveHourlySales(HourlySales hourlySalesObjet, int? numResto = null, DateTime? dateActivity = null)
         {
+            
             bool donationSales = false;
 
             for (int productIdx = hourlySalesObjet.ProductTable.ProductInfo.Count - 1; productIdx >= 0; productIdx--)
@@ -41,7 +42,7 @@ namespace Mcd.App.GetXmlRpc
                 }
 
             }
-
+           
             try
             {
                 // Suppression des données dans les tables CMU
@@ -50,27 +51,30 @@ namespace Mcd.App.GetXmlRpc
 
                 //Récupération du total des ventes par 1/4 d'heure
 
+                
+
                 for (int salesIdx = 0; salesIdx < hourlySalesObjet.StoreTotal.Sales.Count; salesIdx++)
                 {
                     var sales = hourlySalesObjet.StoreTotal.Sales[salesIdx];
-                    var dayPartitioning = hourlySalesObjet.DayPartitioning.Segment[int.Parse(sales.Id)];
+                    
+                     var dayPartitioning = hourlySalesObjet.DayPartitioning.Segment[int.Parse(sales.Id)-1];
 
                     // Call Procedure SPW_CMU_SaveHourlySales
                 }
 
                 //Récupération des ventes par POD type et par 1/4 d'heure
-
+                
                 for (int podIdx = 0; podIdx < hourlySalesObjet.POD.Count; podIdx++)
                 {
                     POD pod = hourlySalesObjet.POD[podIdx];
 
-
+                    
                     for (int salesIdx = 0; salesIdx < pod.StoreTotal.Sales.Count; salesIdx++)
                     {
                         // Call Procedure SPW_CMU_SaveHourlySales
 
                         Sales sales = pod.StoreTotal.Sales[salesIdx];
-                        var dayPartitioning = hourlySalesObjet.DayPartitioning.Segment[int.Parse(sales.Id)];
+                        var dayPartitioning = hourlySalesObjet.DayPartitioning.Segment[int.Parse(sales.Id)-1];
 
                         //Récupération des dons par POD type, par 1/4 d'heure et par type d'opération
 
@@ -101,23 +105,26 @@ namespace Mcd.App.GetXmlRpc
 
                 //if (SaveDetail) <= On utilise pas ce parametre comme dans la fonction Delphi
                 //{
-
+               
                 //}
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
-                throw;
+                Console.WriteLine(e);
+                throw e;
             }
 
+            
             APP_HOURLY_SALES app_hourly_sales = MapToSales(hourlySalesObjet);
 
             //    _ctx.APP_HOURLY_SALES.Add(app_hourly_sales);
 
             //    _ctx.SaveChanges();
             //}
-            finalList.Add(app_hourly_sales);
 
+           
+            finalList.Add(app_hourly_sales);
+            
 
             #region XML Sauvegarde
             //var objetTrouve = LireNP6(numResto, dateActivity);
@@ -143,7 +150,9 @@ namespace Mcd.App.GetXmlRpc
         {
             Console.WriteLine($"Début du commit en BDD de # {finalList.Count} enregistrements");
             _logger.Info($"Début du commit en BDD de # {finalList.Count} enregistrements");
+            
             _ctx.APP_HOURLY_SALES.AddRange(finalList);
+            
             _ctx.SaveChanges();
             _logger.Info($"Fin du commit en BDD de # {finalList.Count} enregistrements ");
             finalList = new List<APP_HOURLY_SALES>();
@@ -212,6 +221,7 @@ namespace Mcd.App.GetXmlRpc
                                                     hourlySales.POS.BusinessDay : "00000000", "yyyyMMdd",
                                                     CultureInfo.InvariantCulture),
             };
+
         }
 
 
