@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="McDashboardModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="APP_HOURLY_PMX">
+          <Key>
+            <PropertyRef Name="PMXD_SITE_ID" />
+            <PropertyRef Name="PMXD_BUSINESS_DT" />
+            <PropertyRef Name="PMXD_PROD_ID" />
+            <PropertyRef Name="PMXD_SALES_TM" />
+            <PropertyRef Name="PMXD_MCDE_ID" />
+            <PropertyRef Name="PMXD_MVAL_ID" />
+            <PropertyRef Name="PMXD_LLVR_ID" />
+          </Key>
+          <Property Name="PMXD_CIE_ID" Type="tinyint" Nullable="false" />
+          <Property Name="PMXD_SITE_ID" Type="tinyint" Nullable="false" />
+          <Property Name="PMXD_BUSINESS_DT" Type="datetime" Nullable="false" />
+          <Property Name="PMXD_PROD_ID" Type="tinyint" Nullable="false" />
+          <Property Name="PMXD_SALES_TM" Type="smalldatetime" Nullable="false" />
+          <Property Name="PMXD_MCDE_ID" Type="tinyint" Nullable="false" />
+          <Property Name="PMXD_MVAL_ID" Type="tinyint" Nullable="false" />
+          <Property Name="PMXD_LLVR_ID" Type="tinyint" Nullable="false" />
+          <Property Name="PMXD_EAT_IN_QY" Type="smallint" Nullable="false" />
+          <Property Name="PMXD_TAKE_OUT_QY" Type="smallint" Nullable="false" />
+          <Property Name="PMXD_PROMO_IN_QY" Type="smallint" />
+          <Property Name="PMXD_PROMO_OUT_QY" Type="smallint" />
+          <Property Name="PMXD_DISCOUNT_IN_QY" Type="smallint" />
+          <Property Name="PMXD_DISCOUNT_OUT_QY" Type="smallint" />
+          <Property Name="PMXD_HOR_BL" Type="tinyint" />
+          <Property Name="PMXD_PROCESS_DT" Type="datetime" />
+          <Property Name="PMXD_DTCE_ID" Type="tinyint" />
+          <Property Name="PMXD_CA_IN_AM" Type="smallmoney" />
+          <Property Name="PMXD_CA_OUT_AM" Type="smallmoney" />
+        </EntityType>
+        <EntityType Name="APP_HOURLY_SALES">
+          <Key>
+            <PropertyRef Name="HSA_CIE_ID" />
+            <PropertyRef Name="HSA_SITE_ID" />
+            <PropertyRef Name="HSA_BUSINESS_DT" />
+            <PropertyRef Name="HSA_SALES_TM" />
+            <PropertyRef Name="HSA_MCDE_ID" />
+            <PropertyRef Name="HSA_MVAL_ID" />
+            <PropertyRef Name="HSA_LLVR_ID" />
+            <PropertyRef Name="HSA_MPAY_ID" />
+          </Key>
+          <Property Name="HSA_CIE_ID" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="HSA_SITE_ID" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="HSA_BUSINESS_DT" Type="smalldatetime" Nullable="false" />
+          <Property Name="HSA_SALES_TM" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="HSA_MCDE_ID" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="HSA_MVAL_ID" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="HSA_LLVR_ID" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="HSA_MPAY_ID" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="HSA_SALES_PROD_AM" Type="money" />
+          <Property Name="HSA_SALES_NON_PROD_AM" Type="money" />
+          <Property Name="HSA_EAT_IN_TAC_QY" Type="smallint" />
+          <Property Name="HSA_TAKE_OUT_TAC_QY" Type="smallint" />
+          <Property Name="HSA_EAT_IN_SALES_AM" Type="money" />
+          <Property Name="HSA_TAKE_OUT_SALES_AM" Type="money" />
+          <Property Name="HSA_DISCOUNT_IN_TAC_QY" Type="smallint" />
+          <Property Name="HSA_DISCOUNT_OUT_TAC_QY" Type="smallint" />
+          <Property Name="HSA_DISCOUNT_IN_SALES_AM" Type="money" />
+          <Property Name="HSA_DISCOUNT_OUT_SALES_AM" Type="money" />
+          <Property Name="HSA_CREW_HOURS_WORKED" Type="numeric" Precision="12" Scale="3" />
+          <Property Name="HSA_CREW_GROSS_PAY" Type="money" />
+          <Property Name="HSA_PROCESS_DT" Type="datetime" />
+          <Property Name="DTCE_ID" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="HSA_HDVRY_COSTS_AM" Type="money" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'McDashboard.dbo.Log' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Date" />
+            <PropertyRef Name="RestaurantId" />
+            <PropertyRef Name="Duree" />
+            <PropertyRef Name="Thread" />
+            <PropertyRef Name="Level" />
+            <PropertyRef Name="Logger" />
+            <PropertyRef Name="Message" />
+            <PropertyRef Name="ProcessLogId" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="RestaurantId" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Duree" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Thread" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Level" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Logger" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Message" Type="varchar" MaxLength="4000" Nullable="false" />
+          <Property Name="ProcessLogId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Exception" Type="varchar" MaxLength="2000" />
+        </EntityType>
+        <EntityType Name="NP6XML">
+          <Key>
+            <PropertyRef Name="NumRestaurant" />
+            <PropertyRef Name="DayActivity" />
+          </Key>
+          <Property Name="NumRestaurant" Type="int" Nullable="false" />
+          <Property Name="DayActivity" Type="date" Nullable="false" />
+          <Property Name="HourlySales" Type="xml" />
+          <Property Name="PMIX" Type="xml" />
+          <Property Name="HourlySalesDateMAJ" Type="datetime" />
+          <Property Name="PmixDateMAJ" Type="datetime" />
+          <Property Name="LastQueryHourlySales" Type="datetime" />
+          <Property Name="LastQueryPMIX" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="McDashboardModelStoreContainer">
+          <EntitySet Name="APP_HOURLY_PMX" EntityType="Self.APP_HOURLY_PMX" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APP_HOURLY_SALES" EntityType="Self.APP_HOURLY_SALES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NP6XML" EntityType="Self.NP6XML" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Log" EntityType="Self.Log" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Log].[Id] AS [Id], 
+    [Log].[Date] AS [Date], 
+    [Log].[RestaurantId] AS [RestaurantId], 
+    [Log].[Duree] AS [Duree], 
+    [Log].[Thread] AS [Thread], 
+    [Log].[Level] AS [Level], 
+    [Log].[Logger] AS [Logger], 
+    [Log].[Message] AS [Message], 
+    [Log].[ProcessLogId] AS [ProcessLogId], 
+    [Log].[Exception] AS [Exception]
+    FROM [dbo].[Log] AS [Log]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="McDashboardModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="McDashboardEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="APP_HOURLY_PMX" EntityType="McDashboardModel.APP_HOURLY_PMX" />
+          <EntitySet Name="APP_HOURLY_SALES" EntityType="McDashboardModel.APP_HOURLY_SALES" />
+          <EntitySet Name="NP6XML" EntityType="McDashboardModel.NP6XML" />
+          <EntitySet Name="Log" EntityType="McDashboardModel.Log" />
+        </EntityContainer>
+        <EntityType Name="APP_HOURLY_PMX">
+          <Key>
+            <PropertyRef Name="PMXD_SITE_ID" />
+            <PropertyRef Name="PMXD_BUSINESS_DT" />
+            <PropertyRef Name="PMXD_PROD_ID" />
+            <PropertyRef Name="PMXD_SALES_TM" />
+            <PropertyRef Name="PMXD_MCDE_ID" />
+            <PropertyRef Name="PMXD_MVAL_ID" />
+            <PropertyRef Name="PMXD_LLVR_ID" />
+          </Key>
+          <Property Name="PMXD_CIE_ID" Type="Byte" Nullable="false" />
+          <Property Name="PMXD_SITE_ID" Type="Byte" Nullable="false" />
+          <Property Name="PMXD_BUSINESS_DT" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PMXD_PROD_ID" Type="Byte" Nullable="false" />
+          <Property Name="PMXD_SALES_TM" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PMXD_MCDE_ID" Type="Byte" Nullable="false" />
+          <Property Name="PMXD_MVAL_ID" Type="Byte" Nullable="false" />
+          <Property Name="PMXD_LLVR_ID" Type="Byte" Nullable="false" />
+          <Property Name="PMXD_EAT_IN_QY" Type="Int16" Nullable="false" />
+          <Property Name="PMXD_TAKE_OUT_QY" Type="Int16" Nullable="false" />
+          <Property Name="PMXD_PROMO_IN_QY" Type="Int16" />
+          <Property Name="PMXD_PROMO_OUT_QY" Type="Int16" />
+          <Property Name="PMXD_DISCOUNT_IN_QY" Type="Int16" />
+          <Property Name="PMXD_DISCOUNT_OUT_QY" Type="Int16" />
+          <Property Name="PMXD_HOR_BL" Type="Byte" />
+          <Property Name="PMXD_PROCESS_DT" Type="DateTime" Precision="3" />
+          <Property Name="PMXD_DTCE_ID" Type="Byte" />
+          <Property Name="PMXD_CA_IN_AM" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="PMXD_CA_OUT_AM" Type="Decimal" Precision="10" Scale="4" />
+        </EntityType>
+        <EntityType Name="APP_HOURLY_SALES">
+          <Key>
+            <PropertyRef Name="HSA_CIE_ID" />
+            <PropertyRef Name="HSA_SITE_ID" />
+            <PropertyRef Name="HSA_BUSINESS_DT" />
+            <PropertyRef Name="HSA_SALES_TM" />
+            <PropertyRef Name="HSA_MCDE_ID" />
+            <PropertyRef Name="HSA_MVAL_ID" />
+            <PropertyRef Name="HSA_LLVR_ID" />
+            <PropertyRef Name="HSA_MPAY_ID" />
+          </Key>
+          <Property Name="HSA_CIE_ID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HSA_SITE_ID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HSA_BUSINESS_DT" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HSA_SALES_TM" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HSA_MCDE_ID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HSA_MVAL_ID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HSA_LLVR_ID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HSA_MPAY_ID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HSA_SALES_PROD_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="HSA_SALES_NON_PROD_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="HSA_EAT_IN_TAC_QY" Type="Int16" />
+          <Property Name="HSA_TAKE_OUT_TAC_QY" Type="Int16" />
+          <Property Name="HSA_EAT_IN_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="HSA_TAKE_OUT_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="HSA_DISCOUNT_IN_TAC_QY" Type="Int16" />
+          <Property Name="HSA_DISCOUNT_OUT_TAC_QY" Type="Int16" />
+          <Property Name="HSA_DISCOUNT_IN_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="HSA_DISCOUNT_OUT_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="HSA_CREW_HOURS_WORKED" Type="Decimal" Precision="12" Scale="3" />
+          <Property Name="HSA_CREW_GROSS_PAY" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="HSA_PROCESS_DT" Type="DateTime" Precision="3" />
+          <Property Name="DTCE_ID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HSA_HDVRY_COSTS_AM" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="NP6XML">
+          <Key>
+            <PropertyRef Name="NumRestaurant" />
+            <PropertyRef Name="DayActivity" />
+          </Key>
+          <Property Name="NumRestaurant" Type="Int32" Nullable="false" />
+          <Property Name="DayActivity" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HourlySales" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PMIX" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HourlySalesDateMAJ" Type="DateTime" Precision="3" />
+          <Property Name="PmixDateMAJ" Type="DateTime" Precision="3" />
+          <Property Name="LastQueryHourlySales" Type="DateTime" Precision="3" />
+          <Property Name="LastQueryPMIX" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Date" />
+            <PropertyRef Name="RestaurantId" />
+            <PropertyRef Name="Duree" />
+            <PropertyRef Name="Thread" />
+            <PropertyRef Name="Level" />
+            <PropertyRef Name="Logger" />
+            <PropertyRef Name="Message" />
+            <PropertyRef Name="ProcessLogId" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RestaurantId" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Duree" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Thread" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Level" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Logger" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="false" />
+          <Property Name="ProcessLogId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Exception" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="McDashboardModelStoreContainer" CdmEntityContainer="McDashboardEntities">
+          <EntitySetMapping Name="APP_HOURLY_PMX">
+            <EntityTypeMapping TypeName="McDashboardModel.APP_HOURLY_PMX">
+              <MappingFragment StoreEntitySet="APP_HOURLY_PMX">
+                <ScalarProperty Name="PMXD_CA_OUT_AM" ColumnName="PMXD_CA_OUT_AM" />
+                <ScalarProperty Name="PMXD_CA_IN_AM" ColumnName="PMXD_CA_IN_AM" />
+                <ScalarProperty Name="PMXD_DTCE_ID" ColumnName="PMXD_DTCE_ID" />
+                <ScalarProperty Name="PMXD_PROCESS_DT" ColumnName="PMXD_PROCESS_DT" />
+                <ScalarProperty Name="PMXD_HOR_BL" ColumnName="PMXD_HOR_BL" />
+                <ScalarProperty Name="PMXD_DISCOUNT_OUT_QY" ColumnName="PMXD_DISCOUNT_OUT_QY" />
+                <ScalarProperty Name="PMXD_DISCOUNT_IN_QY" ColumnName="PMXD_DISCOUNT_IN_QY" />
+                <ScalarProperty Name="PMXD_PROMO_OUT_QY" ColumnName="PMXD_PROMO_OUT_QY" />
+                <ScalarProperty Name="PMXD_PROMO_IN_QY" ColumnName="PMXD_PROMO_IN_QY" />
+                <ScalarProperty Name="PMXD_TAKE_OUT_QY" ColumnName="PMXD_TAKE_OUT_QY" />
+                <ScalarProperty Name="PMXD_EAT_IN_QY" ColumnName="PMXD_EAT_IN_QY" />
+                <ScalarProperty Name="PMXD_LLVR_ID" ColumnName="PMXD_LLVR_ID" />
+                <ScalarProperty Name="PMXD_MVAL_ID" ColumnName="PMXD_MVAL_ID" />
+                <ScalarProperty Name="PMXD_MCDE_ID" ColumnName="PMXD_MCDE_ID" />
+                <ScalarProperty Name="PMXD_SALES_TM" ColumnName="PMXD_SALES_TM" />
+                <ScalarProperty Name="PMXD_PROD_ID" ColumnName="PMXD_PROD_ID" />
+                <ScalarProperty Name="PMXD_BUSINESS_DT" ColumnName="PMXD_BUSINESS_DT" />
+                <ScalarProperty Name="PMXD_SITE_ID" ColumnName="PMXD_SITE_ID" />
+                <ScalarProperty Name="PMXD_CIE_ID" ColumnName="PMXD_CIE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APP_HOURLY_SALES">
+            <EntityTypeMapping TypeName="McDashboardModel.APP_HOURLY_SALES">
+              <MappingFragment StoreEntitySet="APP_HOURLY_SALES">
+                <ScalarProperty Name="HSA_HDVRY_COSTS_AM" ColumnName="HSA_HDVRY_COSTS_AM" />
+                <ScalarProperty Name="DTCE_ID" ColumnName="DTCE_ID" />
+                <ScalarProperty Name="HSA_PROCESS_DT" ColumnName="HSA_PROCESS_DT" />
+                <ScalarProperty Name="HSA_CREW_GROSS_PAY" ColumnName="HSA_CREW_GROSS_PAY" />
+                <ScalarProperty Name="HSA_CREW_HOURS_WORKED" ColumnName="HSA_CREW_HOURS_WORKED" />
+                <ScalarProperty Name="HSA_DISCOUNT_OUT_SALES_AM" ColumnName="HSA_DISCOUNT_OUT_SALES_AM" />
+                <ScalarProperty Name="HSA_DISCOUNT_IN_SALES_AM" ColumnName="HSA_DISCOUNT_IN_SALES_AM" />
+                <ScalarProperty Name="HSA_DISCOUNT_OUT_TAC_QY" ColumnName="HSA_DISCOUNT_OUT_TAC_QY" />
+                <ScalarProperty Name="HSA_DISCOUNT_IN_TAC_QY" ColumnName="HSA_DISCOUNT_IN_TAC_QY" />
+                <ScalarProperty Name="HSA_TAKE_OUT_SALES_AM" ColumnName="HSA_TAKE_OUT_SALES_AM" />
+                <ScalarProperty Name="HSA_EAT_IN_SALES_AM" ColumnName="HSA_EAT_IN_SALES_AM" />
+                <ScalarProperty Name="HSA_TAKE_OUT_TAC_QY" ColumnName="HSA_TAKE_OUT_TAC_QY" />
+                <ScalarProperty Name="HSA_EAT_IN_TAC_QY" ColumnName="HSA_EAT_IN_TAC_QY" />
+                <ScalarProperty Name="HSA_SALES_NON_PROD_AM" ColumnName="HSA_SALES_NON_PROD_AM" />
+                <ScalarProperty Name="HSA_SALES_PROD_AM" ColumnName="HSA_SALES_PROD_AM" />
+                <ScalarProperty Name="HSA_MPAY_ID" ColumnName="HSA_MPAY_ID" />
+                <ScalarProperty Name="HSA_LLVR_ID" ColumnName="HSA_LLVR_ID" />
+                <ScalarProperty Name="HSA_MVAL_ID" ColumnName="HSA_MVAL_ID" />
+                <ScalarProperty Name="HSA_MCDE_ID" ColumnName="HSA_MCDE_ID" />
+                <ScalarProperty Name="HSA_SALES_TM" ColumnName="HSA_SALES_TM" />
+                <ScalarProperty Name="HSA_BUSINESS_DT" ColumnName="HSA_BUSINESS_DT" />
+                <ScalarProperty Name="HSA_SITE_ID" ColumnName="HSA_SITE_ID" />
+                <ScalarProperty Name="HSA_CIE_ID" ColumnName="HSA_CIE_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NP6XML">
+            <EntityTypeMapping TypeName="McDashboardModel.NP6XML">
+              <MappingFragment StoreEntitySet="NP6XML">
+                <ScalarProperty Name="LastQueryPMIX" ColumnName="LastQueryPMIX" />
+                <ScalarProperty Name="LastQueryHourlySales" ColumnName="LastQueryHourlySales" />
+                <ScalarProperty Name="PmixDateMAJ" ColumnName="PmixDateMAJ" />
+                <ScalarProperty Name="HourlySalesDateMAJ" ColumnName="HourlySalesDateMAJ" />
+                <ScalarProperty Name="PMIX" ColumnName="PMIX" />
+                <ScalarProperty Name="HourlySales" ColumnName="HourlySales" />
+                <ScalarProperty Name="DayActivity" ColumnName="DayActivity" />
+                <ScalarProperty Name="NumRestaurant" ColumnName="NumRestaurant" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Log">
+            <EntityTypeMapping TypeName="McDashboardModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="Exception" ColumnName="Exception" />
+                <ScalarProperty Name="ProcessLogId" ColumnName="ProcessLogId" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Logger" ColumnName="Logger" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="Thread" ColumnName="Thread" />
+                <ScalarProperty Name="Duree" ColumnName="Duree" />
+                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3e24a8bb386f402d8910c10bbcc300c5" Name="Diagram1">
+        <EntityTypeShape EntityType="McDashboardModel.NP6XML" Width="1.5" PointX="5.875" PointY="1" />
+        <EntityTypeShape EntityType="McDashboardModel.Log" Width="1.5" PointX="7.875" PointY="1" />
+        <EntityTypeShape EntityType="McDashboardModel.CMU_HOURLY_SALES" Width="4.75" PointX="0.75" PointY="1.625" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
