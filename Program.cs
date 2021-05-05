@@ -167,6 +167,19 @@ namespace Mcd.App.GetXmlRpc
                             StringReader rdr = new StringReader(streamReader.ReadToEnd());
                             var hourlySalesObjet = (HourlySales)serializer.Deserialize(rdr);
 
+                            hourlySalesObjet.StoreTotal.Sales.ForEach((Sales s) =>
+                            {
+                                /*Console.WriteLine("tc");
+                                Console.WriteLine(s.Tc);
+                                Console.WriteLine("prod tc");
+                                Console.WriteLine(s.ProdTC);
+                                Console.WriteLine("non prod tc");
+                                Console.WriteLine(s.NonProdTC);
+                                Console.WriteLine("net amount");
+                                Console.WriteLine(s.NetAmount);*/
+
+                            });
+
                             if (hourlySalesObjet == null)
                             {
                                 _logger.Warn(string.Format($"Erreur lors de récupération Ventes Horaires ({0})", Ip), numResto);

@@ -55,7 +55,7 @@ namespace Mcd.App.GetXmlRpc
 
                 for (int salesIdx = 0; salesIdx < hourlySalesObjet.StoreTotal.Sales.Count; salesIdx++)
                 {
-                    var sales = hourlySalesObjet.StoreTotal.Sales[salesIdx];
+                     var sales = hourlySalesObjet.StoreTotal.Sales[salesIdx];
                     
                      var dayPartitioning = hourlySalesObjet.DayPartitioning.Segment[int.Parse(sales.Id)-1];
 
@@ -206,6 +206,81 @@ namespace Mcd.App.GetXmlRpc
 
         private APP_HOURLY_SALES MapToSales(HourlySales hourlySales)
         {
+            /*decimal HSA_EAT_IN_TAC_QY = 0;
+            decimal HSA_TAKE_OUT_TAC_QY = 0;
+            decimal HSA_EAT_IN_SALES_AM = 0;
+            decimal HSA_TAKE_OUT_SALES_AM = 0;
+            hourlySales.StoreTotal.Sales.ForEach((Sales s) =>
+            {
+
+                HSA_EAT_IN_SALES_AM += decimal.Parse(s.EatInNetAmount);
+                HSA_TAKE_OUT_SALES_AM += decimal.Parse(s.TakeOutNetAmount);
+                HSA_TAKE_OUT_SALES_AM += decimal.Parse(s.p);
+                HSA_TAKE_OUT_SALES_AM += decimal.Parse(s.TakeOutNetAmount);
+
+            });
+            Console.WriteLine(HSA_EAT_IN_SALES_AM);
+            Console.WriteLine(HSA_TAKE_OUT_SALES_AM);*/
+
+            hourlySales.DayPartitioning.Segment.ForEach((Segment segment) =>
+            {
+                // Console.WriteLine(s.Id);
+                // Console.WriteLine(s.BegTime);
+                string  HSA_SALES_TM = segment.BegTime;
+                decimal HSA_SALES_PROD_AM = 0;
+                decimal HSA_SALES_NON_PROD_AM = 0;
+                decimal HSA_EAT_IN_SALES_AM = 0;
+                decimal HSA_TAKE_OUT_SALES_AM = 0;
+                decimal HSA_EAT_IN_TAC_QY = 0;
+                decimal HSA_TAKE_OUT_TAC_QY = 0;
+                decimal HSA_DISCOUNT_IN_TAC_QY = 0;
+                decimal HSA_DISCOUNT_OUT_TAC_QY = 0;
+                decimal HSA_DISCOUNT_IN_SALES_AM = 0;
+                decimal HSA_DISCOUNT_OUT_SALES_AM = 0;
+
+                hourlySales.StoreTotal.Sales.ForEach((Sales sales) =>
+                {
+                    if (sales.Id == segment.Id)
+                    {
+                        HSA_SALES_PROD_AM += decimal.Parse(sales.ProductNetAmount);
+                        HSA_SALES_NON_PROD_AM += decimal.Parse(sales.NetAmount) - HSA_SALES_PROD_AM;
+                        sales.Product.ForEach((Product product) => {
+                            product.OperationType.ForEach((OperationType OpT) =>
+                            {
+                                if (OpT.operationType == "DISCOUNT")
+                                {
+                                    HSA_DISCOUNT_IN_SALES_AM += decimal.Parse(OpT.PMix.EatInNetAmount);
+                                    HSA_DISCOUNT_OUT_SALES_AM += decimal.Parse(OpT.PMix.TakeOutNetAmount);
+                                    HSA_DISCOUNT_IN_TAC_QY += decimal.Parse(OpT.PMix.QtyEatIn);
+                                    HSA_DISCOUNT_OUT_TAC_QY += decimal.Parse(OpT.PMix.QtyTakeOut);
+                                }
+                                else if(OpT.operationType =="SALE")
+                                {
+                                    HSA_EAT_IN_SALES_AM += decimal.Parse(OpT.PMix.EatInNetAmount);
+                                    HSA_TAKE_OUT_SALES_AM += decimal.Parse(OpT.PMix.TakeOutNetAmount);
+                                    HSA_EAT_IN_TAC_QY += decimal.Parse(OpT.PMix.QtyEatIn);
+                                    HSA_TAKE_OUT_TAC_QY += decimal.Parse(OpT.PMix.QtyTakeOut);
+                                }
+                                
+                            });
+                        
+                        });
+                    }
+                    
+                    
+
+                });
+                Console.WriteLine("--------------------------");
+                Console.WriteLine("HSA_SALES_TM : " + HSA_SALES_TM);
+                Console.WriteLine("HSA_EAT_IN_SALES_AM : " + HSA_EAT_IN_SALES_AM);
+                Console.WriteLine("HSA_TAKE_OUT_SALES_AM : " + HSA_TAKE_OUT_SALES_AM);
+                Console.WriteLine("HSA_EAT_IN_TAC_QY : " + HSA_EAT_IN_TAC_QY);
+                Console.WriteLine("HSA_TAKE_OUT_TAC_QY :" + HSA_TAKE_OUT_TAC_QY);
+                Console.WriteLine("HSA_DISCOUNT_IN_TAC_QY : " + HSA_DISCOUNT_IN_TAC_QY);
+                Console.WriteLine("HSA_DISCOUNT_OUT_TAC_QY : " + HSA_DISCOUNT_OUT_TAC_QY);
+                Console.WriteLine("HSA_DISCOUNT_IN_SALES_AM : " + HSA_DISCOUNT_IN_SALES_AM);
+                Console.WriteLine("HSA_DISCOUNT_OUT_SALES_AM : " + HSA_DISCOUNT_OUT_SALES_AM);
+            });
             return new APP_HOURLY_SALES
             {
                 HSA_CIE_ID = Guid.NewGuid().ToString(),
@@ -216,10 +291,13 @@ namespace Mcd.App.GetXmlRpc
                 HSA_LLVR_ID = Guid.NewGuid().ToString(),
                 HSA_MPAY_ID = Guid.NewGuid().ToString(),
                 DTCE_ID = Guid.NewGuid().ToString(),
+                //HSA_EAT_IN_SALES_AM = HSA_EAT_IN_SALES_AM,
+                //HSA_TAKE_OUT_SALES_AM = HSA_TAKE_OUT_SALES_AM,
 
                 HSA_BUSINESS_DT = DateTime.ParseExact(!string.IsNullOrEmpty(hourlySales.POS.BusinessDay) ?
                                                     hourlySales.POS.BusinessDay : "00000000", "yyyyMMdd",
                                                     CultureInfo.InvariantCulture),
+
             };
 
         }
