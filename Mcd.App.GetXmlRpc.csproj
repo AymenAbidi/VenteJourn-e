@@ -45,6 +45,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -59,24 +60,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAL\APP_DDAY_HOURLY_PMX.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\APP_DDAY_HOURLY_SALES.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\APP_HOURLY_PMX.cs">
-      <DependentUpon>McDashboardEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\APP_HOURLY_SALES.cs">
-      <DependentUpon>McDashboardEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Log.cs">
-      <DependentUpon>McDashboardEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\McDashboardEntities.Context.cs">
+    <Compile Include="DAL\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>McDashboardEntities.Context.tt</DependentUpon>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\McDashboardEntities.cs">
+    <Compile Include="DAL\Model1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>McDashboardEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\McDashboardEntities.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -84,10 +91,11 @@
       <DependentUpon>McDashboardEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="DAL\NP6XML.cs">
-      <DependentUpon>McDashboardEntities.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase.cs" />
     <Compile Include="Helpers\logger.cs" />
+    <Compile Include="NP6Tools\HourlyPMX.cs" />
     <Compile Include="NP6Tools\FactoryException.cs" />
     <Compile Include="NP6Tools\HourlySales.cs" />
     <Compile Include="NP6Tools\NP6Client.cs" />
@@ -113,15 +121,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DAL\McDashboardEntities.Context.tt">
+    <Content Include="DAL\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>McDashboardEntities.Context.cs</LastGenOutput>
       <DependentUpon>McDashboardEntities.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DAL\McDashboardEntities.tt">
+    <Content Include="DAL\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>McDashboardEntities.edmx</DependentUpon>
-      <LastGenOutput>McDashboardEntities.cs</LastGenOutput>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Database Script.sql" />
     <Content Include="Restaurants.txt">
@@ -132,5 +140,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

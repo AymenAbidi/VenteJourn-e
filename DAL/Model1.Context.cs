@@ -25,11 +25,11 @@ namespace Mcd.App.GetXmlRpc.DAL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<APP_DDAY_HOURLY_PMX> APP_DDAY_HOURLY_PMX { get; set; }
+        public virtual DbSet<APP_DDAY_HOURLY_SALES> APP_DDAY_HOURLY_SALES { get; set; }
         public virtual DbSet<APP_HOURLY_PMX> APP_HOURLY_PMX { get; set; }
         public virtual DbSet<APP_HOURLY_SALES> APP_HOURLY_SALES { get; set; }
         public virtual DbSet<NP6XML> NP6XML { get; set; }
-        public virtual DbSet<APP_DDAY_HOURLY_PMX> APP_DDAY_HOURLY_PMX { get; set; }
-        public virtual DbSet<APP_DDAY_HOURLY_SALES> APP_DDAY_HOURLY_SALES { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
     }
 }

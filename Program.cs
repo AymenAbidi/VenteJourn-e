@@ -1,5 +1,6 @@
 ﻿using log4net;
 using Mcd.App.GetXmlRpc.Helpers;
+using Mcd.App.GetXmlRpc.PMX;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -67,6 +68,7 @@ namespace Mcd.App.GetXmlRpc
                 try
                 {
                     _logger.Info($"Ajout des nouveaux enregistrements dans la BDD");
+                    Console.WriteLine("saving-------------------");
                     database.SaveChanges();
                 }
                 catch (Exception ex)
@@ -108,11 +110,15 @@ namespace Mcd.App.GetXmlRpc
 
                 string path = await NP6.SauvegarderHourlySalesAsync(dateActivity, _logger, mocknumResto);
 
+                // pmx test part ------------
+                string PMXPath = await NP6.GetPMXAsync(dateActivity);
+                
+
                 Console.WriteLine($"Chemin généré : {path} \n");
 
                 _logger.Info($"Chemin fichier sauvegardé : {path}", mocknumResto);
 
-                processXML(path, Ip, mocknumResto);
+                processXML(path, PMXPath, Ip, mocknumResto);
             }
             catch (Exception ex)
             {
@@ -144,7 +150,7 @@ namespace Mcd.App.GetXmlRpc
 #endregion
         }
 
-        private static void processXML(string path, string Ip, int numResto)
+        private static void processXML(string path,string PMXPath, string Ip, int numResto)
         {
             Stopwatch stopWatch = new Stopwatch();
 
@@ -155,7 +161,8 @@ namespace Mcd.App.GetXmlRpc
                 _logger.Info($"Début du process XML-RPC pour le resto # {numResto}", numResto);
 
                 XmlSerializer serializer = new XmlSerializer(typeof(HourlySales));
-
+                XmlSerializer PMXserializer = new XmlSerializer(typeof(HourlyPMX));
+                HourlySales hourlySalesObjet = new HourlySales();
                 bool isProcessed = false;
 
                 using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -165,20 +172,9 @@ namespace Mcd.App.GetXmlRpc
                         using (StreamReader streamReader = new StreamReader(bufferedStream))
                         {
                             StringReader rdr = new StringReader(streamReader.ReadToEnd());
-                            var hourlySalesObjet = (HourlySales)serializer.Deserialize(rdr);
+                            hourlySalesObjet = (HourlySales)serializer.Deserialize(rdr);
 
-                            hourlySalesObjet.StoreTotal.Sales.ForEach((Sales s) =>
-                            {
-                                /*Console.WriteLine("tc");
-                                Console.WriteLine(s.Tc);
-                                Console.WriteLine("prod tc");
-                                Console.WriteLine(s.ProdTC);
-                                Console.WriteLine("non prod tc");
-                                Console.WriteLine(s.NonProdTC);
-                                Console.WriteLine("net amount");
-                                Console.WriteLine(s.NetAmount);*/
-
-                            });
+                          
 
                             if (hourlySalesObjet == null)
                             {
@@ -196,7 +192,36 @@ namespace Mcd.App.GetXmlRpc
                         }
                     }
                 }
-                    
+                using (FileStream fileStream = File.Open(PMXPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    using (BufferedStream bufferedStream = new BufferedStream(fileStream))
+                    {
+                        using (StreamReader streamReader = new StreamReader(bufferedStream))
+                        {
+                            StringReader rdr = new StringReader(streamReader.ReadToEnd());
+                            var hourlyPMXObjet = (HourlyPMX)PMXserializer.Deserialize(rdr);
+                            Console.WriteLine(hourlyPMXObjet.ProductTable.ProductInfo);
+                            
+
+
+                            if (hourlyPMXObjet == null)
+                            {
+                                _logger.Warn(string.Format($"Erreur lors de récupération Ventes Horaires ({0})", Ip), numResto);
+                            }
+                            else if (hourlyPMXObjet.RequestReport != "PMIX")
+                            {
+                                _logger.Warn(string.Format($"RequestReport = {hourlyPMXObjet.RequestReport} " + $"quand ca doit être HOURLYSALES"), numResto);
+                                
+                            }
+                            else
+                            {
+                                Console.WriteLine("called");
+                                database.SavePmix(hourlyPMXObjet,hourlySalesObjet.DayPartitioning, numResto);
+                                isProcessed = true;
+                            }
+                        }
+                    }
+                }
 
                 deplacerXML(path, isProcessed);
                 return;
@@ -204,6 +229,7 @@ namespace Mcd.App.GetXmlRpc
            catch(Exception ex)
             {
                 _logger.Error($"Erreur lors du process du fichier XML, chemin : {path}, Ip : {Ip}", ex, numResto);
+                Console.WriteLine(ex);
                 deplacerXML(path, false);
                 throw ex;
             }

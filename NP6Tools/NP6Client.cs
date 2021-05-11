@@ -134,8 +134,11 @@ namespace Mcd.App.GetXmlRpc
             return null;
 #endif
         }
-        public async Task<XDocument> GetPMXAsync(DateTime date)
+        public async Task<string> GetPMXAsync(DateTime date)
         {
+#if DEBUG
+            return $"{xmlFilesPath}\\Pmix1.xml";
+#else
             XmlRpcResponse responseLogin;
             XmlRpcRequest requestLogin = new XmlRpcRequest("datarequest");
             string appPath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
@@ -168,6 +171,7 @@ namespace Mcd.App.GetXmlRpc
                 }
             }
             return null;
+#endif
         }
     }
 }
