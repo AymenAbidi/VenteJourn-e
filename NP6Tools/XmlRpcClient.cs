@@ -113,12 +113,13 @@ namespace Mcd.App.GetXmlRpc
         public virtual async Task<XmlRpcResponse> ExecuteAsync(XmlRpcRequest request)
         {
             this.request = request;
-
+            
             XmlDocument xmlRequest = RequestFactory.BuildRequest(request);
             this.xmlRequest = xmlRequest;
-
+            
             XmlDocument xmlResponse = await SendRequestAsync(xmlRequest);
-
+            
+            
             this.xmlResponse = xmlResponse;
 
             this.response = ResponseFactory.BuildResponse(xmlResponse);

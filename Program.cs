@@ -52,16 +52,18 @@ namespace Mcd.App.GetXmlRpc
                     {
                         int j = i;
                         Console.WriteLine($"Processing resto index {j}");
-                        tasks.Add(Task.Run(() =>
+                        tasks.Add(Task.Run(async () =>
                         {
                             int? mockIndex = null;
                             if (processRepeat > 0) mockIndex = int.Parse(resto.Trim()) + j ;
-                            callResto(Convert.ToInt32(resto.Trim()), DateTime.Now, mockIndex);
+                            callResto(Convert.ToInt32(resto.Trim()), DateTime.Now, mockIndex).Wait();
                             Console.WriteLine($"Processing resto index {j} Finished");
+
                         }));
                         i++;
                     });
                     Task.WaitAll(tasks.ToArray());
+                    
                     tasks = new List<Task>();
                 }
 
@@ -80,13 +82,13 @@ namespace Mcd.App.GetXmlRpc
                 _logger.Info($"Fin process global", null, stopWatch.Elapsed);
             }
             else
-                callResto(Convert.ToInt32(args[0].Trim()), DateTime.Parse(args[1]));
+                callResto(Convert.ToInt32(args[0].Trim()), DateTime.Parse(args[1])).Wait();
 
             Console.WriteLine("Tapez Entrer pour quitter...");
             Console.ReadLine();
         }
 
-        async private static void callResto(int numResto, DateTime dateActivity, int? mockIndex = null)
+        async private static Task callResto(int numResto, DateTime dateActivity, int? mockIndex = null)
         {
             int mocknumResto = mockIndex != null ? mockIndex.Value : numResto;
             string Ip = String.Empty;
@@ -104,12 +106,13 @@ namespace Mcd.App.GetXmlRpc
 
                 _logger.Info($"addresse IP : {Ip}", mocknumResto);
 
+                
                 NP6Client NP6 = new NP6Client(Ip, NP6Port, true);
-
+                
                 Console.WriteLine($"NP6 initialisé, addresse Ip : {Ip} \n");
 
                 string path = await NP6.SauvegarderHourlySalesAsync(dateActivity, _logger, mocknumResto);
-
+                
                 // pmx test part ------------
                 string PMXPath = await NP6.GetPMXAsync(dateActivity);
                 

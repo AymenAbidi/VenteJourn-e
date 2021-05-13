@@ -44,7 +44,7 @@ namespace Mcd.App.GetXmlRpc
 
             }
            
-            try
+            /*try
             {
                 // Suppression des données dans les tables CMU
 
@@ -58,7 +58,7 @@ namespace Mcd.App.GetXmlRpc
                 {
                      var sales = hourlySalesObjet.StoreTotal.Sales[salesIdx];
                     
-                     var dayPartitioning = hourlySalesObjet.DayPartitioning.Segment[int.Parse(sales.Id)-1];
+                     //var dayPartitioning = hourlySalesObjet.DayPartitioning.Segment[int.Parse(sales.Id)-1];
 
                     // Call Procedure SPW_CMU_SaveHourlySales
                 }
@@ -113,7 +113,7 @@ namespace Mcd.App.GetXmlRpc
             {
                 Console.WriteLine(e);
                 throw e;
-            }
+            }*/
 
             
             List<APP_DDAY_HOURLY_SALES> app_dday_hourly_sales = MapToSales(hourlySalesObjet,numResto);
@@ -122,9 +122,7 @@ namespace Mcd.App.GetXmlRpc
 
             //    _ctx.SaveChanges();
             //}
-            Console.WriteLine("*******************");
-            Console.WriteLine(app_dday_hourly_sales.Count);
-            Console.WriteLine(numResto);
+            
             finalList.AddRange(app_dday_hourly_sales);
             
 
@@ -153,7 +151,7 @@ namespace Mcd.App.GetXmlRpc
             Console.WriteLine($"Début du commit en BDD de # {finalList.Count} enregistrements");
             _logger.Info($"Début du commit en BDD de # {finalList.Count} enregistrements");
 
-            Console.WriteLine("11111111111111111");
+            
             
             try { _ctx.APP_DDAY_HOURLY_SALES.AddRange(finalList); }
             catch(Exception e)
@@ -161,14 +159,14 @@ namespace Mcd.App.GetXmlRpc
                 Console.WriteLine(e);
             }
             
-            Console.WriteLine("222222222222222222");
+           
             try { _ctx.SaveChanges(); }
             catch(Exception e)
             {
                 Console.WriteLine(e);
             }
-            Console.WriteLine("333333333333333");
-            Console.WriteLine(_ctx.Set<APP_DDAY_HOURLY_SALES>());
+            
+           
             _logger.Info($"Fin du commit en BDD de # {finalList.Count} enregistrements ");
             finalList = new List<APP_DDAY_HOURLY_SALES>();
         }

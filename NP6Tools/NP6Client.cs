@@ -29,7 +29,7 @@ namespace Mcd.App.GetXmlRpc
             saveXML = SaveXML;
             client = new XmlRpcClient
             {
-                Url = url
+                Url = "http://127.0.0.1:5678/"
             };
             return;
         }
@@ -38,19 +38,28 @@ namespace Mcd.App.GetXmlRpc
             HourlySales result=null;
             XmlRpcResponse responseLogin;
             XmlRpcRequest requestLogin = new XmlRpcRequest("datarequest");
+            Console.WriteLine(requestLogin);
             string appPath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
+            
             requestLogin.AddParams("HourlySales", "", "", "");
+           
             try
             {
+                
                 responseLogin = await client.ExecuteAsync(requestLogin);
+                
             }
+          
+            
             finally
-            {
-               //client.WriteRequest(appPath + "\\Request1.xml");
-               // client.WriteResponse(appPath + "\\Response1.xml");
+            {  
+               client.WriteRequest(appPath + "\\Request1.xml");
+               client.WriteResponse(appPath + "\\Response1.xml");
             }
+            
             if (responseLogin.GetStruct().ContainsKey("id"))
             {
+                
                 XmlRpcRequest requestQuery = new XmlRpcRequest("Query");
                 requestQuery.AddParams(responseLogin.GetStruct()["id"], "", "", "");
 
@@ -74,13 +83,14 @@ namespace Mcd.App.GetXmlRpc
                 }
 
             }
+            
             return result;
             }
         public async Task<string> SauvegarderHourlySalesAsync(DateTime date, logger _logger, int numResto)
         {
-#if DEBUG
-            return $"{xmlFilesPath}\\datarequest-HourlySales-Response-Payload.xml";
-#else
+//if DEBUG
+            //return $"{xmlFilesPath}\\datarequest-HourlySales-Response-Payload.xml";
+//#else
             try
             {
                 _logger.Debug($"Début Sauvegarde des données des ventes horaires (Fn:SauvegarderHourlySalesAsync)", numResto);
@@ -94,13 +104,14 @@ namespace Mcd.App.GetXmlRpc
 
                 Console.Write("requestLogin executé \n");
                 Console.Write($"responseLogin : {responseLogin} \n \n \n \n");
-
+                Console.WriteLine(responseLogin.GetStruct().Count);
                 if (responseLogin.GetStruct().ContainsKey("id"))
                 {
                     Console.Write("SauvegarderHourlySalesAsync.responseLogin contains id key \n");
                     _logger.Debug($"SauvegarderHourlySalesAsync.responseLogin contains id key", numResto);
 
-                    XmlRpcRequest requestQuery = new XmlRpcRequest("Query");
+                    //XmlRpcRequest requestQuery = new XmlRpcRequest("Query");
+                    XmlRpcRequest requestQuery = new XmlRpcRequest("datarequest");
                     requestQuery.AddParams(responseLogin.GetStruct()["id"], "", "", "");
 
                     XmlRpcResponse responseQuery = await client.ExecuteAsync(requestQuery);
@@ -110,7 +121,7 @@ namespace Mcd.App.GetXmlRpc
                     {
                         Console.Write("SauvegarderHourlySalesAsync.responseQuery contains payload key \n");
                         _logger.Debug($"SauvegarderHourlySalesAsync.responseQuery contains payload key", numResto);
-
+                        
                         string responsepayload = Encoding.UTF8.GetString((byte[])responseQuery.GetStruct()["payload"]);
                         var xmlDoc = XDocument.Load(new StringReader(responsepayload));
                         string path = $"{xmlFilesPath}\\{numResto}_{logger.dateExecution}_{Guid.NewGuid()}.xml";
@@ -132,7 +143,7 @@ namespace Mcd.App.GetXmlRpc
             _logger.Debug($"SauvegarderHourlySalesAsync returning null", numResto);
 
             return null;
-#endif
+//#endif
         }
         public async Task<string> GetPMXAsync(DateTime date)
         {
