@@ -31,9 +31,13 @@ namespace Mcd.App.GetXmlRpc
             //6min10dec pour 1200fichiers   =>  5min
             if (args.Count() == 0)
             {
+                Stopwatch readfile = new Stopwatch();
+                readfile.Start();
                 List<string> Restaurants = File.ReadAllLines("Restaurants.txt")
                                                .Where(r => !string.IsNullOrEmpty(r))
                                                .ToList();
+                readfile.Stop();
+                Console.WriteLine("************** lecture de la liste des restaurants : " + readfile.Elapsed);
                 if(processRepeat > 0)
                     Restaurants = Enumerable.Repeat(Restaurants.FirstOrDefault(), processRepeat).ToList();
 
@@ -70,7 +74,7 @@ namespace Mcd.App.GetXmlRpc
                 try
                 {
                     _logger.Info($"Ajout des nouveaux enregistrements dans la BDD");
-                    Console.WriteLine("saving-------------------");
+                    
                     database.SaveChanges();
                 }
                 catch (Exception ex)
@@ -79,6 +83,7 @@ namespace Mcd.App.GetXmlRpc
                     _logger.Error(string.Format($"Erreur lors de sauvegarde des enregistrements : {ex.Message}"), ex);
                 }
                 stopWatch.Stop();
+                Console.WriteLine("temps traitementt " + stopWatch.Elapsed);
                 _logger.Info($"Fin process global", null, stopWatch.Elapsed);
             }
             else
@@ -102,20 +107,25 @@ namespace Mcd.App.GetXmlRpc
             {
                 _logger.Info($"Début Appel XML pour le resto # {mocknumResto}", mocknumResto);
 
+                Stopwatch ipAddr = new Stopwatch();
+                ipAddr.Start();
                 Ip = getAdresseWayStation(numResto);
-
+                ipAddr.Stop();
+                Console.WriteLine("************ generation adresse ip du resto : " + ipAddr.Elapsed);
                 _logger.Info($"addresse IP : {Ip}", mocknumResto);
 
-                
+                Stopwatch np6cli = new Stopwatch();
+                np6cli.Start();
                 NP6Client NP6 = new NP6Client(Ip, NP6Port, true);
-                
+                np6cli.Stop();
+                Console.WriteLine("*********** Creation instance np6client :" + np6cli.Elapsed);
                 Console.WriteLine($"NP6 initialisé, addresse Ip : {Ip} \n");
 
                 string path = await NP6.SauvegarderHourlySalesAsync(dateActivity, _logger, mocknumResto);
                 
                 // pmx test part ------------
-                string PMXPath = await NP6.GetPMXAsync(dateActivity);
-                
+                string PMXPath = await NP6.GetPMXAsync(dateActivity,mocknumResto);
+                Console.WriteLine("pmx path : " + PMXPath);
 
                 Console.WriteLine($"Chemin généré : {path} \n");
 
@@ -132,6 +142,7 @@ namespace Mcd.App.GetXmlRpc
             finally
             {
                 stopWatch.Stop();
+                Console.WriteLine(stopWatch.Elapsed);
                 _logger.Info($"Fin du traitement pour le resto # {mockIndex}, durée du traitement : {stopWatch.Elapsed}",
                                 mockIndex, stopWatch.Elapsed);
             }
@@ -168,6 +179,8 @@ namespace Mcd.App.GetXmlRpc
                 HourlySales hourlySalesObjet = new HourlySales();
                 bool isProcessed = false;
 
+                Stopwatch desHs = new Stopwatch();
+                desHs.Start();
                 using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     using (BufferedStream bufferedStream = new BufferedStream(fileStream))
@@ -176,8 +189,10 @@ namespace Mcd.App.GetXmlRpc
                         {
                             StringReader rdr = new StringReader(streamReader.ReadToEnd());
                             hourlySalesObjet = (HourlySales)serializer.Deserialize(rdr);
+                            desHs.Stop();
+                            Console.WriteLine("****************** Deserialization du fichier hourlysales en objet :" + desHs.Elapsed);
 
-                          
+
 
                             if (hourlySalesObjet == null)
                             {
@@ -195,6 +210,10 @@ namespace Mcd.App.GetXmlRpc
                         }
                     }
                 }
+                
+                Stopwatch desHp = new Stopwatch();
+                desHp.Start();
+
                 using (FileStream fileStream = File.Open(PMXPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     using (BufferedStream bufferedStream = new BufferedStream(fileStream))
@@ -204,7 +223,8 @@ namespace Mcd.App.GetXmlRpc
                             StringReader rdr = new StringReader(streamReader.ReadToEnd());
                             var hourlyPMXObjet = (HourlyPMX)PMXserializer.Deserialize(rdr);
                             Console.WriteLine(hourlyPMXObjet.ProductTable.ProductInfo);
-                            
+                            desHp.Stop();
+                            Console.WriteLine("****************** Deserialization du fichier pmx en objet :" + desHp.Elapsed);
 
 
                             if (hourlyPMXObjet == null)
@@ -225,6 +245,8 @@ namespace Mcd.App.GetXmlRpc
                         }
                     }
                 }
+                
+
 
                 deplacerXML(path, isProcessed);
                 return;

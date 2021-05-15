@@ -4,6 +4,7 @@ using Mcd.App.GetXmlRpc.Helpers;
 using Mcd.App.GetXmlRpc.PMX;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,8 @@ namespace Mcd.App.GetXmlRpc
         private readonly McDashboardEntities _ctx;
         private readonly logger _logger;
 
-        private List<APP_DDAY_HOURLY_SALES> finalList;
+        private List<APP_DDAY_HOURLY_SALES> HsFinalList;
+        private List<APP_DDAY_HOURLY_PMX> HpFinalList;
         public DataBase(logger _logger)
         {
             //this.server = ConfigurationManager.AppSettings["Serveur"] ?? "(local)";
@@ -27,7 +29,8 @@ namespace Mcd.App.GetXmlRpc
             //this.tableName = ConfigurationManager.AppSettings["Table"] ?? "test";
             _ctx = new McDashboardEntities();
             this._logger = _logger;
-            finalList = new List<APP_DDAY_HOURLY_SALES>();
+            HsFinalList = new List<APP_DDAY_HOURLY_SALES>();
+            HpFinalList = new List<APP_DDAY_HOURLY_PMX>();
         }
 
         public void SaveHourlySales(HourlySales hourlySalesObjet, int? numResto = null, DateTime? dateActivity = null)
@@ -43,7 +46,7 @@ namespace Mcd.App.GetXmlRpc
                 }
 
             }
-           
+
             /*try
             {
                 // Suppression des données dans les tables CMU
@@ -115,15 +118,17 @@ namespace Mcd.App.GetXmlRpc
                 throw e;
             }*/
 
-            
+            Stopwatch retDataHs = new Stopwatch();
+            retDataHs.Start();
             List<APP_DDAY_HOURLY_SALES> app_dday_hourly_sales = MapToSales(hourlySalesObjet,numResto);
-
+            retDataHs.Stop();
+            Console.WriteLine("************recuperation des données db depuis objet Hs :" + retDataHs.Elapsed);
             //    _ctx.APP_HOURLY_SALES.Add(app_hourly_sales);
 
             //    _ctx.SaveChanges();
             //}
             
-            finalList.AddRange(app_dday_hourly_sales);
+            HsFinalList.AddRange(app_dday_hourly_sales);
             
 
             #region XML Sauvegarde
@@ -148,27 +153,44 @@ namespace Mcd.App.GetXmlRpc
 
         public void SaveChanges()
         {
-            Console.WriteLine($"Début du commit en BDD de # {finalList.Count} enregistrements");
-            _logger.Info($"Début du commit en BDD de # {finalList.Count} enregistrements");
+            Console.WriteLine($"Début du commit en BDD de # {HsFinalList.Count} enregistrements");
+            _logger.Info($"Début du commit en BDD de # {HsFinalList.Count} enregistrements");
 
             
             
-            try { _ctx.APP_DDAY_HOURLY_SALES.AddRange(finalList); }
+            try {
+                Stopwatch addDbhs = new Stopwatch();
+                addDbhs.Start();
+                _ctx.APP_DDAY_HOURLY_SALES.AddRange(HsFinalList);
+                addDbhs.Stop();
+                Console.WriteLine("************ajout hs dans la table db :" + addDbhs.Elapsed);
+                Stopwatch addDbhp = new Stopwatch();
+                addDbhp.Start();
+                _ctx.APP_DDAY_HOURLY_PMX.AddRange(HpFinalList);
+                addDbhp.Stop();
+                Console.WriteLine("************ajout hp dans la table db :" + addDbhp.Elapsed);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            
+           
+            try {
+                Stopwatch comdb = new Stopwatch();
+                comdb.Start();
+                _ctx.SaveChanges();
+                comdb.Stop();
+                Console.WriteLine("************commit db :" + comdb.Elapsed);
+            }
             catch(Exception e)
             {
                 Console.WriteLine(e);
             }
             
            
-            try { _ctx.SaveChanges(); }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            
-           
-            _logger.Info($"Fin du commit en BDD de # {finalList.Count} enregistrements ");
-            finalList = new List<APP_DDAY_HOURLY_SALES>();
+            _logger.Info($"Fin du commit en BDD de # {HsFinalList.Count} enregistrements ");
+            HsFinalList = new List<APP_DDAY_HOURLY_SALES>();
         }
 
         public void SavePmix(HourlyPMX hourlyPMX , DayPartitioning dayPartitioning ,int numResto)
@@ -216,53 +238,30 @@ namespace Mcd.App.GetXmlRpc
             //}
             #endregion
 
+            Stopwatch retDataHp = new Stopwatch();
+            retDataHp.Start();
+
             List<APP_DDAY_HOURLY_PMX> list = MapToPMX(hourlyPMX, dayPartitioning, numResto);
 
+            retDataHp.Stop();
+            Console.WriteLine("************recuperation des données db depuis objet Hp :" + retDataHp.Elapsed);
+            HpFinalList.AddRange(list);
+
+            
            
-
-            Console.WriteLine("PMX --- 11111111111111111");
-
-            try { _ctx.APP_DDAY_HOURLY_PMX.AddRange(list); }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-
-            Console.WriteLine("PMX --- 222222222222222222");
-            try { _ctx.SaveChanges(); }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            Console.WriteLine("PMX --- 333333333333333");
+            
         }
 
         private List<APP_DDAY_HOURLY_SALES> MapToSales(HourlySales hourlySales , int? numResto=null)
         {
-            /*decimal HSA_EAT_IN_TAC_QY = 0;
-            decimal HSA_TAKE_OUT_TAC_QY = 0;
-            decimal HSA_EAT_IN_SALES_AM = 0;
-            decimal HSA_TAKE_OUT_SALES_AM = 0;
-            hourlySales.StoreTotal.Sales.ForEach((Sales s) =>
-            {
-
-                HSA_EAT_IN_SALES_AM += decimal.Parse(s.EatInNetAmount);
-                HSA_TAKE_OUT_SALES_AM += decimal.Parse(s.TakeOutNetAmount);
-                HSA_TAKE_OUT_SALES_AM += decimal.Parse(s.p);
-                HSA_TAKE_OUT_SALES_AM += decimal.Parse(s.TakeOutNetAmount);
-
-            });
-            Console.WriteLine(HSA_EAT_IN_SALES_AM);
-            Console.WriteLine(HSA_TAKE_OUT_SALES_AM);*/
+            
 
             List<APP_DDAY_HOURLY_SALES> app_dday_hourly_sales = new List<APP_DDAY_HOURLY_SALES>();
 
-           // Console.WriteLine("++++++++++++++++++++");
-           // Console.WriteLine(hourlySales.DayPartitioning.Segment.Count);
+          
             hourlySales.DayPartitioning.Segment.ForEach((Segment segment) =>
             {
-                // Console.WriteLine(s.Id);
-                // Console.WriteLine(s.BegTime);
+                
                 short  HSA_SALES_TM = short.Parse(segment.BegTime);
                 decimal HSA_SALES_PROD_AM = 0;
                 decimal HSA_SALES_NON_PROD_AM = 0;
@@ -328,8 +327,7 @@ namespace Mcd.App.GetXmlRpc
                     DDHS_DISCOUNT_OUT_TAC_QY = HSA_DISCOUNT_OUT_TAC_QY,
                     DDHS_DISCOUNT_IN_SALES_AM = HSA_DISCOUNT_IN_SALES_AM,
                     DDHS_DISCOUNT_OUT_SALES_AM = HSA_DISCOUNT_OUT_SALES_AM,
-                    //HSA_EAT_IN_SALES_AM = HSA_EAT_IN_SALES_AM,
-                    //HSA_TAKE_OUT_SALES_AM = HSA_TAKE_OUT_SALES_AM,
+                   
 
                     DDHS_BUSINESS_DT = DateTime.ParseExact(!string.IsNullOrEmpty(hourlySales.POS.BusinessDay) ?
                                                     hourlySales.POS.BusinessDay : "00000000", "yyyyMMdd",
@@ -349,8 +347,7 @@ namespace Mcd.App.GetXmlRpc
 
             List<APP_DDAY_HOURLY_PMX> app_dday_hourly_pmx = new List<APP_DDAY_HOURLY_PMX>();
 
-            //Console.WriteLine("++++++++++++++++++++");
-            //Console.WriteLine(hourlyPMX.ProductTable.ProductInfo.Count);
+            
             dayPartitioning.Segment.ForEach((Segment segment) =>
             {
                 

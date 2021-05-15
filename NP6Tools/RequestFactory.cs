@@ -26,7 +26,7 @@ namespace Mcd.App.GetXmlRpc
             xmlMethodName.InnerText = request.MethodName ?? "";
             xmlMethodCall.AppendChild(xmlMethodName);
 
-            /*XmlElement xmlParams = doc.CreateElement("params");
+            XmlElement xmlParams = doc.CreateElement("params");
             xmlMethodCall.AppendChild(xmlParams);
 
             if (request.GetParamsCount() <= 0)
@@ -38,7 +38,7 @@ namespace Mcd.App.GetXmlRpc
                 XmlElement xmlParam = doc.CreateElement("param");
                 xmlParams.AppendChild(xmlParam);
                 xmlParam.AppendChild(doc.ImportNode(BuildXmlValue(parameter), true));
-            }*/
+            }
 
             return doc;
         }
