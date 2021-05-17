@@ -122,16 +122,19 @@ namespace Mcd.App.GetXmlRpc
                 Console.WriteLine($"NP6 initialisé, addresse Ip : {Ip} \n");
 
                 string path = await NP6.SauvegarderHourlySalesAsync(dateActivity, _logger, mocknumResto);
-                
+
                 // pmx test part ------------
                 string PMXPath = await NP6.GetPMXAsync(dateActivity,mocknumResto);
-                Console.WriteLine("pmx path : " + PMXPath);
+                //Console.WriteLine("pmx path : " + PMXPath);
 
-                Console.WriteLine($"Chemin généré : {path} \n");
+                //XDocument hourlySalesDoc = await NP6.SauvegarderHourlySalesAsyncDoc(dateActivity, _logger, mocknumResto);
+                //XDocument hourlyPMIXDoc = await NP6.GetPMXAsyncDoc(dateActivity, mocknumResto);
+                //Console.WriteLine($"Chemin généré : {path} \n");
 
-                _logger.Info($"Chemin fichier sauvegardé : {path}", mocknumResto);
+                // _logger.Info($"Chemin fichier sauvegardé : {path}", mocknumResto);
 
                 processXML(path, PMXPath, Ip, mocknumResto);
+                //processXMLDoc(hourlySalesDoc, hourlyPMIXDoc, Ip, mocknumResto);
             }
             catch (Exception ex)
             {
@@ -162,6 +165,95 @@ namespace Mcd.App.GetXmlRpc
             }
 #endif
 #endregion
+        }
+
+        
+        private static void processXMLDoc(XDocument hourlySales,XDocument hourlyPMix , string Ip, int numResto)
+        {
+            Stopwatch stopWatch = new Stopwatch();
+
+            try
+            {
+                stopWatch.Start();
+
+                _logger.Info($"Début du process XML-RPC pour le resto # {numResto}", numResto);
+
+                XmlSerializer serializer = new XmlSerializer(typeof(HourlySales));
+                XmlSerializer PMXserializer = new XmlSerializer(typeof(HourlyPMX));
+                HourlySales hourlySalesObjet = new HourlySales();
+                bool isProcessed = false;
+
+                Stopwatch desHs = new Stopwatch();
+                desHs.Start();
+                
+                            
+                            hourlySalesObjet = (HourlySales)serializer.Deserialize(hourlySales.Root.CreateReader());
+                            desHs.Stop();
+                            Console.WriteLine("****************** Deserialization du fichier hourlysales en objet :" + desHs.Elapsed);
+
+
+
+                            if (hourlySalesObjet == null)
+                            {
+                                _logger.Warn(string.Format($"Erreur lors de récupération Ventes Horaires ({0})", Ip), numResto);
+                            }
+                            else if (hourlySalesObjet.RequestReport != "HOURLYSALES")
+                            {
+                                _logger.Warn(string.Format($"RequestReport = {hourlySalesObjet.RequestReport} " + $"quand ca doit être HOURLYSALES"), numResto);
+                            }
+                            else
+                            {
+                                database.SaveHourlySales(hourlySalesObjet, numResto);
+                                isProcessed = true;
+                            }
+                        
+                Stopwatch desHp = new Stopwatch();
+                desHp.Start();
+
+               
+                           
+                            var hourlyPMXObjet = (HourlyPMX)PMXserializer.Deserialize(hourlyPMix.Root.CreateReader());
+                            Console.WriteLine(hourlyPMXObjet.ProductTable.ProductInfo);
+                            desHp.Stop();
+                            Console.WriteLine("****************** Deserialization du fichier pmx en objet :" + desHp.Elapsed);
+
+
+                            if (hourlyPMXObjet == null)
+                            {
+                                _logger.Warn(string.Format($"Erreur lors de récupération Ventes Horaires ({0})", Ip), numResto);
+                            }
+                            else if (hourlyPMXObjet.RequestReport != "PMIX")
+                            {
+                                _logger.Warn(string.Format($"RequestReport = {hourlyPMXObjet.RequestReport} " + $"quand ca doit être HOURLYSALES"), numResto);
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("called");
+                                database.SavePmix(hourlyPMXObjet, hourlySalesObjet.DayPartitioning, numResto);
+                                isProcessed = true;
+                            }
+                       
+
+
+
+                
+                return;
+            }
+            catch (Exception ex)
+            {
+                //_logger.Error($"Erreur lors du process du fichier XML, chemin : {path}, Ip : {Ip}", ex, numResto);
+                Console.WriteLine(ex);
+                
+                throw ex;
+            }
+            finally
+            {
+                stopWatch.Stop();
+                _logger.Info($"Fin du process XML-RPC pour le resto # {numResto}, durée du traitement : {stopWatch.Elapsed}",
+                                numResto, stopWatch.Elapsed);
+            }
+
         }
 
         private static void processXML(string path,string PMXPath, string Ip, int numResto)

@@ -4,6 +4,8 @@ using Mcd.App.GetXmlRpc.Helpers;
 using Mcd.App.GetXmlRpc.PMX;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
@@ -156,39 +158,137 @@ namespace Mcd.App.GetXmlRpc
             Console.WriteLine($"Début du commit en BDD de # {HsFinalList.Count} enregistrements");
             _logger.Info($"Début du commit en BDD de # {HsFinalList.Count} enregistrements");
 
-            
-            
-            try {
-                Stopwatch addDbhs = new Stopwatch();
-                addDbhs.Start();
-                _ctx.APP_DDAY_HOURLY_SALES.AddRange(HsFinalList);
-                addDbhs.Stop();
-                Console.WriteLine("************ajout hs dans la table db :" + addDbhs.Elapsed);
-                Stopwatch addDbhp = new Stopwatch();
-                addDbhp.Start();
-                _ctx.APP_DDAY_HOURLY_PMX.AddRange(HpFinalList);
-                addDbhp.Stop();
-                Console.WriteLine("************ajout hp dans la table db :" + addDbhp.Elapsed);
-            }
-            catch (Exception e)
+            using (var con = new SqlConnection("Server=(local);Database=McDashboard;Integrated Security=true"))
             {
-                Console.WriteLine(e);
+                con.Open();
+                Console.WriteLine("connexion version : "+con.ServerVersion);
+
+                DataTable dt = new DataTable();
+                DataColumn DDHP_SITE_ID = new DataColumn("DDHP_SITE_ID");
+                DataColumn DDHP_BUSINESS_DT = new DataColumn("DDHP_BUSINESS_DT");
+                DataColumn DDHP_PROD_ID = new DataColumn("DDHP_PROD_ID");
+                DataColumn DDHP_SALES_TM = new DataColumn("DDHP_SALES_TM");
+                DataColumn DDHP_MCDE_SIR_ID = new DataColumn("DDHP_MCDE_SIR_ID");
+                DataColumn DDHP_MVAL_SIR_ID = new DataColumn("DDHP_MVAL_SIR_ID");
+                DataColumn DDHP_LLVR_SIR_ID = new DataColumn("DDHP_LLVR_SIR_ID");
+                DataColumn DDHP_EAT_IN_QY = new DataColumn("DDHP_EAT_IN_QY");
+                DataColumn DDHP_TAKE_OUT_QY = new DataColumn("DDHP_TAKE_OUT_QY");
+                DataColumn DDHP_PROMO_IN_QY = new DataColumn("DDHP_PROMO_IN_QY");
+                DataColumn DDHP_PROMO_OUT_QY = new DataColumn("DDHP_PROMO_OUT_QY");
+                DataColumn DDHP_DISCOUNT_IN_QY = new DataColumn("DDHP_DISCOUNT_IN_QY");
+                DataColumn DDHP_DISCOUNT_OUT_QY = new DataColumn("DDHP_DISCOUNT_OUT_QY");
+                DataColumn DDHP_EMPLOYEE_MEAL_QY = new DataColumn("DDHP_EMPLOYEE_MEAL_QY");
+                DataColumn DDHP_MGR_MEAL_QY = new DataColumn("DDHP_MGR_MEAL_QY");
+                DataColumn DDHP_EMPLOYEE_MEAL_AM = new DataColumn("DDHP_EMPLOYEE_MEAL_AM");
+                DataColumn DDHP_CA_IN_AM = new DataColumn("DDHP_CA_IN_AM");
+                DataColumn DDHP_CA_OUT_AM = new DataColumn("DDHP_CA_OUT_AM");
+                DataColumn DDHP_PROCESS_DT = new DataColumn("DDHP_PROCESS_DT");
+
+                dt.Columns.Add(DDHP_SITE_ID);
+                dt.Columns.Add(DDHP_BUSINESS_DT);
+                dt.Columns.Add(DDHP_PROD_ID);
+                dt.Columns.Add(DDHP_SALES_TM);
+                dt.Columns.Add(DDHP_MCDE_SIR_ID);
+                dt.Columns.Add(DDHP_MVAL_SIR_ID);
+                dt.Columns.Add(DDHP_LLVR_SIR_ID);
+                dt.Columns.Add(DDHP_EAT_IN_QY);
+                dt.Columns.Add(DDHP_TAKE_OUT_QY);
+                dt.Columns.Add(DDHP_PROMO_IN_QY);
+                dt.Columns.Add(DDHP_PROMO_OUT_QY);
+                dt.Columns.Add(DDHP_DISCOUNT_IN_QY);
+                dt.Columns.Add(DDHP_DISCOUNT_OUT_QY);
+                dt.Columns.Add(DDHP_EMPLOYEE_MEAL_QY);
+                dt.Columns.Add(DDHP_MGR_MEAL_QY);
+                dt.Columns.Add(DDHP_EMPLOYEE_MEAL_AM);
+                dt.Columns.Add(DDHP_CA_IN_AM);
+                dt.Columns.Add(DDHP_CA_OUT_AM);
+                dt.Columns.Add(DDHP_PROCESS_DT);
+
+                HpFinalList.ForEach((APP_DDAY_HOURLY_PMX hp) =>
+                { DataRow d = dt.NewRow();
+                    d["DDHP_SITE_ID"] = hp.DDHP_SITE_ID;
+                    d["DDHP_BUSINESS_DT"] = hp.DDHP_BUSINESS_DT;
+                    d["DDHP_PROD_ID"] = hp.DDHP_PROD_ID;
+                    d["DDHP_SALES_TM"] = hp.DDHP_SALES_TM;
+                    d["DDHP_MCDE_SIR_ID"] = hp.DDHP_MCDE_SIR_ID;
+                    d["DDHP_MVAL_SIR_ID"] = hp.DDHP_MVAL_SIR_ID;
+                    d["DDHP_LLVR_SIR_ID"] = hp.DDHP_LLVR_SIR_ID;
+                    d["DDHP_EAT_IN_QY"] = hp.DDHP_EAT_IN_QY;
+                    d["DDHP_TAKE_OUT_QY"] = hp.DDHP_TAKE_OUT_QY;
+                    d["DDHP_PROMO_IN_QY"] = hp.DDHP_PROMO_IN_QY;
+                    d["DDHP_PROMO_OUT_QY"] = hp.DDHP_PROMO_OUT_QY;
+                    d["DDHP_DISCOUNT_IN_QY"] = hp.DDHP_DISCOUNT_IN_QY;
+                    d["DDHP_DISCOUNT_OUT_QY"] = hp.DDHP_DISCOUNT_OUT_QY;
+                    d["DDHP_EMPLOYEE_MEAL_QY"] = hp.DDHP_EMPLOYEE_MEAL_QY;
+                    d["DDHP_MGR_MEAL_QY"] = hp.DDHP_MGR_MEAL_QY;
+                    d["DDHP_EMPLOYEE_MEAL_AM"] = hp.DDHP_EMPLOYEE_MEAL_AM;
+                    d["DDHP_CA_IN_AM"] = hp.DDHP_CA_IN_AM;
+                    d["DDHP_CA_OUT_AM"] = hp.DDHP_CA_OUT_AM;
+                    d["DDHP_PROCESS_DT"] = hp.DDHP_PROCESS_DT;
+
+                    dt.Rows.Add(d);
+                });
+
+                using (SqlCommand cmd = new SqlCommand("exec sp_insert_ddhp_hourly_pmx @list", con))
+                {
+
+
+                    Console.WriteLine("1111111111");
+                    var pList = new SqlParameter("@list", SqlDbType.Structured);
+                    pList.TypeName = "dbo.APP_DDAY_HOURLY_PMX_TYPE";
+                    pList.Value = dt;
+                    Console.WriteLine("222222");
+                    cmd.Parameters.Add(pList);
+                    Console.WriteLine("333333");
+                    try { var dr = cmd.ExecuteReader(); }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e);
+                    }
+                    /*using (var dr = cmd.ExecuteReader())
+                        {
+                        Console.WriteLine("444444");
+                        while (dr.Read())
+                        {
+                            Console.WriteLine("5555555");
+                            Console.WriteLine(dr);
+                        }
+                        }*/
+                    
+                }
             }
-            
-           
-            try {
-                Stopwatch comdb = new Stopwatch();
-                comdb.Start();
-                _ctx.SaveChanges();
-                comdb.Stop();
-                Console.WriteLine("************commit db :" + comdb.Elapsed);
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e);
-            }
-            
-           
+
+            /* try {
+                 Stopwatch addDbhs = new Stopwatch();
+                 addDbhs.Start();
+                 _ctx.APP_DDAY_HOURLY_SALES.AddRange(HsFinalList);
+                 addDbhs.Stop();
+                 Console.WriteLine("************ajout hs dans la table db :" + addDbhs.Elapsed);
+                 Stopwatch addDbhp = new Stopwatch();
+                 addDbhp.Start();
+                 _ctx.APP_DDAY_HOURLY_PMX.AddRange(HpFinalList);
+                 addDbhp.Stop();
+                 Console.WriteLine("************ajout hp dans la table db :" + addDbhp.Elapsed);
+             }
+             catch (Exception e)
+             {
+                 Console.WriteLine(e);
+             }
+
+
+             try {
+                 Stopwatch comdb = new Stopwatch();
+                 comdb.Start();
+                 _ctx.SaveChanges();
+                 comdb.Stop();
+                 Console.WriteLine("************commit db :" + comdb.Elapsed);
+             }
+             catch(Exception e)
+             {
+                 Console.WriteLine(e);
+             }*/
+
+
             _logger.Info($"Fin du commit en BDD de # {HsFinalList.Count} enregistrements ");
             HsFinalList = new List<APP_DDAY_HOURLY_SALES>();
         }
