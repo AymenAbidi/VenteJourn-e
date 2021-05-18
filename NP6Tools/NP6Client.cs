@@ -39,7 +39,7 @@ namespace Mcd.App.GetXmlRpc
             HourlySales result=null;
             XmlRpcResponse responseLogin;
             XmlRpcRequest requestLogin = new XmlRpcRequest("datarequest");
-            Console.WriteLine(requestLogin);
+           
             string appPath = Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory);
             
             requestLogin.AddParams("HourlySales", "", "", "");
@@ -104,10 +104,10 @@ namespace Mcd.App.GetXmlRpc
                 hsReqLogin.Start();
                 XmlRpcResponse responseLogin = Task.Run(async () => await client.ExecuteAsync(requestLogin)).Result;
                 hsReqLogin.Stop();
-                Console.WriteLine("************ Requete login xmlrpc HourlySales " + hsReqLogin.Elapsed);
+                Console.WriteLine("--------Diagnostics--------- Requete login xmlrpc HourlySales " + hsReqLogin.Elapsed);
                 Console.Write("requestLogin executé \n");
                 Console.Write($"responseLogin : {responseLogin} \n \n \n \n");
-                Console.WriteLine(responseLogin.GetStruct().Count);
+                
                 if (responseLogin.GetStruct().ContainsKey("id"))
                 {
                     Console.Write("SauvegarderHourlySalesAsync.responseLogin contains id key \n");
@@ -119,7 +119,7 @@ namespace Mcd.App.GetXmlRpc
                     hsReqq.Start();
                     XmlRpcResponse responseQuery = await client.ExecuteAsync(requestQuery);
                     hsReqq.Stop();
-                    Console.WriteLine("************ Requete query xmlrpc HourlySales " + hsReqq.Elapsed);
+                    Console.WriteLine("--------Diagnostics--------- Requete query xmlrpc HourlySales " + hsReqq.Elapsed);
                     _logger.Debug($"SauvegarderHourlySalesAsync.responseQuery = {responseQuery.GetStruct()}", numResto);
 
                     if (responseQuery.GetStruct().ContainsKey("payload"))
@@ -134,7 +134,7 @@ namespace Mcd.App.GetXmlRpc
                         Console.Write($"Chemin où on va déplacer le contenu xml : {path} \n");
                         xmlDoc.Save(path);
                         doc.Stop();
-                        Console.WriteLine("**************** Chargement du fichier xml dans le disque :" + doc.Elapsed);
+                        Console.WriteLine("--------Diagnostics--------- Chargement du fichier xml dans le disque :" + doc.Elapsed);
                         return path;
                     }
                     Console.Write("SauvegarderHourlySalesAsync.responseQuery DOES NOT contain payload key \n");
@@ -172,10 +172,10 @@ namespace Mcd.App.GetXmlRpc
                 hsReqLogin.Start();
                 XmlRpcResponse responseLogin = Task.Run(async () => await client.ExecuteAsync(requestLogin)).Result;
                 hsReqLogin.Stop();
-                Console.WriteLine("************ Requete login xmlrpc HourlySales " + hsReqLogin.Elapsed);
+                Console.WriteLine("--------Diagnostics--------- Requete login xmlrpc HourlySales " + hsReqLogin.Elapsed);
                 Console.Write("requestLogin executé \n");
                 Console.Write($"responseLogin : {responseLogin} \n \n \n \n");
-                Console.WriteLine(responseLogin.GetStruct().Count);
+                
                 if (responseLogin.GetStruct().ContainsKey("id"))
                 {
                     Console.Write("SauvegarderHourlySalesAsync.responseLogin contains id key \n");
@@ -187,7 +187,7 @@ namespace Mcd.App.GetXmlRpc
                     hsReqq.Start();
                     XmlRpcResponse responseQuery = await client.ExecuteAsync(requestQuery);
                     hsReqq.Stop();
-                    Console.WriteLine("************ Requete query xmlrpc HourlySales " + hsReqq.Elapsed);
+                    Console.WriteLine("--------Diagnostics--------- Requete query xmlrpc HourlySales " + hsReqq.Elapsed);
                     _logger.Debug($"SauvegarderHourlySalesAsync.responseQuery = {responseQuery.GetStruct()}", numResto);
 
                     if (responseQuery.GetStruct().ContainsKey("payload"))
@@ -237,7 +237,7 @@ namespace Mcd.App.GetXmlRpc
             {
                 responseLogin = await client.ExecuteAsync(requestLogin);
                 hpreql.Stop();
-                Console.WriteLine("************* requete login pmx : " + hpreql.Elapsed);
+                Console.WriteLine("--------Diagnostics--------- requete login pmx : " + hpreql.Elapsed);
             }
             finally
             {
@@ -252,7 +252,8 @@ namespace Mcd.App.GetXmlRpc
                 hpreqq.Start();
                 XmlRpcResponse responseQuery = await client.ExecuteAsync(requestQuery);
                 hpreqq.Stop();
-                Console.WriteLine("************* requete données pmx : " + hpreqq.Elapsed);
+                Console.WriteLine("--------Diagnostics--------- Requête données pmx : " + hpreqq.Elapsed);
+                if (responseQuery.GetStruct().ContainsKey("payload"))
                 if (responseQuery.GetStruct().ContainsKey("payload"))
                 {
                     string responsepayload = Encoding.UTF8.GetString((byte[])responseQuery.GetStruct()["payload"]);
@@ -265,7 +266,7 @@ namespace Mcd.App.GetXmlRpc
                     Console.Write($"Chemin où on va déplacer le contenu xml : {path} \n");
                     xmlDoc.Save(path);
                     hpdoc.Stop();
-                    Console.WriteLine("************* chargement fichier pmx dans le disque: " + hpdoc.Elapsed);
+                    Console.WriteLine("--------Diagnostics--------- chargement fichier pmx dans le disque: " + hpdoc.Elapsed);
                     return path;
                 }
             }
@@ -293,7 +294,7 @@ namespace Mcd.App.GetXmlRpc
             {
                 responseLogin = await client.ExecuteAsync(requestLogin);
                 hpreql.Stop();
-                Console.WriteLine("************* requete login pmx : " + hpreql.Elapsed);
+                Console.WriteLine("--------Diagnostics--------- requete login pmx : " + hpreql.Elapsed);
             }
             finally
             {
@@ -308,7 +309,7 @@ namespace Mcd.App.GetXmlRpc
                 hpreqq.Start();
                 XmlRpcResponse responseQuery = await client.ExecuteAsync(requestQuery);
                 hpreqq.Stop();
-                Console.WriteLine("************* requete données pmx : " + hpreqq.Elapsed);
+                Console.WriteLine("--------Diagnostics--------- requete données pmx : " + hpreqq.Elapsed);
                 if (responseQuery.GetStruct().ContainsKey("payload"))
                 {
                     string responsepayload = Encoding.UTF8.GetString((byte[])responseQuery.GetStruct()["payload"]);

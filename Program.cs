@@ -21,6 +21,7 @@ namespace Mcd.App.GetXmlRpc
         private static readonly string errorPath =  ConfigurationManager.AppSettings["errorPath"];
         private static readonly string NP6Port =  ConfigurationManager.AppSettings["NP6Port"];
         private static readonly bool isDeplacer =  bool.Parse(ConfigurationManager.AppSettings["isDeplacer"]);
+        private static readonly bool SaveXML = bool.Parse(ConfigurationManager.AppSettings["SaveXML"]);
         private static readonly logger _logger = new logger();
         private static int processRepeat = int.Parse(ConfigurationManager.AppSettings["processRepeat"]);
         static void Main(string[] args)
@@ -37,7 +38,7 @@ namespace Mcd.App.GetXmlRpc
                                                .Where(r => !string.IsNullOrEmpty(r))
                                                .ToList();
                 readfile.Stop();
-                Console.WriteLine("************** lecture de la liste des restaurants : " + readfile.Elapsed);
+                Console.WriteLine("--------Diagnostics--------- Lecture de la liste des restaurants : " + readfile.Elapsed);
                 if(processRepeat > 0)
                     Restaurants = Enumerable.Repeat(Restaurants.FirstOrDefault(), processRepeat).ToList();
 
@@ -111,30 +112,46 @@ namespace Mcd.App.GetXmlRpc
                 ipAddr.Start();
                 Ip = getAdresseWayStation(numResto);
                 ipAddr.Stop();
-                Console.WriteLine("************ generation adresse ip du resto : " + ipAddr.Elapsed);
+                Console.WriteLine("--------Diagnostics--------- Generation adresse ip du resto : " + ipAddr.Elapsed);
                 _logger.Info($"addresse IP : {Ip}", mocknumResto);
 
                 Stopwatch np6cli = new Stopwatch();
                 np6cli.Start();
                 NP6Client NP6 = new NP6Client(Ip, NP6Port, true);
                 np6cli.Stop();
-                Console.WriteLine("*********** Creation instance np6client :" + np6cli.Elapsed);
+                Console.WriteLine("--------Diagnostics--------- Creation instance np6client :" + np6cli.Elapsed);
                 Console.WriteLine($"NP6 initialisé, addresse Ip : {Ip} \n");
 
-                string path = await NP6.SauvegarderHourlySalesAsync(dateActivity, _logger, mocknumResto);
+                // Sauvegarde des fichiers XML sur le disque
+                if (SaveXML)
+                {
+                    string path = await NP6.SauvegarderHourlySalesAsync(dateActivity, _logger, mocknumResto);
+                    string PMXPath = await NP6.GetPMXAsync(dateActivity, mocknumResto);
 
-                // pmx test part ------------
-                string PMXPath = await NP6.GetPMXAsync(dateActivity,mocknumResto);
-                //Console.WriteLine("pmx path : " + PMXPath);
+                    Console.WriteLine($"Chemin HourlySales généré : {path} \n");
+                    Console.WriteLine("Chemin PMix généré : " + PMXPath);
 
-                //XDocument hourlySalesDoc = await NP6.SauvegarderHourlySalesAsyncDoc(dateActivity, _logger, mocknumResto);
-                //XDocument hourlyPMIXDoc = await NP6.GetPMXAsyncDoc(dateActivity, mocknumResto);
-                //Console.WriteLine($"Chemin généré : {path} \n");
+                    _logger.Info($"Chemin fichier HourlySales sauvegardé : {path}", mocknumResto);
+                    _logger.Info($"Chemin fichier PMix sauvegardé : {PMXPath}", mocknumResto);
 
-                // _logger.Info($"Chemin fichier sauvegardé : {path}", mocknumResto);
+                    processXML(path, PMXPath, Ip, mocknumResto);
 
-                processXML(path, PMXPath, Ip, mocknumResto);
-                //processXMLDoc(hourlySalesDoc, hourlyPMIXDoc, Ip, mocknumResto);
+                }
+                //Traitement direct des fichiers XML
+                else
+                {
+                    XDocument hourlySalesDoc = await NP6.SauvegarderHourlySalesAsyncDoc(dateActivity, _logger, mocknumResto);
+                    Console.WriteLine("Document XML HourlySales récupéré");
+                    _logger.Info("Document XML HourlySales récupéré");
+
+                    XDocument hourlyPMIXDoc = await NP6.GetPMXAsyncDoc(dateActivity, mocknumResto);
+                    Console.WriteLine("Document XML PMix récupéré");
+                    _logger.Info("Document XML PMix récupéré");
+
+                    processXMLDoc(hourlySalesDoc, hourlyPMIXDoc, Ip, mocknumResto);
+                }
+
+                
             }
             catch (Exception ex)
             {
@@ -189,7 +206,7 @@ namespace Mcd.App.GetXmlRpc
                             
                             hourlySalesObjet = (HourlySales)serializer.Deserialize(hourlySales.Root.CreateReader());
                             desHs.Stop();
-                            Console.WriteLine("****************** Deserialization du fichier hourlysales en objet :" + desHs.Elapsed);
+                            Console.WriteLine("--------Diagnostics--------- Deserialisation du fichier hourlysales en objet :" + desHs.Elapsed);
 
 
 
@@ -215,7 +232,7 @@ namespace Mcd.App.GetXmlRpc
                             var hourlyPMXObjet = (HourlyPMX)PMXserializer.Deserialize(hourlyPMix.Root.CreateReader());
                             Console.WriteLine(hourlyPMXObjet.ProductTable.ProductInfo);
                             desHp.Stop();
-                            Console.WriteLine("****************** Deserialization du fichier pmx en objet :" + desHp.Elapsed);
+                            Console.WriteLine("--------Diagnostics--------- Deserialisation du fichier pmx en objet :" + desHp.Elapsed);
 
 
                             if (hourlyPMXObjet == null)
@@ -229,7 +246,7 @@ namespace Mcd.App.GetXmlRpc
                             }
                             else
                             {
-                                Console.WriteLine("called");
+                               
                                 database.SavePmix(hourlyPMXObjet, hourlySalesObjet.DayPartitioning, numResto);
                                 isProcessed = true;
                             }
@@ -242,7 +259,7 @@ namespace Mcd.App.GetXmlRpc
             }
             catch (Exception ex)
             {
-                //_logger.Error($"Erreur lors du process du fichier XML, chemin : {path}, Ip : {Ip}", ex, numResto);
+                _logger.Error($"Erreur lors du process du fichier XML, chemin Ip : {Ip}", ex, numResto);
                 Console.WriteLine(ex);
                 
                 throw ex;
@@ -282,7 +299,7 @@ namespace Mcd.App.GetXmlRpc
                             StringReader rdr = new StringReader(streamReader.ReadToEnd());
                             hourlySalesObjet = (HourlySales)serializer.Deserialize(rdr);
                             desHs.Stop();
-                            Console.WriteLine("****************** Deserialization du fichier hourlysales en objet :" + desHs.Elapsed);
+                            Console.WriteLine("--------Diagnostics--------- Deserialisation du fichier hourlysales en objet :" + desHs.Elapsed);
 
 
 
@@ -316,7 +333,7 @@ namespace Mcd.App.GetXmlRpc
                             var hourlyPMXObjet = (HourlyPMX)PMXserializer.Deserialize(rdr);
                             Console.WriteLine(hourlyPMXObjet.ProductTable.ProductInfo);
                             desHp.Stop();
-                            Console.WriteLine("****************** Deserialization du fichier pmx en objet :" + desHp.Elapsed);
+                            Console.WriteLine("--------Diagnostics--------- Deserialization du fichier pmx en objet :" + desHp.Elapsed);
 
 
                             if (hourlyPMXObjet == null)
@@ -330,7 +347,7 @@ namespace Mcd.App.GetXmlRpc
                             }
                             else
                             {
-                                Console.WriteLine("called");
+                                
                                 database.SavePmix(hourlyPMXObjet,hourlySalesObjet.DayPartitioning, numResto);
                                 isProcessed = true;
                             }

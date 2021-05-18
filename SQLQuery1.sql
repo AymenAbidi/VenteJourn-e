@@ -1,8 +1,8 @@
 use McDashboard
 
-Delete from APP_DDAY_HOURLY_PMX where DDHP_SITE_ID=1
+Delete from APP_DDAY_HOURLY_SALES where DDHS_BUSINESS_DT='2018-10-03 00:00:00'
 
-select * from APP_DDAY_HOURLY_PMX
+select * from log
 
 CREATE TYPE [dbo].[APP_DDAY_HOURLY_PMX_TYPE] AS TABLE(	
 	[DDHP_SITE_ID] [smallint] NOT NULL,
@@ -25,8 +25,32 @@ CREATE TYPE [dbo].[APP_DDAY_HOURLY_PMX_TYPE] AS TABLE(
 	[DDHP_CA_OUT_AM] [smallmoney] NULL,
 	[DDHP_PROCESS_DT] [datetime] NOT NULL
 );
-declare @list as APP_DDAY_HOURLY_PMX_TYPE
-insert into @list select * from APP_DDAY_HOURLY_PMX
-exec sp_insert_ddhp_hourly_pmx @list
+
+CREATE TYPE [dbo].[APP_DDAY_HOURLY_SALES_TYPE] AS TABLE(	
+	[DDHS_SITE_ID] [smallint] NOT NULL,
+	[DDHS_BUSINESS_DT] [smalldatetime] NOT NULL,
+	[DDHS_SALES_TM] [smallint] NOT NULL,
+	[DDHS_MCDE_SIR_ID] [smallint] NOT NULL,
+	[DDHS_MVAL_SIR_ID] [smallint] NOT NULL,
+	[DDHS_LLVR_SIR_ID] [smallint] NOT NULL,
+	[DDHS_SALES_PROD_AM] [money] NULL,
+	[DDHS_SALES_NON_PROD_AM] [money] NULL,
+	[DDHS_EAT_IN_TAC_QY] [smallint] NULL,
+	[DDHS_TAKE_OUT_TAC_QY] [smallint] NULL,
+	[DDHS_EAT_IN_SALES_AM] [money] NULL,
+	[DDHS_TAKE_OUT_SALES_AM] [money] NULL,
+	[DDHS_DISCOUNT_IN_TAC_QY] [smallint] NULL,
+	[DDHS_DISCOUNT_OUT_TAC_QY] [smallint] NULL,
+	[DDHS_DISCOUNT_IN_SALES_AM] [money] NULL,
+	[DDHS_DISCOUNT_OUT_SALES_AM] [money] NULL,
+	[DDHS_CREW_HOURS_WORKED] [numeric](12, 3) NULL,
+	[DDHS_PROCESS_DT] [datetime] NULL
+
+);
+
+
+declare @list as APP_DDAY_HOURLY_SALES_TYPE
+insert into @list select * from APP_DDAY_HOURLY_SALES
+exec sp_insert_ddhp_hourly_sales @list
 commit
 
