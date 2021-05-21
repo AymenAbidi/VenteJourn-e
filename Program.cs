@@ -230,7 +230,6 @@ namespace Mcd.App.GetXmlRpc
                
                            
                             var hourlyPMXObjet = (HourlyPMX)PMXserializer.Deserialize(hourlyPMix.Root.CreateReader());
-                            Console.WriteLine(hourlyPMXObjet.ProductTable.ProductInfo);
                             desHp.Stop();
                             Console.WriteLine("--------Diagnostics--------- Deserialisation du fichier pmx en objet :" + desHp.Elapsed);
 
@@ -333,7 +332,7 @@ namespace Mcd.App.GetXmlRpc
                         {
                             StringReader rdr = new StringReader(streamReader.ReadToEnd());
                             var hourlyPMXObjet = (HourlyPMX)PMXserializer.Deserialize(rdr);
-                            Console.WriteLine(hourlyPMXObjet.ProductTable.ProductInfo);
+                            
                             desHp.Stop();
                             Console.WriteLine("--------Diagnostics--------- Deserialization du fichier pmx en objet :" + desHp.Elapsed);
 
