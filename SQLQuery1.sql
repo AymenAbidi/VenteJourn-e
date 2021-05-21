@@ -48,9 +48,67 @@ CREATE TYPE [dbo].[APP_DDAY_HOURLY_SALES_TYPE] AS TABLE(
 
 );
 
+use McDashboard
 
+CREATE TABLE [dbo].[MCDE_TAB](
+	[MCDE_SIR_ID] [int] NOT NULL,
+	[PodShort] [varchar](255) NOT NULL,
+	[Signification] [varchar](500) NOT NULL,
+	PRIMARY KEY(MCDE_SIR_ID)
+) ON [INFOCOM_PMX]
+
+CREATE TABLE [dbo].[MVAL_TAB](
+	[MVAL_SIR_ID] [int] NOT NULL,
+	[PodShort] [varchar](255) NOT NULL,
+	[Signification] [varchar](500) NOT NULL,
+	PRIMARY KEY(MVAL_SIR_ID)
+) ON [INFOCOM_PMX]
+
+CREATE TABLE [dbo].[LLVR_TAB](
+	[LLVR_SIR_ID] [int] NOT NULL,
+	[PodShort] [varchar](255) NOT NULL,
+	[Signification] [varchar](500) NOT NULL,
+	PRIMARY KEY(LLVR_SIR_ID)
+) ON [INFOCOM_PMX]
+
+INSERT [dbo].[MCDE_TAB]([PodShort],[Signification],[MCDE_SIR_ID]) VALUES ('NA','NA',0)
+INSERT [dbo].[MCDE_TAB]([PodShort],[Signification],[MCDE_SIR_ID]) VALUES ('CK','Cold-Kiosk',1);
+INSERT [dbo].[MCDE_TAB]([PodShort],[Signification],[MCDE_SIR_ID]) VALUES ('MCC','McCafe',2);
+INSERT [dbo].[MCDE_TAB]([PodShort],[Signification],[MCDE_SIR_ID]) VALUES ('CSO','Customer Self-Ordering (Kiosk)',3);
+INSERT [dbo].[MCDE_TAB]([PodShort],[Signification],[MCDE_SIR_ID]) VALUES ('HOT','Hand-held Order',4);
+
+INSERT [dbo].[MVAL_TAB]([PodShort],[Signification],[MVAL_SIR_ID]) VALUES ('NA','NA',0);
+INSERT [dbo].[MVAL_TAB]([PodShort],[Signification],[MVAL_SIR_ID]) VALUES ('FC','Front-Counter',1);
+INSERT [dbo].[MVAL_TAB]([PodShort],[Signification],[MVAL_SIR_ID]) VALUES ('DT','Drive-Thru',2);
+INSERT [dbo].[MVAL_TAB]([PodShort],[Signification],[MVAL_SIR_ID]) VALUES ('WT','Walk-Thru' ,3);
+INSERT [dbo].[MVAL_TAB]([PodShort],[Signification],[MVAL_SIR_ID]) VALUES ('DLV','McDelivery',4);
+INSERT [dbo].[MVAL_TAB]([PodShort],[Signification],[MVAL_SIR_ID]) VALUES ('MCC','McCafe',5);
+INSERT [dbo].[MVAL_TAB]([PodShort],[Signification],[MVAL_SIR_ID]) VALUES ('MCE','McExpress'	,6);
+INSERT [dbo].[MVAL_TAB]([PodShort],[Signification],[MVAL_SIR_ID]) VALUES ('CSO','Customer Self-Ordering (Kiosk)',7);
+
+INSERT [dbo].[LLVR_TAB]([PodShort],[Signification],[LLVR_SIR_ID]) VALUES ('NA','NA',0);
+INSERT [dbo].[LLVR_TAB]([PodShort],[Signification],[LLVR_SIR_ID]) VALUES ('FC','Front-Counter',1);
+INSERT [dbo].[LLVR_TAB]([PodShort],[Signification],[LLVR_SIR_ID]) VALUES ('DT','Drive-Thru',2);
+INSERT [dbo].[LLVR_TAB]([PodShort],[Signification],[LLVR_SIR_ID]) VALUES ('WT','Walk-Thru' ,3);
+INSERT [dbo].[LLVR_TAB]([PodShort],[Signification],[LLVR_SIR_ID]) VALUES ('DLV','McDelivery',4);
+INSERT [dbo].[LLVR_TAB]([PodShort],[Signification],[LLVR_SIR_ID]) VALUES ('MCC','McCafe',5);
+INSERT [dbo].[LLVR_TAB]([PodShort],[Signification],[LLVR_SIR_ID]) VALUES ('MCE','McExpress'	,6);
+
+
+
+select DDHS_SITE_ID,count(*) from APP_DDAY_HOURLY_SALES group by DDHS_SITE_ID
+select * from APP_DDAY_HOURLY_PMX
 declare @list as APP_DDAY_HOURLY_SALES_TYPE
 insert into @list select * from APP_DDAY_HOURLY_SALES
 exec sp_insert_ddhp_hourly_sales @list
 commit
 
+Alter Table APP_DDAY_HOURLY_PMX
+Add Id Int Identity(1, 1)
+Go
+
+SELECT * 
+  FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS 
+ WHERE TABLE_NAME = 'APP_DDAY_HOURLY_PMX'
+
+ alter table APP_DDAY_HOURLY_SALES add primary key(Id)

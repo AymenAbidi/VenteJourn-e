@@ -29,7 +29,13 @@ namespace Mcd.App.GetXmlRpc.DAL
         public virtual DbSet<APP_DDAY_HOURLY_SALES> APP_DDAY_HOURLY_SALES { get; set; }
         public virtual DbSet<APP_HOURLY_PMX> APP_HOURLY_PMX { get; set; }
         public virtual DbSet<APP_HOURLY_SALES> APP_HOURLY_SALES { get; set; }
+        public virtual DbSet<LLVR_TAB> LLVR_TAB { get; set; }
+        public virtual DbSet<MCDE_TAB> MCDE_TAB { get; set; }
+        public virtual DbSet<MVAL_TAB> MVAL_TAB { get; set; }
         public virtual DbSet<NP6XML> NP6XML { get; set; }
+        public virtual DbSet<APP_LLVR> APP_LLVR { get; set; }
+        public virtual DbSet<APP_MCDE> APP_MCDE { get; set; }
+        public virtual DbSet<APP_MVAL> APP_MVAL { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
     }
 }

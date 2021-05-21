@@ -286,6 +286,7 @@ namespace Mcd.App.GetXmlRpc
                 XmlSerializer serializer = new XmlSerializer(typeof(HourlySales));
                 XmlSerializer PMXserializer = new XmlSerializer(typeof(HourlyPMX));
                 HourlySales hourlySalesObjet = new HourlySales();
+                
                 bool isProcessed = false;
 
                 Stopwatch desHs = new Stopwatch();
@@ -298,6 +299,7 @@ namespace Mcd.App.GetXmlRpc
                         {
                             StringReader rdr = new StringReader(streamReader.ReadToEnd());
                             hourlySalesObjet = (HourlySales)serializer.Deserialize(rdr);
+                           
                             desHs.Stop();
                             Console.WriteLine("--------Diagnostics--------- Deserialisation du fichier hourlysales en objet :" + desHs.Elapsed);
 

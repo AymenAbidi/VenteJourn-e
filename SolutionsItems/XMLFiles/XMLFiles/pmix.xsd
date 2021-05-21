@@ -1,0 +1,738 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio 6.1.18.0 - FREE Community Edition (http://www.liquid-technologies.com)-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Response">
+    <xs:annotation>
+      <xs:documentation>Request parameters and other contextual information associated with the response data contained in this XML file.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="ProductTable">
+          <xs:annotation>
+            <xs:documentation>Detailed information about sold products. Reflects information found in the product database.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductInfo">
+                <xs:annotation>
+                  <xs:documentation>Detailed information about a product sold.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:integer" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product code.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="name" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product name.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="familyGroup" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product Family Group.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="class" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product Class.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="department" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product Department. </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="classDepartment" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product Class Department.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="subClassDepartment" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product Sub Class Department.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="FamilyGroup">
+          <xs:annotation>
+            <xs:documentation>Pmix information grouped by product family.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" ref="Product">
+                <xs:annotation>
+                  <xs:documentation>PMIX of a specific product.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="groupCode" type="xs:integer" use="required">
+              <xs:annotation>
+                <xs:documentation>Family Group Code.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="groupName" type="xs:string" use="required">
+              <xs:annotation>
+                <xs:documentation>Family Group Name.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="POS">
+          <xs:annotation>
+            <xs:documentation>Pmix information grouped by POS.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType mixed="true">
+            <xs:sequence minOccurs="0">
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="OperatorSession">
+                <xs:annotation>
+                  <xs:documentation>PMIX information grouped by Operator.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType mixed="true">
+                  <xs:sequence minOccurs="0">
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="Product">
+                      <xs:annotation>
+                        <xs:documentation>PMIX of a specific product for an Operator Session.
+This section is only populated for products with family group = "GIFT_COUPON".
+</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:integer" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Operator identification.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="name" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Operator name.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="login" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Date and time of begin of this session.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="logout" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Date and time of end of this session.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="initialGT" type="xs:decimal" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Accumulated sales at session begin.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="finalGT" type="xs:decimal" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Accumulated sales now (or when session ended).</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="initialCoupon" type="xs:integer" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Last coupon number at session begin.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="finalCoupon" type="xs:integer" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Last coupoun number now (or when session ended).</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="unauthorizedDrawerOpenings" type="xs:integer" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Number of unauthorized drawer openings for that operator session.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="FamilyGroup">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" ref="Product">
+                      <xs:annotation>
+                        <xs:documentation>PMIX of a specific product for a Family Group.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="groupCode" type="xs:integer" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Group Code.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="groupName" type="xs:string" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:integer" use="required">
+              <xs:annotation>
+                <xs:documentation>POS identification.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="podShort" type="xs:string" use="required">
+              <xs:annotation>
+                <xs:documentation>POD short name.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="businessDay" type="xs:string" use="optional">
+              <xs:annotation>
+                <xs:documentation>Business date.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="openedDate" type="xs:string" use="optional">
+              <xs:annotation>
+                <xs:documentation>Date and time when the business day was opened at this POS.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="status" use="required">
+              <xs:annotation>
+                <xs:documentation>Business day status for this POS.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="CLOSED" />
+                  <xs:enumeration value="OPENED" />
+                  <xs:enumeration value="OPLOGGED" />
+                  <xs:enumeration value="BLOCKED" />
+                  <xs:enumeration value="BLOCKOP" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="serviceType" type="xs:string" use="optional" />
+            <xs:attribute name="offlineArea" type="xs:string" />
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="OrderTakers">
+          <xs:annotation>
+            <xs:documentation>Pmix information for the Order Takers (HOT).</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="POS">
+                <xs:annotation>
+                  <xs:documentation>Pmix information grouped by POS.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType mixed="true">
+                  <xs:sequence minOccurs="0">
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="FamilyGroup">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" maxOccurs="unbounded" ref="Product">
+                            <xs:annotation>
+                              <xs:documentation>PMIX of a specific product for a Family Group.</xs:documentation>
+                            </xs:annotation>
+                          </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="groupCode" type="xs:integer" use="required">
+                          <xs:annotation>
+                            <xs:documentation>Group Code.</xs:documentation>
+                          </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="groupName" type="xs:string" use="required" />
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:integer" use="required">
+                    <xs:annotation>
+                      <xs:documentation>POS identification.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="podShort" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>POD short name.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="serviceType" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="npVersion" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Version number of the NewPOS software system.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="creationDate" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Date/time when the request was processed.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="storeId" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Store's identification.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="storeName" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation> Store's name.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute fixed="PMIX" name="requestDataType" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Type of Data Requested.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute fixed="PMIX" name="requestReport" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Request tag. Type of the requested data.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="requestPOD" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>POD requested.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="requestPOSList" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>List of POS requested.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="requestDate" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Business date requested.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="requestTime" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Time requested.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="openingDate" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>Contains the calendar date when the business day was opened in format YYYYMMDD.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="openingTime" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>Contains the calendar time when the business day was opened in format HH:MM:SS.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="closingDate" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>Contains the calendar date when the business day was closed in format YYYYMMDD.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="closingTime" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>Contains the calendar time when the business day was closed in format HH:MM:SS.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="UTCOffset" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>Contains the offset in hours to the UTC Time in format "+HH:MM" or "-HH:MM".</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PMix">
+    <xs:annotation>
+      <xs:documentation>Product quantities sold in the current context.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Tab">
+          <xs:complexType>
+            <xs:attribute name="qtyEatIn" type="xs:integer" use="optional">
+              <xs:annotation>
+                <xs:documentation>Quantity of item sold in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="netAmtEatIn" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Net Amount of items sold in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="taxEatIn" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Tax Amount of items sold in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="remQtyEatIn" type="xs:integer" use="optional">
+              <xs:annotation>
+                <xs:documentation>Quantity of removed grill itens in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="remNetAmtEatIn" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Net Amount of removed grill items in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="remTaxEatIn" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Tax Amount of removed grill items in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="qtyTakeOut" type="xs:integer" use="optional">
+              <xs:annotation>
+                <xs:documentation>Quantity of item sold in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="netAmtTakeOut" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Net Amount of items sold in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="taxTakeOut" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Tax Amount of items sold in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="remQtyTakeOut" type="xs:integer" use="optional">
+              <xs:annotation>
+                <xs:documentation>Quantity of removed grill itens in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="remNetAmtTakeOut" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Net Amount of removed grill items in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="remTaxTakeOut" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Tax Amount of removed grill items in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="qtyOther" type="xs:integer" use="optional">
+              <xs:annotation>
+                <xs:documentation>Quantity of item sold in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="netAmtOther" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Net Amount of items sold in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="taxOther" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Tax Amount of items sold in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="remQtyOther" type="xs:integer" use="optional">
+              <xs:annotation>
+                <xs:documentation>Quantity of removed grill itens in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="remNetAmtOther" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Net Amount of removed grill items in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="remTaxOther" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Tax Amount of removed grill items in Eat In operations.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="qtyTakeOut" type="xs:integer" use="optional">
+        <xs:annotation>
+          <xs:documentation>Quantity of item sold in Take Out operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="netAmtTakeOut" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of items sold in Take Out operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="taxTakeOut" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of items sold in Take Out operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="netBeforeDiscountTakeOut" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of items sold in Take Out operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="taxBeforeDiscountTakeOut" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of items sold in Take Out operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="qtyEatIn" type="xs:integer" use="optional">
+        <xs:annotation>
+          <xs:documentation>Quantity of item sold in Eat In operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="netBeforeDiscountEatIn" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of items sold in Eat In operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="taxBeforeDiscountEatIn" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of items sold in Eat In operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="netAmtEatIn" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of items sold in Eat In operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="taxEatIn" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of items sold in Eat In operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="qtyOther" type="xs:integer" use="optional">
+        <xs:annotation>
+          <xs:documentation>Quantity of item sold in Other operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="netAmtOther" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of items sold in Other operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="taxOther" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of items sold in Other operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="netBeforeDiscountOther" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of items sold in Other operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="taxBeforeDiscountOther" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of items sold in Other operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remQtyEatIn" type="xs:integer" use="optional">
+        <xs:annotation>
+          <xs:documentation>Quantity of removed grill itens in Eat In operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remNetAmtEatIn" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of removed grill items in Eat In operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remTaxEatIn" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of removed grill items in Eat In operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remNetBeforeDiscountEatIn" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of removed grill items in Eat In operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remTaxBeforeDiscountEatIn" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of removed grill items in Eat In operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remQtyTakeOut" type="xs:integer" use="optional">
+        <xs:annotation>
+          <xs:documentation>Quantity of removed grill itens in Take Out operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remNetAmtTakeOut" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of removed grill items in Take Out operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remTaxTakeOut" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of removed grill items in Take Out operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remNetBeforeDiscountTakeOut" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of removed grill items in Take Out operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remTaxBeforeDiscountTakeOut" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of removed grill items in Take Out operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remQtyOther" type="xs:integer" use="optional">
+        <xs:annotation>
+          <xs:documentation>Quantity of removed grill itens in Other operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remNetAmtOther" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of removed grill items in Other operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remTaxOther" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of removed grill items in Other operations.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remNetBeforeDiscountOther" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Net Amount of removed grill items in Other operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remTaxBeforeDiscountOther" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Tax Amount of removed grill items in Other operations before discounts.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Product">
+    <xs:annotation>
+      <xs:documentation>PMIX of a specific product for the current context.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationType">
+          <xs:annotation>
+            <xs:documentation>PMIX classified by type of operation (sale, waste, etc)</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" ref="PMix">
+                <xs:annotation>
+                  <xs:documentation>Product quantities sold by Operation Type.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Price">
+                <xs:annotation>
+                  <xs:documentation>Pmix information grouped by product price and tax.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" ref="PMix">
+                      <xs:annotation>
+                        <xs:documentation>Product Quantities Sold by Price.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="weekDay" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Week day of the sale.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="MONDAY" />
+                        <xs:enumeration value="TUESDAY" />
+                        <xs:enumeration value="WEDNESDAY" />
+                        <xs:enumeration value="THURSDAY" />
+                        <xs:enumeration value="FRIDAY" />
+                        <xs:enumeration value="SATURDAY" />
+                        <xs:enumeration value="SUNDAY" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="saleTime" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Hour of the day of the sale. From 0 (0:00-0:59) to 23 (23:00-23:59).</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="0" />
+                        <xs:maxInclusive value="23" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="dayPart" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Day part of the sale: BREAKFAST_DAY_MENU, BREAKFAST_MENU, DAY_MENU or additional ones (Extended Daypart feature)</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string" />
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="salePrice" type="xs:decimal" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Sales price of the item.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="saleTax" type="xs:decimal" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Sales Tax of the Item.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="operationType" use="required">
+              <xs:annotation>
+                <xs:documentation>Operation type.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="SALE" />
+                  <xs:enumeration value="REFUND" />
+                  <xs:enumeration value="WASTE" />
+                  <xs:enumeration value="MANAGER" />
+                  <xs:enumeration value="CREW" />
+                  <xs:enumeration value="DISCOUNT" />
+                  <xs:enumeration value="PROMO" />
+                  <xs:enumeration value="CASHLESS_REFUND" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="id" type="xs:integer" use="required">
+        <xs:annotation>
+          <xs:documentation>Product Id.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="priceType" use="required">
+        <xs:annotation>
+          <xs:documentation>Type of the base prices defined in the product catalog (net / gross).</xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="NET" />
+            <xs:enumeration value="GROSS" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="eatinPrice" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Eat-in price of this product in the product catalog. This is a base price.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="eatinTax" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Eat-in tax of this product.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="takeoutPrice" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Take-Out price of this product in the product catalog. This is a base price.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="takeoutTax" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Take-Out tax of this product.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="otherPrice" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Other price of this product in the product catalog. This is a base price.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="otherTax" type="xs:decimal" use="optional">
+        <xs:annotation>
+          <xs:documentation>Other tax of this product.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="WavePMix">
+    <xs:complexType>
+      <xs:attribute name="qtyEatIn" type="xs:integer" />
+      <xs:attribute name="amtEatIn" type="xs:decimal" />
+      <xs:attribute name="receivedQtyEatIn" type="xs:integer" />
+      <xs:attribute name="receivedAmtEatIn" type="xs:decimal" />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

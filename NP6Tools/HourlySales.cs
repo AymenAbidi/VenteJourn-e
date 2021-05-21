@@ -76,6 +76,9 @@ namespace Mcd.App.GetXmlRpc
         [XmlAttribute(AttributeName = "qtyTakeOut")]
         public string QtyTakeOut { get; set; }
 
+        [XmlAttribute(AttributeName = "qtyOther")]
+        public string QtyOther { get; set; }
+
         [XmlAttribute(AttributeName = "eatInNetAmount")]
         public string EatInNetAmount { get; set; }
 
@@ -293,7 +296,7 @@ namespace Mcd.App.GetXmlRpc
         public List<POD> POD { get; set; }
 
         [XmlElement(ElementName = "POS")]
-        public POS POS { get; set; }
+        public List<POS> POS { get; set; }
 
         [XmlElement(ElementName = "OrderTakers")]
         public OrderTakers OrderTakers { get; set; }

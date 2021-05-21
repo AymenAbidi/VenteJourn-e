@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Created with Liquid XML Studio 6.1.18.0 - FREE Community Edition (http://www.liquid-technologies.com)-->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Response">
+    <xs:annotation>
+      <xs:documentation>Request parameters and other contextual information associated with the response data contained in this XML file.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ProductTable">
+          <xs:annotation>
+            <xs:documentation>Detailed information about sold products. Reflects information found in the product database.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductInfo">
+                <xs:annotation>
+                  <xs:documentation>Detailed information about a product sold.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="id" type="xs:integer" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product code.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="name" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product name.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="familyGroup" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product Family Group.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="class" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product Class.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="department" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product Department. </xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="classDepartment" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product Class Department.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="subClassDepartment" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product Sub Class Department.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" name="DayPartitioning">
+          <xs:annotation>
+            <xs:documentation>Set of predefined time segments for grouping the sales information.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Segment">
+                <xs:annotation>
+                  <xs:documentation>Time segment specification.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:attribute name="id" use="optional">
+                    <xs:annotation>
+                      <xs:documentation>Sequence number that identifies the time segment (1, 2, ...).</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                      <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="1" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="begTime" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Hour of the day and minutes when the time segment begins (inclusive).</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="endTime" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Hour of the day and minutes when the time segment ends (exclusive).</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="dayOffset" type="xs:integer" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Day Offset between the calendar date and business date.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" ref="StoreTotal">
+          <xs:annotation>
+            <xs:documentation>Consolidated data for all POS.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="POD">
+          <xs:annotation>
+            <xs:documentation>Accumulated data associated with a Point-of-Distribution.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" ref="StoreTotal">
+                <xs:annotation>
+                  <xs:documentation>Consolidated sales data by POD type.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required">
+              <xs:annotation>
+                <xs:documentation>POD id.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="podShort" type="xs:string" use="required">
+              <xs:annotation>
+                <xs:documentation>POD Short Name.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="POS">
+          <xs:annotation>
+            <xs:documentation>Hourly pmix information grouped by POS.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType mixed="true">
+            <xs:sequence minOccurs="0">
+              <xs:element minOccurs="0" ref="StoreTotal">
+                <xs:annotation>
+                  <xs:documentation>Consolidated data by POD type.</xs:documentation>
+                </xs:annotation>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:integer" use="required">
+              <xs:annotation>
+                <xs:documentation>POS identification.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="podShort" type="xs:string" use="required">
+              <xs:annotation>
+                <xs:documentation>POD short name.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="businessDay" type="xs:string" use="optional">
+              <xs:annotation>
+                <xs:documentation>Business date.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="openedDate" type="xs:string" use="optional">
+              <xs:annotation>
+                <xs:documentation>Date and time when the business day was opened at this POS.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="status" use="optional">
+              <xs:annotation>
+                <xs:documentation>Business day status for this POS.</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="CLOSED" />
+                  <xs:enumeration value="OPENED" />
+                  <xs:enumeration value="OPLOGGED" />
+                  <xs:enumeration value="BLOCKED" />
+                  <xs:enumeration value="BLOCKOP" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="serviceType" type="xs:string" use="optional" />
+            <xs:attribute name="offlineArea" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>Name of the offline area associated to the POS nodes.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+          </xs:complexType>
+        </xs:element>
+        <xs:element minOccurs="0" maxOccurs="1" name="OrderTakers">
+          <xs:annotation>
+            <xs:documentation>Hourly pmix information for the Order Takers (HOT).</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="POS">
+                <xs:annotation>
+                  <xs:documentation>Hourly pmix information grouped by Order Taker.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType mixed="true">
+                  <xs:sequence minOccurs="0">
+                    <xs:element minOccurs="0" ref="StoreTotal">
+                      <xs:annotation>
+                        <xs:documentation>Consolidated data by POD type.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:integer" use="required">
+                    <xs:annotation>
+                      <xs:documentation>POS identification.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="podShort" type="xs:string" use="required">
+                    <xs:annotation>
+                      <xs:documentation>POD short name.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="serviceType" type="xs:string" use="optional" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+      <xs:attribute name="npVersion" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Version number of the NewPOS software system.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="creationDate" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Date/time when the request was processed.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="storeId" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Store's identification.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="storeName" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation> Store's name.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute fixed="HOURLYSALES" name="requestDataType" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Type of Data Requested.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute fixed="HOURLYSALES" name="requestReport" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Request tag. Type of the requested data.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="requestPOD" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>POD requested.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="requestPOSList" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>List of POS requested.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="requestDate" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Business date requested.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="requestTime" type="xs:string" use="required">
+        <xs:annotation>
+          <xs:documentation>Time requested.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="openingDate" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>Contains the calendar date when the business day was opened in format YYYYMMDD.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="openingTime" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>Contains the calendar time when the business day was opened in format HH:MM:SS.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="closingDate" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>Contains the calendar date when the business day was closed in format YYYYMMDD.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="closingTime" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>Contains the calendar time when the business day was closed in format HH:MM:SS.</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="UTCOffset" type="xs:string" use="optional">
+        <xs:annotation>
+          <xs:documentation>Contains the offset in hours to the UTC Time in format "+HH:MM" or "-HH:MM".</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StoreTotal">
+    <xs:annotation>
+      <xs:documentation>Consolidated sales data for the current context.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" name="Sales">
+          <xs:annotation>
+            <xs:documentation>Sales information per time segment.</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="unbounded" name="Product">
+                <xs:annotation>
+                  <xs:documentation>Pmix of a specific product.</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element minOccurs="0" maxOccurs="unbounded" name="OperationType">
+                      <xs:annotation>
+                        <xs:documentation>Pmix classified by type of operation (sale, waste, etc...).</xs:documentation>
+                      </xs:annotation>
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element minOccurs="0" name="PMix">
+                            <xs:annotation>
+                              <xs:documentation>Product quantities sold.</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Tab">
+                                  <xs:complexType>
+                                    <xs:attribute name="qtyEatIn" type="xs:integer" />
+                                    <xs:attribute name="qtyTakeOut" type="xs:integer" />
+                                    <xs:attribute name="qtyOther" type="xs:integer" />
+                                    <xs:attribute name="netAmount" type="xs:decimal" />
+                                    <xs:attribute name="taxAmount" type="xs:decimal" />
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                              <xs:attribute name="qtyEatIn" type="xs:integer" use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Quantity of item sold in Eat In operations.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                              <xs:attribute name="qtyTakeOut" type="xs:integer" use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Quantity of item sold in Take Out operations.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                              <xs:attribute name="qtyOther" type="xs:integer" use="optional" />
+                              <xs:attribute name="eatInNetAmount" type="xs:decimal" use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Net Amount for Eat-In Sales of the related Product.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                              <xs:attribute name="takeOutNetAmount" type="xs:decimal" use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Net Amount for Take-Out Sales of the related Product.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                              <xs:attribute name="netAmount" type="xs:decimal" use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Net Amount of items sold.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                              <xs:attribute name="taxAmount" type="xs:decimal" use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Tax Amount of items sold.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                              <xs:attribute name="netBeforeDiscount" type="xs:decimal" use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Net Amount of items sold before discounts.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                              <xs:attribute name="taxBeforeDiscount" type="xs:decimal" use="optional">
+                                <xs:annotation>
+                                  <xs:documentation>Tax Amount of items sold before discounts.</xs:documentation>
+                                </xs:annotation>
+                              </xs:attribute>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="WavePMix" />
+                        </xs:sequence>
+                        <xs:attribute name="operationType" use="required">
+                          <xs:annotation>
+                            <xs:documentation>Operation type.</xs:documentation>
+                          </xs:annotation>
+                          <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                              <xs:enumeration value="SALE" />
+                              <xs:enumeration value="REFUND" />
+                              <xs:enumeration value="WASTE" />
+                              <xs:enumeration value="MANAGER" />
+                              <xs:enumeration value="CREW" />
+                              <xs:enumeration value="DISCOUNT" />
+                              <xs:enumeration value="PROMO" />
+                              <xs:enumeration value="CASHLESS_REFUND" />
+                            </xs:restriction>
+                          </xs:simpleType>
+                        </xs:attribute>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="id" type="xs:integer" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Product Id.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="tc" type="xs:integer" use="required">
+                    <xs:annotation>
+                      <xs:documentation>Transaction Count.</xs:documentation>
+                    </xs:annotation>
+                  </xs:attribute>
+                  <xs:attribute name="tabTC" type="xs:integer" />
+                  <xs:attribute name="tabsCount" type="xs:integer" />
+                  <xs:attribute name="wavesCount" type="xs:integer" />
+                  <xs:attribute name="wavesReceivedCount" type="xs:integer" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="id" use="required">
+              <xs:annotation>
+                <xs:documentation>Sequence number that identifies the time segment (1, 2, ...).</xs:documentation>
+              </xs:annotation>
+              <xs:simpleType>
+                <xs:restriction base="xs:integer">
+                  <xs:minInclusive value="1" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="tc" type="xs:integer" use="required">
+              <xs:annotation>
+                <xs:documentation>Number of sales transactions started during the associated time segment.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="prodTC" type="xs:integer" use="optional">
+              <xs:annotation>
+                <xs:documentation>Transaction count with Products during the associated time segment.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="nonProdTC" type="xs:integer" use="optional">
+              <xs:annotation>
+                <xs:documentation>Transaction count with Non-Products during the associated time segment.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="extTC" type="xs:integer" use="optional">
+              <xs:annotation>
+                <xs:documentation>Extended Transaction Counts that considers Refunds and Promos, during the associated time segment.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="eatInTC" type="xs:integer" use="required">
+              <xs:annotation>
+                <xs:documentation>Quantity of Eat-In TCs of the related Sales Id.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="takeOutTC" type="xs:integer" use="required">
+              <xs:annotation>
+                <xs:documentation>Quantity of Take-Out TCs of the related Sales Id.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="eatInNetAmount" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Net Amount for Eat-In Sales of the related Sales Id.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="takeOutNetAmount" type="xs:decimal" use="optional">
+              <xs:annotation>
+                <xs:documentation>Net Amount for Take-Out Sales of the related Sales Id.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="netAmount" type="xs:decimal" use="required">
+              <xs:annotation>
+                <xs:documentation>Net amount of the sales started during the associated time segment.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="taxAmount" type="xs:decimal" use="required">
+              <xs:annotation>
+                <xs:documentation>Tax amount of the sales started during the associated time segment.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="productNetAmount" type="xs:decimal" use="required">
+              <xs:annotation>
+                <xs:documentation>Net amount of the product sales started during the associated time segment.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="productTaxAmount" type="xs:decimal" use="required">
+              <xs:annotation>
+                <xs:documentation>Tax amount of the product sales started during the associated time segment.</xs:documentation>
+              </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="tabTC" type="xs:integer" />
+            <xs:attribute name="tabsCount" type="xs:integer" />
+            <xs:attribute name="wavesCount" type="xs:integer" />
+            <xs:attribute name="wavesReceivedCount" type="xs:integer" />
+            <xs:attribute name="tabNetAmount" type="xs:decimal" />
+            <xs:attribute name="tabTaxAmount" type="xs:decimal" />
+            <xs:attribute name="wavesAmount" type="xs:decimal" />
+            <xs:attribute name="wavesReceivedAmount" type="xs:decimal" />
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

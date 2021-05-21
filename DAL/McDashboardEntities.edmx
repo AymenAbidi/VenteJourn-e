@@ -124,6 +124,50 @@
           <Property Name="HSA_HDVRY_COSTS_AM" Type="money" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'McDashboard.dbo.APP_LLVR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="APP_LLVR">
+          <Key>
+            <PropertyRef Name="LLVR_ID" />
+            <PropertyRef Name="LLVR_SIR_ID" />
+          </Key>
+          <Property Name="LLVR_ID" Type="smallint" Nullable="false" />
+          <Property Name="LLVR_SIR_ID" Type="smallint" Nullable="false" />
+          <Property Name="LLVR_CD" Type="varchar" MaxLength="500" />
+          <Property Name="LLVR_NM" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'McDashboard.dbo.APP_MCDE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="APP_MCDE">
+          <Key>
+            <PropertyRef Name="MCDE_ID" />
+            <PropertyRef Name="MCDE_SIR_ID" />
+          </Key>
+          <Property Name="MCDE_ID" Type="smallint" Nullable="false" />
+          <Property Name="MCDE_SIR_ID" Type="smallint" Nullable="false" />
+          <Property Name="MCDE_CD" Type="varchar" MaxLength="500" />
+          <Property Name="MCDE_NM" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'McDashboard.dbo.APP_MVAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="APP_MVAL">
+          <Key>
+            <PropertyRef Name="MVAL_ID" />
+            <PropertyRef Name="MVAL_SIR_ID" />
+          </Key>
+          <Property Name="MVAL_ID" Type="smallint" Nullable="false" />
+          <Property Name="MVAL_SIR_ID" Type="smallint" Nullable="false" />
+          <Property Name="MVAL_CD" Type="varchar" MaxLength="500" />
+          <Property Name="MVAL_NM" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="LLVR_TAB">
+          <Key>
+            <PropertyRef Name="LLVR_SIR_ID" />
+          </Key>
+          <Property Name="LLVR_SIR_ID" Type="int" Nullable="false" />
+          <Property Name="PodShort" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Signification" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'McDashboard.dbo.Log' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Log">
           <Key>
@@ -148,6 +192,22 @@ warning 6002: The table/view 'McDashboard.dbo.Log' does not have a primary key d
           <Property Name="ProcessLogId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Exception" Type="varchar" MaxLength="2000" />
         </EntityType>
+        <EntityType Name="MCDE_TAB">
+          <Key>
+            <PropertyRef Name="MCDE_SIR_ID" />
+          </Key>
+          <Property Name="MCDE_SIR_ID" Type="int" Nullable="false" />
+          <Property Name="PodShort" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Signification" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MVAL_TAB">
+          <Key>
+            <PropertyRef Name="MVAL_SIR_ID" />
+          </Key>
+          <Property Name="MVAL_SIR_ID" Type="int" Nullable="false" />
+          <Property Name="PodShort" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Signification" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
         <EntityType Name="NP6XML">
           <Key>
             <PropertyRef Name="NumRestaurant" />
@@ -167,7 +227,34 @@ warning 6002: The table/view 'McDashboard.dbo.Log' does not have a primary key d
           <EntitySet Name="APP_DDAY_HOURLY_SALES" EntityType="Self.APP_DDAY_HOURLY_SALES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APP_HOURLY_PMX" EntityType="Self.APP_HOURLY_PMX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APP_HOURLY_SALES" EntityType="Self.APP_HOURLY_SALES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LLVR_TAB" EntityType="Self.LLVR_TAB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MCDE_TAB" EntityType="Self.MCDE_TAB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MVAL_TAB" EntityType="Self.MVAL_TAB" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NP6XML" EntityType="Self.NP6XML" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APP_LLVR" EntityType="Self.APP_LLVR" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [APP_LLVR].[LLVR_ID] AS [LLVR_ID], 
+    [APP_LLVR].[LLVR_SIR_ID] AS [LLVR_SIR_ID], 
+    [APP_LLVR].[LLVR_CD] AS [LLVR_CD], 
+    [APP_LLVR].[LLVR_NM] AS [LLVR_NM]
+    FROM [dbo].[APP_LLVR] AS [APP_LLVR]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="APP_MCDE" EntityType="Self.APP_MCDE" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [APP_MCDE].[MCDE_ID] AS [MCDE_ID], 
+    [APP_MCDE].[MCDE_SIR_ID] AS [MCDE_SIR_ID], 
+    [APP_MCDE].[MCDE_CD] AS [MCDE_CD], 
+    [APP_MCDE].[MCDE_NM] AS [MCDE_NM]
+    FROM [dbo].[APP_MCDE] AS [APP_MCDE]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="APP_MVAL" EntityType="Self.APP_MVAL" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [APP_MVAL].[MVAL_ID] AS [MVAL_ID], 
+    [APP_MVAL].[MVAL_SIR_ID] AS [MVAL_SIR_ID], 
+    [APP_MVAL].[MVAL_CD] AS [MVAL_CD], 
+    [APP_MVAL].[MVAL_NM] AS [MVAL_NM]
+    FROM [dbo].[APP_MVAL] AS [APP_MVAL]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="Log" EntityType="Self.Log" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Log].[Id] AS [Id], 
@@ -306,6 +393,30 @@ warning 6002: The table/view 'McDashboard.dbo.Log' does not have a primary key d
           <Property Name="DTCE_ID" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="HSA_HDVRY_COSTS_AM" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
+        <EntityType Name="LLVR_TAB">
+          <Key>
+            <PropertyRef Name="LLVR_SIR_ID" />
+          </Key>
+          <Property Name="LLVR_SIR_ID" Type="Int32" Nullable="false" />
+          <Property Name="PodShort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Signification" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MCDE_TAB">
+          <Key>
+            <PropertyRef Name="MCDE_SIR_ID" />
+          </Key>
+          <Property Name="MCDE_SIR_ID" Type="Int32" Nullable="false" />
+          <Property Name="PodShort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Signification" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MVAL_TAB">
+          <Key>
+            <PropertyRef Name="MVAL_SIR_ID" />
+          </Key>
+          <Property Name="MVAL_SIR_ID" Type="Int32" Nullable="false" />
+          <Property Name="PodShort" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Signification" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="NP6XML">
           <Key>
             <PropertyRef Name="NumRestaurant" />
@@ -319,6 +430,36 @@ warning 6002: The table/view 'McDashboard.dbo.Log' does not have a primary key d
           <Property Name="PmixDateMAJ" Type="DateTime" Precision="3" />
           <Property Name="LastQueryHourlySales" Type="DateTime" Precision="3" />
           <Property Name="LastQueryPMIX" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="APP_LLVR">
+          <Key>
+            <PropertyRef Name="LLVR_ID" />
+            <PropertyRef Name="LLVR_SIR_ID" />
+          </Key>
+          <Property Name="LLVR_ID" Type="Int16" Nullable="false" />
+          <Property Name="LLVR_SIR_ID" Type="Int16" Nullable="false" />
+          <Property Name="LLVR_CD" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="LLVR_NM" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="APP_MCDE">
+          <Key>
+            <PropertyRef Name="MCDE_ID" />
+            <PropertyRef Name="MCDE_SIR_ID" />
+          </Key>
+          <Property Name="MCDE_ID" Type="Int16" Nullable="false" />
+          <Property Name="MCDE_SIR_ID" Type="Int16" Nullable="false" />
+          <Property Name="MCDE_CD" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MCDE_NM" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="APP_MVAL">
+          <Key>
+            <PropertyRef Name="MVAL_ID" />
+            <PropertyRef Name="MVAL_SIR_ID" />
+          </Key>
+          <Property Name="MVAL_ID" Type="Int16" Nullable="false" />
+          <Property Name="MVAL_SIR_ID" Type="Int16" Nullable="false" />
+          <Property Name="MVAL_CD" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="MVAL_NM" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Log">
           <Key>
@@ -348,7 +489,13 @@ warning 6002: The table/view 'McDashboard.dbo.Log' does not have a primary key d
           <EntitySet Name="APP_DDAY_HOURLY_SALES" EntityType="Self.APP_DDAY_HOURLY_SALES" />
           <EntitySet Name="APP_HOURLY_PMX" EntityType="Self.APP_HOURLY_PMX" />
           <EntitySet Name="APP_HOURLY_SALES" EntityType="Self.APP_HOURLY_SALES" />
+          <EntitySet Name="LLVR_TAB" EntityType="Self.LLVR_TAB" />
+          <EntitySet Name="MCDE_TAB" EntityType="Self.MCDE_TAB" />
+          <EntitySet Name="MVAL_TAB" EntityType="Self.MVAL_TAB" />
           <EntitySet Name="NP6XML" EntityType="Self.NP6XML" />
+          <EntitySet Name="APP_LLVR" EntityType="Self.APP_LLVR" />
+          <EntitySet Name="APP_MCDE" EntityType="Self.APP_MCDE" />
+          <EntitySet Name="APP_MVAL" EntityType="Self.APP_MVAL" />
           <EntitySet Name="Logs" EntityType="Self.Log" />
         </EntityContainer>
       </Schema>
@@ -460,6 +607,33 @@ warning 6002: The table/view 'McDashboard.dbo.Log' does not have a primary key d
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LLVR_TAB">
+            <EntityTypeMapping TypeName="McDashboardModel.LLVR_TAB">
+              <MappingFragment StoreEntitySet="LLVR_TAB">
+                <ScalarProperty Name="LLVR_SIR_ID" ColumnName="LLVR_SIR_ID" />
+                <ScalarProperty Name="PodShort" ColumnName="PodShort" />
+                <ScalarProperty Name="Signification" ColumnName="Signification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MCDE_TAB">
+            <EntityTypeMapping TypeName="McDashboardModel.MCDE_TAB">
+              <MappingFragment StoreEntitySet="MCDE_TAB">
+                <ScalarProperty Name="MCDE_SIR_ID" ColumnName="MCDE_SIR_ID" />
+                <ScalarProperty Name="PodShort" ColumnName="PodShort" />
+                <ScalarProperty Name="Signification" ColumnName="Signification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MVAL_TAB">
+            <EntityTypeMapping TypeName="McDashboardModel.MVAL_TAB">
+              <MappingFragment StoreEntitySet="MVAL_TAB">
+                <ScalarProperty Name="MVAL_SIR_ID" ColumnName="MVAL_SIR_ID" />
+                <ScalarProperty Name="PodShort" ColumnName="PodShort" />
+                <ScalarProperty Name="Signification" ColumnName="Signification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="NP6XML">
             <EntityTypeMapping TypeName="McDashboardModel.NP6XML">
               <MappingFragment StoreEntitySet="NP6XML">
@@ -471,6 +645,36 @@ warning 6002: The table/view 'McDashboard.dbo.Log' does not have a primary key d
                 <ScalarProperty Name="PmixDateMAJ" ColumnName="PmixDateMAJ" />
                 <ScalarProperty Name="LastQueryHourlySales" ColumnName="LastQueryHourlySales" />
                 <ScalarProperty Name="LastQueryPMIX" ColumnName="LastQueryPMIX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APP_LLVR">
+            <EntityTypeMapping TypeName="McDashboardModel.APP_LLVR">
+              <MappingFragment StoreEntitySet="APP_LLVR">
+                <ScalarProperty Name="LLVR_ID" ColumnName="LLVR_ID" />
+                <ScalarProperty Name="LLVR_SIR_ID" ColumnName="LLVR_SIR_ID" />
+                <ScalarProperty Name="LLVR_CD" ColumnName="LLVR_CD" />
+                <ScalarProperty Name="LLVR_NM" ColumnName="LLVR_NM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APP_MCDE">
+            <EntityTypeMapping TypeName="McDashboardModel.APP_MCDE">
+              <MappingFragment StoreEntitySet="APP_MCDE">
+                <ScalarProperty Name="MCDE_ID" ColumnName="MCDE_ID" />
+                <ScalarProperty Name="MCDE_SIR_ID" ColumnName="MCDE_SIR_ID" />
+                <ScalarProperty Name="MCDE_CD" ColumnName="MCDE_CD" />
+                <ScalarProperty Name="MCDE_NM" ColumnName="MCDE_NM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APP_MVAL">
+            <EntityTypeMapping TypeName="McDashboardModel.APP_MVAL">
+              <MappingFragment StoreEntitySet="APP_MVAL">
+                <ScalarProperty Name="MVAL_ID" ColumnName="MVAL_ID" />
+                <ScalarProperty Name="MVAL_SIR_ID" ColumnName="MVAL_SIR_ID" />
+                <ScalarProperty Name="MVAL_CD" ColumnName="MVAL_CD" />
+                <ScalarProperty Name="MVAL_NM" ColumnName="MVAL_NM" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
