@@ -12,11 +12,17 @@ namespace Mcd.App.GetXmlRpc.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class APP_MVAL
+    public partial class TRA_LOG
     {
-        public short MVAL_ID { get; set; }
-        public short MVAL_SIR_ID { get; set; }
-        public string MVAL_CD { get; set; }
-        public string MVAL_NM { get; set; }
+        public int LOG_ID { get; set; }
+        public System.DateTime LOG_DATE { get; set; }
+        public string LOG_RESTAURANTID { get; set; }
+        public string LOG_DUREE { get; set; }
+        public string LOG_THREAD { get; set; }
+        public string LOG_LEVEL { get; set; }
+        public string LOG_LOGGER { get; set; }
+        public string LOG_MESSAGE { get; set; }
+        public string LOG_PROCESSLOGID { get; set; }
+        public string LOG_EXCEPTION { get; set; }
     }
 }

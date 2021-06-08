@@ -12,11 +12,13 @@ namespace Mcd.App.GetXmlRpc.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
-    public partial class McDashboardEntities : DbContext
+    public partial class McDashboard_DevlEntities : DbContext
     {
-        public McDashboardEntities()
-            : base("name=McDashboardEntities")
+        public McDashboard_DevlEntities()
+            : base("name=McDashboard_DevlEntities")
         {
         }
     
@@ -27,15 +29,21 @@ namespace Mcd.App.GetXmlRpc.DAL
     
         public virtual DbSet<APP_DDAY_HOURLY_PMX> APP_DDAY_HOURLY_PMX { get; set; }
         public virtual DbSet<APP_DDAY_HOURLY_SALES> APP_DDAY_HOURLY_SALES { get; set; }
-        public virtual DbSet<APP_HOURLY_PMX> APP_HOURLY_PMX { get; set; }
-        public virtual DbSet<APP_HOURLY_SALES> APP_HOURLY_SALES { get; set; }
-        public virtual DbSet<LLVR_TAB> LLVR_TAB { get; set; }
-        public virtual DbSet<MCDE_TAB> MCDE_TAB { get; set; }
-        public virtual DbSet<MVAL_TAB> MVAL_TAB { get; set; }
-        public virtual DbSet<NP6XML> NP6XML { get; set; }
-        public virtual DbSet<APP_LLVR> APP_LLVR { get; set; }
-        public virtual DbSet<APP_MCDE> APP_MCDE { get; set; }
-        public virtual DbSet<APP_MVAL> APP_MVAL { get; set; }
+        public virtual DbSet<RFU_LLVR> RFU_LLVR { get; set; }
+        public virtual DbSet<RFU_MCDE> RFU_MCDE { get; set; }
+        public virtual DbSet<RFU_MVAL> RFU_MVAL { get; set; }
+        public virtual DbSet<RFU_POD_SIR_ID> RFU_POD_SIR_ID { get; set; }
         public virtual DbSet<Log> Logs { get; set; }
+        public virtual DbSet<TRA_LOG> TRA_LOG { get; set; }
+    
+        public virtual int SPW_INSERT_DDAY_HOURLY_PMX()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPW_INSERT_DDAY_HOURLY_PMX");
+        }
+    
+        public virtual int SPW_INSERT_DDAY_HOURLY_SALES()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPW_INSERT_DDAY_HOURLY_SALES");
+        }
     }
 }

@@ -14,24 +14,25 @@ namespace Mcd.App.GetXmlRpc.DAL
     
     public partial class APP_DDAY_HOURLY_PMX
     {
-        public short DDHP_SITE_ID { get; set; }
-        public System.DateTime DDHP_BUSINESS_DT { get; set; }
-        public int DDHP_PROD_ID { get; set; }
-        public short DDHP_SALES_TM { get; set; }
-        public byte DDHP_MCDE_SIR_ID { get; set; }
-        public byte DDHP_MVAL_SIR_ID { get; set; }
-        public byte DDHP_LLVR_SIR_ID { get; set; }
-        public short DDHP_EAT_IN_QY { get; set; }
-        public short DDHP_TAKE_OUT_QY { get; set; }
-        public Nullable<short> DDHP_PROMO_IN_QY { get; set; }
-        public Nullable<short> DDHP_PROMO_OUT_QY { get; set; }
-        public Nullable<short> DDHP_DISCOUNT_IN_QY { get; set; }
-        public Nullable<short> DDHP_DISCOUNT_OUT_QY { get; set; }
-        public Nullable<short> DDHP_EMPLOYEE_MEAL_QY { get; set; }
-        public Nullable<short> DDHP_MGR_MEAL_QY { get; set; }
-        public Nullable<decimal> DDHP_EMPLOYEE_MEAL_AM { get; set; }
-        public Nullable<decimal> DDHP_CA_IN_AM { get; set; }
-        public Nullable<decimal> DDHP_CA_OUT_AM { get; set; }
-        public System.DateTime DDHP_PROCESS_DT { get; set; }
+        public short DDMX_SITE_ID { get; set; }
+        public System.DateTime DDMX_BUSINESS_DT { get; set; }
+        public int DDMX_PROD_ID { get; set; }
+        public short DDMX_SALES_TM { get; set; }
+        public byte DDMX_MCDE_SIR_ID { get; set; }
+        public byte DDMX_MVAL_SIR_ID { get; set; }
+        public byte DDMX_LLVR_SIR_ID { get; set; }
+        public short DDMX_EAT_IN_QY { get; set; }
+        public short DDMX_TAKE_OUT_QY { get; set; }
+        public Nullable<short> DDMX_PROMO_IN_QY { get; set; }
+        public Nullable<short> DDMX_PROMO_OUT_QY { get; set; }
+        public Nullable<short> DDMX_DISCOUNT_IN_QY { get; set; }
+        public Nullable<short> DDMX_DISCOUNT_OUT_QY { get; set; }
+        public Nullable<short> DDMX_EMPLOYEE_MEAL_QY { get; set; }
+        public Nullable<short> DDMX_MGR_MEAL_QY { get; set; }
+        public Nullable<decimal> DDMX_EMPLOYEE_MEAL_AM { get; set; }
+        public Nullable<decimal> DDMX_CA_IN_AM { get; set; }
+        public Nullable<decimal> DDMX_CA_OUT_AM { get; set; }
+        public System.DateTime DDMX_PROCESS_DT { get; set; }
+        public int DDMX_ID { get; set; }
     }
 }

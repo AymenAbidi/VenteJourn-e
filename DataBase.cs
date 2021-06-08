@@ -16,25 +16,23 @@ namespace Mcd.App.GetXmlRpc
     public class DataBase : IDisposable
     {
 
-        private readonly McDashboardEntities _ctx;
+        private readonly McDashboard_DevlEntities _ctx;
         private readonly logger _logger;
         private List<APP_DDAY_HOURLY_SALES> HsFinalList;
         private List<APP_DDAY_HOURLY_PMX> HpFinalList;
-        private static List<MCDE_TAB> Mcde_Mapping;
-        private static List<MVAL_TAB> Mval_Mapping;
-        private static List<LLVR_TAB> Llvr_Mapping;
+        private static List<RFU_POD_SIR_ID> Pod_SIR_ID;
+    
         private readonly bool StoredProcedure = bool.Parse(ConfigurationManager.AppSettings["StoredProcedure"]);
         private string connectionString = ConfigurationManager.AppSettings["StoredProcConnectionString"];
         public DataBase(logger _logger)
         {
 
-            _ctx = new McDashboardEntities();
+            _ctx = new McDashboard_DevlEntities();
             this._logger = _logger;
             HsFinalList = new List<APP_DDAY_HOURLY_SALES>();
             HpFinalList = new List<APP_DDAY_HOURLY_PMX>();
-            Mcde_Mapping = _ctx.MCDE_TAB.ToList();
-            Mval_Mapping = _ctx.MVAL_TAB.ToList();
-            Llvr_Mapping = _ctx.LLVR_TAB.ToList();
+            Pod_SIR_ID = _ctx.RFU_POD_SIR_ID.ToList();
+            
         }
 
         public void SaveHourlySales(HourlySales hourlySalesObjet, int? numResto = null, DateTime? dateActivity = null)
@@ -63,7 +61,7 @@ namespace Mcd.App.GetXmlRpc
                     Console.WriteLine("connexion version : " + con.ServerVersion);
                     DataTable dtHs = GenHsDataTable();
                     DataTable dtHp = GenHpDataTable();
-                    using (SqlCommand cmdHp = new SqlCommand("exec sp_insert_ddhp_hourly_pmx @list", con))
+                    using (SqlCommand cmdHp = new SqlCommand("exec SPW_INSERT_DDAY_HOURLY_PMX @list", con))
                     {
                         var pList = new SqlParameter("@list", SqlDbType.Structured);
                         pList.TypeName = "dbo.APP_DDAY_HOURLY_PMX_TYPE";
@@ -76,7 +74,7 @@ namespace Mcd.App.GetXmlRpc
                             Console.WriteLine(e);
                         }
                     }
-                    using (SqlCommand cmdHs = new SqlCommand("exec sp_insert_ddhs_hourly_sales @list", con))
+                    using (SqlCommand cmdHs = new SqlCommand("exec SPW_INSERT_DDAY_HOURLY_SALES @list", con))
                     {
                         var pList = new SqlParameter("@list", SqlDbType.Structured);
                         pList.TypeName = "dbo.APP_DDAY_HOURLY_SALES_TYPE";
@@ -144,65 +142,35 @@ namespace Mcd.App.GetXmlRpc
         private List<APP_DDAY_HOURLY_SALES> MapToSales(HourlySales hourlySales, int? numResto = null)
         {
             List<APP_DDAY_HOURLY_SALES> app_dday_hourly_sales = new List<APP_DDAY_HOURLY_SALES>();
-            short DDHS_SALES_TM = 0;
-            decimal DDHS_SALES_PROD_AM = 0;
-            decimal DDHS_SALES_NON_PROD_AM = 0;
-            decimal DDHS_EAT_IN_SALES_AM = 0;
-            decimal DDHS_TAKE_OUT_SALES_AM = 0;
-            short DDHS_EAT_IN_TAC_QY = 0;
-            short DDHS_TAKE_OUT_TAC_QY = 0;
-            short DDHS_DISCOUNT_IN_TAC_QY = 0;
-            short DDHS_DISCOUNT_OUT_TAC_QY = 0;
-            decimal DDHS_DISCOUNT_IN_SALES_AM = 0;
-            decimal DDHS_DISCOUNT_OUT_SALES_AM = 0;
+           
             Random random = new Random();
-            hourlySales.POS.ForEach((POS pos) =>
+            hourlySales.POD.ForEach((POD pod) =>
             {
-                if (pos.StoreTotal != null)
+                if (pod.StoreTotal != null)
                 {
-                    pos.StoreTotal.Sales.ForEach((Sales sales) =>
+                    pod.StoreTotal.Sales.ForEach((Sales sales) =>
                     {
-                        DDHS_SALES_TM = short.Parse(hourlySales.DayPartitioning.Segment.FirstOrDefault(seg => seg.Id == sales.Id.ToString()).BegTime);
-                        DDHS_SALES_PROD_AM += decimal.Parse(sales.ProductNetAmount);
-                        DDHS_SALES_NON_PROD_AM += decimal.Parse(sales.NetAmount);
-                        sales.Product.ForEach((Product product) =>
-                            {
-                                product.OperationType.ForEach((OperationType OpT) =>
-                                {
-                                    if (OpT.operationType == "DISCOUNT")
-                                    {
-                                        DDHS_DISCOUNT_IN_SALES_AM += decimal.Parse(OpT.PMix.EatInNetAmount);
-                                        DDHS_DISCOUNT_OUT_SALES_AM += decimal.Parse(OpT.PMix.TakeOutNetAmount);
-                                        DDHS_DISCOUNT_IN_TAC_QY += short.Parse(OpT.PMix.QtyEatIn);
-                                        DDHS_DISCOUNT_OUT_TAC_QY += short.Parse(OpT.PMix.QtyTakeOut);
-                                    }
-                                    else if (OpT.operationType == "SALE")
-                                    {
-                                        DDHS_EAT_IN_SALES_AM += decimal.Parse(OpT.PMix.EatInNetAmount);
-                                        DDHS_TAKE_OUT_SALES_AM += decimal.Parse(OpT.PMix.TakeOutNetAmount);
-                                        DDHS_EAT_IN_TAC_QY += short.Parse(OpT.PMix.QtyEatIn);
-                                        DDHS_TAKE_OUT_TAC_QY += short.Parse(OpT.PMix.QtyTakeOut);
-                                    }
-                                });
-                            });
+                        
                         APP_DDAY_HOURLY_SALES app_hourly_sale = new APP_DDAY_HOURLY_SALES
                         {
-                            DDHS_SITE_ID = short.Parse(pos.Id),
-                            DDHS_MCDE_SIR_ID = (short)(Mcde_Mapping.Any(mcde => mcde.PodShort == pos.PodShort) ? Mcde_Mapping.FirstOrDefault(mcde => mcde.PodShort == pos.PodShort).MCDE_SIR_ID : 0),
-                            DDHS_MVAL_SIR_ID = (short)(Mval_Mapping.Any(mval => mval.PodShort == pos.PodShort) ? Mval_Mapping.FirstOrDefault(mval => mval.PodShort == pos.PodShort).MVAL_SIR_ID : 0),
-                            DDHS_LLVR_SIR_ID = (short)(Llvr_Mapping.Any(llvr => llvr.PodShort == pos.PodShort) ? Llvr_Mapping.FirstOrDefault(llvr => llvr.PodShort == pos.PodShort).LLVR_SIR_ID : 0),
-                            DDHS_SALES_TM = DDHS_SALES_TM,
-                            DDHS_SALES_PROD_AM = DDHS_SALES_PROD_AM,
-                            DDHS_SALES_NON_PROD_AM = DDHS_SALES_NON_PROD_AM - DDHS_SALES_PROD_AM,
-                            DDHS_EAT_IN_SALES_AM = DDHS_EAT_IN_SALES_AM,
-                            DDHS_TAKE_OUT_SALES_AM = DDHS_TAKE_OUT_SALES_AM,
-                            DDHS_EAT_IN_TAC_QY = DDHS_EAT_IN_TAC_QY,
-                            DDHS_TAKE_OUT_TAC_QY = DDHS_TAKE_OUT_TAC_QY,
-                            DDHS_DISCOUNT_IN_TAC_QY = DDHS_DISCOUNT_IN_TAC_QY,
-                            DDHS_DISCOUNT_OUT_TAC_QY = DDHS_DISCOUNT_OUT_TAC_QY,
-                            DDHS_DISCOUNT_IN_SALES_AM = DDHS_DISCOUNT_IN_SALES_AM,
-                            DDHS_DISCOUNT_OUT_SALES_AM = DDHS_DISCOUNT_OUT_SALES_AM,
-                            DDHS_BUSINESS_DT = DateTime.ParseExact("20181003", "yyyyMMdd",
+                            DDES_SITE_ID = 1,
+                            DDES_MCDE_SIR_ID = (short)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort).PDID_MCDE_SIR_ID : 0),
+                            DDES_MVAL_SIR_ID = (short)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort).PDID_MVAL_SIR_ID : 0),
+                            DDES_LLVR_SIR_ID = (short)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort).PDID_LLVR_SIR_ID : 0),
+                            DDES_SALES_TM = short.Parse(hourlySales.DayPartitioning.Segment.FirstOrDefault(seg => seg.Id == sales.Id.ToString()).BegTime),
+                            DDES_SALES_PROD_AM = decimal.Parse(sales.ProductNetAmount),
+                            DDES_SALES_NON_PROD_AM = decimal.Parse(sales.NetAmount) - decimal.Parse(sales.ProductNetAmount),
+                            DDES_EAT_IN_SALES_AM = decimal.Parse(sales.EatInNetAmount),
+                            DDES_TAKE_OUT_SALES_AM = decimal.Parse(sales.TakeOutNetAmount),
+                            DDES_EAT_IN_TAC_QY = Eat_In_Qy(sales.ExtTC, sales.EatInTC, sales.TakeOutTC),
+                            DDES_TAKE_OUT_TAC_QY = Take_Out_Qy(sales.ExtTC, sales.EatInTC, sales.TakeOutTC),
+                            DDES_DISCOUNT_IN_TAC_QY = 0,
+                            DDES_DISCOUNT_OUT_TAC_QY = 0,
+                            DDES_DISCOUNT_IN_SALES_AM = 0,
+                            DDES_DISCOUNT_OUT_SALES_AM = 0,
+                            DDES_CREW_HOURS_WORKED = 0,
+                            DDES_PROCESS_DT = DateTime.Now,
+                            DDES_BUSINESS_DT = DateTime.ParseExact("20181003", "yyyyMMdd",
                                                    CultureInfo.InvariantCulture),
                         };
                         app_dday_hourly_sales.Add(app_hourly_sale);
@@ -215,79 +183,79 @@ namespace Mcd.App.GetXmlRpc
         private List<APP_DDAY_HOURLY_PMX> MapToPMX(HourlyPMX hourlyPMX, DayPartitioning dayPartitioning, int? numResto = null)
         {
             List<APP_DDAY_HOURLY_PMX> app_dday_hourly_pmx = new List<APP_DDAY_HOURLY_PMX>();
-            int DDHP_PROD_ID = 0;
+            int DDMX_PROD_ID = 0;
             hourlyPMX.POS.ForEach((PMX.POS pos) =>
             {
                 pos.FamilyGroup.ForEach((FamilyGroup familyGroup) =>
                 {
                     familyGroup.Product.ForEach((PMX.Product product) =>
                     {
-                        DDHP_PROD_ID = product.Id;
+                        DDMX_PROD_ID = product.Id;
                         product.OperationType.ForEach((PMX.OperationType opT) =>
                         {
                             opT.Price.ForEach((Price price) =>
                             {
-                                short DDHP_SALES_TM = 0;
-                                short DDHP_EAT_IN_QY = 0;
-                                short DDHP_TAKE_OUT_QY = 0;
-                                short DDHP_PROMO_IN_QY = 0;
-                                short DDHP_PROMO_OUT_QY = 0;
-                                short DDHP_DISCOUNT_IN_QY = 0;
-                                short DDHP_DISCOUNT_OUT_QY = 0;
-                                short DDHP_EMPLOYEE_MEAL_QY = 0;
-                                short DDHP_MGR_MEAL_QY = 0;
-                                decimal DDHP_EMPLOYEE_MEAL_AM = 0;
-                                decimal DDHP_CA_IN_AM = 0;
-                                decimal DDHP_CA_OUT_AM = 0;
-                                DDHP_SALES_TM = short.Parse(dayPartitioning.Segment.FirstOrDefault(seg => seg.Id == price.SaleTime.ToString()).BegTime);
-                                DDHP_CA_IN_AM = (decimal)price.PMix.NetAmtEatIn;
-                                DDHP_CA_OUT_AM = (decimal)price.PMix.NetAmtTakeOut;
+                                short DDMX_SALES_TM = 0;
+                                short DDMX_EAT_IN_QY = 0;
+                                short DDMX_TAKE_OUT_QY = 0;
+                                short DDMX_PROMO_IN_QY = 0;
+                                short DDMX_PROMO_OUT_QY = 0;
+                                short DDMX_DISCOUNT_IN_QY = 0;
+                                short DDMX_DISCOUNT_OUT_QY = 0;
+                                short DDMX_EMPLOYEE_MEAL_QY = 0;
+                                short DDMX_MGR_MEAL_QY = 0;
+                                decimal DDMX_EMPLOYEE_MEAL_AM = 0;
+                                decimal DDMX_CA_IN_AM = 0;
+                                decimal DDMX_CA_OUT_AM = 0;
+                                DDMX_SALES_TM = short.Parse(dayPartitioning.Segment.FirstOrDefault(seg => seg.Id == price.SaleTime.ToString()).BegTime);
+                                DDMX_CA_IN_AM = (decimal)price.PMix.NetAmtEatIn;
+                                DDMX_CA_OUT_AM = (decimal)price.PMix.NetAmtTakeOut;
                                 if (opT.operationType == "SALE")
                                 {
-                                    DDHP_EAT_IN_QY = (short)price.PMix.QtyEatIn;
-                                    DDHP_TAKE_OUT_QY = (short)price.PMix.QtyTakeOut;
+                                    DDMX_EAT_IN_QY = (short)price.PMix.QtyEatIn;
+                                    DDMX_TAKE_OUT_QY = (short)price.PMix.QtyTakeOut;
                                 }
                                 if (opT.operationType == "PROMO")
                                 {
-                                    DDHP_PROMO_IN_QY = (short)price.PMix.QtyEatIn;
-                                    DDHP_PROMO_OUT_QY = (short)price.PMix.QtyTakeOut;
+                                    DDMX_PROMO_IN_QY = (short)price.PMix.QtyEatIn;
+                                    DDMX_PROMO_OUT_QY = (short)price.PMix.QtyTakeOut;
                                 }
                                 if (opT.operationType == "DISCOUNT")
                                 {
-                                    DDHP_DISCOUNT_IN_QY = (short)price.PMix.QtyEatIn;
-                                    DDHP_DISCOUNT_OUT_QY = (short)price.PMix.QtyTakeOut;
+                                    DDMX_DISCOUNT_IN_QY = (short)price.PMix.QtyEatIn;
+                                    DDMX_DISCOUNT_OUT_QY = (short)price.PMix.QtyTakeOut;
                                 }
                                 if (opT.operationType == "CREW")
                                 {
-                                    DDHP_EMPLOYEE_MEAL_QY = (short)price.PMix.QtyEatIn;
-                                    DDHP_EMPLOYEE_MEAL_AM = (short)price.PMix.NetAmtEatIn + (short)opT.PMix.NetAmtTakeOut;
+                                    DDMX_EMPLOYEE_MEAL_QY = (short)price.PMix.QtyEatIn;
+                                    DDMX_EMPLOYEE_MEAL_AM = (short)price.PMix.NetAmtEatIn + (short)opT.PMix.NetAmtTakeOut;
                                 }
                                 if (opT.operationType == "MANAGER")
                                 {
-                                    DDHP_MGR_MEAL_QY = (short)price.PMix.QtyEatIn;
+                                    DDMX_MGR_MEAL_QY = (short)price.PMix.QtyEatIn;
                                 }
                                 APP_DDAY_HOURLY_PMX app_hourly_pmx = new APP_DDAY_HOURLY_PMX
                                 {
-                                    DDHP_SITE_ID = (short)numResto,
-                                    DDHP_MCDE_SIR_ID = (byte)(Mcde_Mapping.Any(mcde => mcde.PodShort == pos.PodShort) ? Mcde_Mapping.FirstOrDefault(mcde => mcde.PodShort == pos.PodShort).MCDE_SIR_ID : 0),
-                                    DDHP_MVAL_SIR_ID = (byte)(Mval_Mapping.Any(mval => mval.PodShort == pos.PodShort) ? Mval_Mapping.FirstOrDefault(mval => mval.PodShort == pos.PodShort).MVAL_SIR_ID : 0),
-                                    DDHP_LLVR_SIR_ID = (byte)(Llvr_Mapping.Any(llvr => llvr.PodShort == pos.PodShort) ? Llvr_Mapping.FirstOrDefault(llvr => llvr.PodShort == pos.PodShort).LLVR_SIR_ID : 0),
-                                    DDHP_SALES_TM = DDHP_SALES_TM,
-                                    DDHP_PROD_ID = DDHP_PROD_ID,
-                                    DDHP_EAT_IN_QY = DDHP_EAT_IN_QY,
-                                    DDHP_TAKE_OUT_QY = DDHP_TAKE_OUT_QY,
-                                    DDHP_PROMO_IN_QY = DDHP_PROMO_IN_QY,
-                                    DDHP_PROMO_OUT_QY = DDHP_PROMO_OUT_QY,
-                                    DDHP_DISCOUNT_IN_QY = DDHP_DISCOUNT_IN_QY,
-                                    DDHP_DISCOUNT_OUT_QY = DDHP_DISCOUNT_OUT_QY,
-                                    DDHP_EMPLOYEE_MEAL_QY = DDHP_EMPLOYEE_MEAL_QY,
-                                    DDHP_MGR_MEAL_QY = DDHP_MGR_MEAL_QY,
-                                    DDHP_EMPLOYEE_MEAL_AM = DDHP_EMPLOYEE_MEAL_AM,
-                                    DDHP_CA_IN_AM = DDHP_CA_IN_AM,
-                                    DDHP_CA_OUT_AM = DDHP_CA_OUT_AM,
-                                    DDHP_BUSINESS_DT = DateTime.ParseExact("20181003", "yyyyMMdd",
+                                    DDMX_SITE_ID = (short)numResto,
+                                    DDMX_MCDE_SIR_ID = (byte)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pos.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pos.PodShort).PDID_MCDE_SIR_ID : 0),
+                                    DDMX_MVAL_SIR_ID = (byte)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pos.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pos.PodShort).PDID_MVAL_SIR_ID : 0),
+                                    DDMX_LLVR_SIR_ID = (byte)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pos.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pos.PodShort).PDID_LLVR_SIR_ID : 0),
+                                    DDMX_SALES_TM = DDMX_SALES_TM,
+                                    DDMX_PROD_ID = DDMX_PROD_ID,
+                                    DDMX_EAT_IN_QY = DDMX_EAT_IN_QY,
+                                    DDMX_TAKE_OUT_QY = DDMX_TAKE_OUT_QY,
+                                    DDMX_PROMO_IN_QY = DDMX_PROMO_IN_QY,
+                                    DDMX_PROMO_OUT_QY = DDMX_PROMO_OUT_QY,
+                                    DDMX_DISCOUNT_IN_QY = DDMX_DISCOUNT_IN_QY,
+                                    DDMX_DISCOUNT_OUT_QY = DDMX_DISCOUNT_OUT_QY,
+                                    DDMX_EMPLOYEE_MEAL_QY = DDMX_EMPLOYEE_MEAL_QY,
+                                    DDMX_MGR_MEAL_QY = DDMX_MGR_MEAL_QY,
+                                    DDMX_EMPLOYEE_MEAL_AM = DDMX_EMPLOYEE_MEAL_AM,
+                                    DDMX_CA_IN_AM = DDMX_CA_IN_AM,
+                                    DDMX_CA_OUT_AM = DDMX_CA_OUT_AM,
+                                    DDMX_BUSINESS_DT = DateTime.ParseExact("20181003", "yyyyMMdd",
                                                     CultureInfo.InvariantCulture),
-                                    DDHP_PROCESS_DT = DateTime.Now
+                                    DDMX_PROCESS_DT = DateTime.Now
                                 };
                                 app_dday_hourly_pmx.Add(app_hourly_pmx);
                             });
@@ -301,65 +269,65 @@ namespace Mcd.App.GetXmlRpc
         {
             DataTable dtHs = new DataTable();
 
-            DataColumn DDHS_SITE_ID = new DataColumn("DDHS_SITE_ID");
-            DataColumn DDHS_BUSINESS_DT = new DataColumn("DDHS_BUSINESS_DT");
-            DataColumn DDHS_SALES_TM = new DataColumn("DDHS_SALES_TM");
-            DataColumn DDHS_MCDE_SIR_ID = new DataColumn("DDHS_MCDE_SIR_ID");
-            DataColumn DDHS_MVAL_SIR_ID = new DataColumn("DDHS_MVAL_SIR_ID");
-            DataColumn DDHS_LLVR_SIR_ID = new DataColumn("DDHS_LLVR_SIR_ID");
-            DataColumn DDHS_SALES_PROD_AM = new DataColumn("DDHS_SALES_PROD_AM");
-            DataColumn DDHS_SALES_NON_PROD_AM = new DataColumn("DDHS_SALES_NON_PROD_AM");
-            DataColumn DDHS_EAT_IN_TAC_QY = new DataColumn("DDHS_EAT_IN_TAC_QY");
-            DataColumn DDHS_TAKE_OUT_TAC_QY = new DataColumn("DDHS_TAKE_OUT_TAC_QY");
-            DataColumn DDHS_EAT_IN_SALES_AM = new DataColumn("DDHS_EAT_IN_SALES_AM");
-            DataColumn DDHS_TAKE_OUT_SALES_AM = new DataColumn("DDHS_TAKE_OUT_SALES_AM");
-            DataColumn DDHS_DISCOUNT_IN_TAC_QY = new DataColumn("DDHS_DISCOUNT_IN_TAC_QY");
-            DataColumn DDHS_DISCOUNT_OUT_TAC_QY = new DataColumn("DDHS_DISCOUNT_OUT_TAC_QY");
-            DataColumn DDHS_DISCOUNT_IN_SALES_AM = new DataColumn("DDHS_DISCOUNT_IN_SALES_AM");
-            DataColumn DDHS_DISCOUNT_OUT_SALES_AM = new DataColumn("DDHS_DISCOUNT_OUT_SALES_AM");
-            DataColumn DDHS_CREW_HOURS_WORKED = new DataColumn("DDHS_CREW_HOURS_WORKED");
-            DataColumn DDHS_PROCESS_DT = new DataColumn("DDHS_PROCESS_DT");
+            DataColumn DDES_SITE_ID = new DataColumn("DDES_SITE_ID");
+            DataColumn DDES_BUSINESS_DT = new DataColumn("DDES_BUSINESS_DT");
+            DataColumn DDES_SALES_TM = new DataColumn("DDES_SALES_TM");
+            DataColumn DDES_MCDE_SIR_ID = new DataColumn("DDES_MCDE_SIR_ID");
+            DataColumn DDES_MVAL_SIR_ID = new DataColumn("DDES_MVAL_SIR_ID");
+            DataColumn DDES_LLVR_SIR_ID = new DataColumn("DDES_LLVR_SIR_ID");
+            DataColumn DDES_SALES_PROD_AM = new DataColumn("DDES_SALES_PROD_AM");
+            DataColumn DDES_SALES_NON_PROD_AM = new DataColumn("DDES_SALES_NON_PROD_AM");
+            DataColumn DDES_EAT_IN_TAC_QY = new DataColumn("DDES_EAT_IN_TAC_QY");
+            DataColumn DDES_TAKE_OUT_TAC_QY = new DataColumn("DDES_TAKE_OUT_TAC_QY");
+            DataColumn DDES_EAT_IN_SALES_AM = new DataColumn("DDES_EAT_IN_SALES_AM");
+            DataColumn DDES_TAKE_OUT_SALES_AM = new DataColumn("DDES_TAKE_OUT_SALES_AM");
+            DataColumn DDES_DISCOUNT_IN_TAC_QY = new DataColumn("DDES_DISCOUNT_IN_TAC_QY");
+            DataColumn DDES_DISCOUNT_OUT_TAC_QY = new DataColumn("DDES_DISCOUNT_OUT_TAC_QY");
+            DataColumn DDES_DISCOUNT_IN_SALES_AM = new DataColumn("DDES_DISCOUNT_IN_SALES_AM");
+            DataColumn DDES_DISCOUNT_OUT_SALES_AM = new DataColumn("DDES_DISCOUNT_OUT_SALES_AM");
+            DataColumn DDES_CREW_HOURS_WORKED = new DataColumn("DDES_CREW_HOURS_WORKED");
+            DataColumn DDES_PROCESS_DT = new DataColumn("DDES_PROCESS_DT");
 
-            dtHs.Columns.Add(DDHS_SITE_ID);
-            dtHs.Columns.Add(DDHS_BUSINESS_DT);
-            dtHs.Columns.Add(DDHS_SALES_TM);
-            dtHs.Columns.Add(DDHS_MCDE_SIR_ID);
-            dtHs.Columns.Add(DDHS_MVAL_SIR_ID);
-            dtHs.Columns.Add(DDHS_LLVR_SIR_ID);
-            dtHs.Columns.Add(DDHS_SALES_PROD_AM);
-            dtHs.Columns.Add(DDHS_SALES_NON_PROD_AM);
-            dtHs.Columns.Add(DDHS_EAT_IN_TAC_QY);
-            dtHs.Columns.Add(DDHS_TAKE_OUT_TAC_QY);
-            dtHs.Columns.Add(DDHS_EAT_IN_SALES_AM);
-            dtHs.Columns.Add(DDHS_TAKE_OUT_SALES_AM);
-            dtHs.Columns.Add(DDHS_DISCOUNT_IN_TAC_QY);
-            dtHs.Columns.Add(DDHS_DISCOUNT_OUT_TAC_QY);
-            dtHs.Columns.Add(DDHS_DISCOUNT_IN_SALES_AM);
-            dtHs.Columns.Add(DDHS_DISCOUNT_OUT_SALES_AM);
-            dtHs.Columns.Add(DDHS_CREW_HOURS_WORKED);
-            dtHs.Columns.Add(DDHS_PROCESS_DT);
+            dtHs.Columns.Add(DDES_SITE_ID);
+            dtHs.Columns.Add(DDES_BUSINESS_DT);
+            dtHs.Columns.Add(DDES_SALES_TM);
+            dtHs.Columns.Add(DDES_MCDE_SIR_ID);
+            dtHs.Columns.Add(DDES_MVAL_SIR_ID);
+            dtHs.Columns.Add(DDES_LLVR_SIR_ID);
+            dtHs.Columns.Add(DDES_SALES_PROD_AM);
+            dtHs.Columns.Add(DDES_SALES_NON_PROD_AM);
+            dtHs.Columns.Add(DDES_EAT_IN_TAC_QY);
+            dtHs.Columns.Add(DDES_TAKE_OUT_TAC_QY);
+            dtHs.Columns.Add(DDES_EAT_IN_SALES_AM);
+            dtHs.Columns.Add(DDES_TAKE_OUT_SALES_AM);
+            dtHs.Columns.Add(DDES_DISCOUNT_IN_TAC_QY);
+            dtHs.Columns.Add(DDES_DISCOUNT_OUT_TAC_QY);
+            dtHs.Columns.Add(DDES_DISCOUNT_IN_SALES_AM);
+            dtHs.Columns.Add(DDES_DISCOUNT_OUT_SALES_AM);
+            dtHs.Columns.Add(DDES_CREW_HOURS_WORKED);
+            dtHs.Columns.Add(DDES_PROCESS_DT);
 
             HsFinalList.ForEach((APP_DDAY_HOURLY_SALES hs) =>
             {
                 DataRow d = dtHs.NewRow();
-                d["DDHS_SITE_ID"] = hs.DDHS_SITE_ID;
-                d["DDHS_BUSINESS_DT"] = hs.DDHS_BUSINESS_DT;
-                d["DDHS_SALES_TM"] = hs.DDHS_SALES_TM;
-                d["DDHS_MCDE_SIR_ID"] = hs.DDHS_MCDE_SIR_ID;
-                d["DDHS_MVAL_SIR_ID"] = hs.DDHS_MVAL_SIR_ID;
-                d["DDHS_LLVR_SIR_ID"] = hs.DDHS_LLVR_SIR_ID;
-                d["DDHS_SALES_PROD_AM"] = hs.DDHS_SALES_PROD_AM;
-                d["DDHS_SALES_NON_PROD_AM"] = hs.DDHS_SALES_NON_PROD_AM;
-                d["DDHS_EAT_IN_TAC_QY"] = hs.DDHS_EAT_IN_TAC_QY;
-                d["DDHS_TAKE_OUT_TAC_QY"] = hs.DDHS_TAKE_OUT_TAC_QY;
-                d["DDHS_EAT_IN_SALES_AM"] = hs.DDHS_EAT_IN_SALES_AM;
-                d["DDHS_TAKE_OUT_SALES_AM"] = hs.DDHS_TAKE_OUT_SALES_AM;
-                d["DDHS_DISCOUNT_IN_TAC_QY"] = hs.DDHS_DISCOUNT_IN_TAC_QY;
-                d["DDHS_DISCOUNT_OUT_TAC_QY"] = hs.DDHS_DISCOUNT_OUT_TAC_QY;
-                d["DDHS_DISCOUNT_IN_SALES_AM"] = hs.DDHS_DISCOUNT_IN_SALES_AM;
-                d["DDHS_DISCOUNT_OUT_SALES_AM"] = hs.DDHS_DISCOUNT_OUT_SALES_AM;
-                d["DDHS_CREW_HOURS_WORKED"] = hs.DDHS_CREW_HOURS_WORKED;
-                d["DDHS_PROCESS_DT"] = hs.DDHS_PROCESS_DT;
+                d["DDES_SITE_ID"] = hs.DDES_SITE_ID;
+                d["DDES_BUSINESS_DT"] = hs.DDES_BUSINESS_DT;
+                d["DDES_SALES_TM"] = hs.DDES_SALES_TM;
+                d["DDES_MCDE_SIR_ID"] = hs.DDES_MCDE_SIR_ID;
+                d["DDES_MVAL_SIR_ID"] = hs.DDES_MVAL_SIR_ID;
+                d["DDES_LLVR_SIR_ID"] = hs.DDES_LLVR_SIR_ID;
+                d["DDES_SALES_PROD_AM"] = hs.DDES_SALES_PROD_AM;
+                d["DDES_SALES_NON_PROD_AM"] = hs.DDES_SALES_NON_PROD_AM;
+                d["DDES_EAT_IN_TAC_QY"] = hs.DDES_EAT_IN_TAC_QY;
+                d["DDES_TAKE_OUT_TAC_QY"] = hs.DDES_TAKE_OUT_TAC_QY;
+                d["DDES_EAT_IN_SALES_AM"] = hs.DDES_EAT_IN_SALES_AM;
+                d["DDES_TAKE_OUT_SALES_AM"] = hs.DDES_TAKE_OUT_SALES_AM;
+                d["DDES_DISCOUNT_IN_TAC_QY"] = hs.DDES_DISCOUNT_IN_TAC_QY;
+                d["DDES_DISCOUNT_OUT_TAC_QY"] = hs.DDES_DISCOUNT_OUT_TAC_QY;
+                d["DDES_DISCOUNT_IN_SALES_AM"] = hs.DDES_DISCOUNT_IN_SALES_AM;
+                d["DDES_DISCOUNT_OUT_SALES_AM"] = hs.DDES_DISCOUNT_OUT_SALES_AM;
+                d["DDES_CREW_HOURS_WORKED"] = hs.DDES_CREW_HOURS_WORKED;
+                d["DDES_PROCESS_DT"] = hs.DDES_PROCESS_DT;
 
                 dtHs.Rows.Add(d);
 
@@ -372,72 +340,72 @@ namespace Mcd.App.GetXmlRpc
         {
             DataTable dtHp = new DataTable();
 
-            DataColumn DDHP_SITE_ID = new DataColumn("DDHP_SITE_ID");
-            DataColumn DDHP_BUSINESS_DT = new DataColumn("DDHP_BUSINESS_DT");
-            DataColumn DDHP_PROD_ID = new DataColumn("DDHP_PROD_ID");
-            DataColumn DDHP_SALES_TM = new DataColumn("DDHP_SALES_TM");
-            DataColumn DDHP_MCDE_SIR_ID = new DataColumn("DDHP_MCDE_SIR_ID");
-            DataColumn DDHP_MVAL_SIR_ID = new DataColumn("DDHP_MVAL_SIR_ID");
-            DataColumn DDHP_LLVR_SIR_ID = new DataColumn("DDHP_LLVR_SIR_ID");
-            DataColumn DDHP_EAT_IN_QY = new DataColumn("DDHP_EAT_IN_QY");
-            DataColumn DDHP_TAKE_OUT_QY = new DataColumn("DDHP_TAKE_OUT_QY");
-            DataColumn DDHP_PROMO_IN_QY = new DataColumn("DDHP_PROMO_IN_QY");
-            DataColumn DDHP_PROMO_OUT_QY = new DataColumn("DDHP_PROMO_OUT_QY");
-            DataColumn DDHP_DISCOUNT_IN_QY = new DataColumn("DDHP_DISCOUNT_IN_QY");
-            DataColumn DDHP_DISCOUNT_OUT_QY = new DataColumn("DDHP_DISCOUNT_OUT_QY");
-            DataColumn DDHP_EMPLOYEE_MEAL_QY = new DataColumn("DDHP_EMPLOYEE_MEAL_QY");
-            DataColumn DDHP_MGR_MEAL_QY = new DataColumn("DDHP_MGR_MEAL_QY");
-            DataColumn DDHP_EMPLOYEE_MEAL_AM = new DataColumn("DDHP_EMPLOYEE_MEAL_AM");
-            DataColumn DDHP_CA_IN_AM = new DataColumn("DDHP_CA_IN_AM");
-            DataColumn DDHP_CA_OUT_AM = new DataColumn("DDHP_CA_OUT_AM");
-            DataColumn DDHP_PROCESS_DT = new DataColumn("DDHP_PROCESS_DT");
+            DataColumn DDMX_SITE_ID = new DataColumn("DDMX_SITE_ID");
+            DataColumn DDMX_BUSINESS_DT = new DataColumn("DDMX_BUSINESS_DT");
+            DataColumn DDMX_PROD_ID = new DataColumn("DDMX_PROD_ID");
+            DataColumn DDMX_SALES_TM = new DataColumn("DDMX_SALES_TM");
+            DataColumn DDMX_MCDE_SIR_ID = new DataColumn("DDMX_MCDE_SIR_ID");
+            DataColumn DDMX_MVAL_SIR_ID = new DataColumn("DDMX_MVAL_SIR_ID");
+            DataColumn DDMX_LLVR_SIR_ID = new DataColumn("DDMX_LLVR_SIR_ID");
+            DataColumn DDMX_EAT_IN_QY = new DataColumn("DDMX_EAT_IN_QY");
+            DataColumn DDMX_TAKE_OUT_QY = new DataColumn("DDMX_TAKE_OUT_QY");
+            DataColumn DDMX_PROMO_IN_QY = new DataColumn("DDMX_PROMO_IN_QY");
+            DataColumn DDMX_PROMO_OUT_QY = new DataColumn("DDMX_PROMO_OUT_QY");
+            DataColumn DDMX_DISCOUNT_IN_QY = new DataColumn("DDMX_DISCOUNT_IN_QY");
+            DataColumn DDMX_DISCOUNT_OUT_QY = new DataColumn("DDMX_DISCOUNT_OUT_QY");
+            DataColumn DDMX_EMPLOYEE_MEAL_QY = new DataColumn("DDMX_EMPLOYEE_MEAL_QY");
+            DataColumn DDMX_MGR_MEAL_QY = new DataColumn("DDMX_MGR_MEAL_QY");
+            DataColumn DDMX_EMPLOYEE_MEAL_AM = new DataColumn("DDMX_EMPLOYEE_MEAL_AM");
+            DataColumn DDMX_CA_IN_AM = new DataColumn("DDMX_CA_IN_AM");
+            DataColumn DDMX_CA_OUT_AM = new DataColumn("DDMX_CA_OUT_AM");
+            DataColumn DDMX_PROCESS_DT = new DataColumn("DDMX_PROCESS_DT");
 
 
 
-            dtHp.Columns.Add(DDHP_SITE_ID);
-            dtHp.Columns.Add(DDHP_BUSINESS_DT);
-            dtHp.Columns.Add(DDHP_PROD_ID);
-            dtHp.Columns.Add(DDHP_SALES_TM);
-            dtHp.Columns.Add(DDHP_MCDE_SIR_ID);
-            dtHp.Columns.Add(DDHP_MVAL_SIR_ID);
-            dtHp.Columns.Add(DDHP_LLVR_SIR_ID);
-            dtHp.Columns.Add(DDHP_EAT_IN_QY);
-            dtHp.Columns.Add(DDHP_TAKE_OUT_QY);
-            dtHp.Columns.Add(DDHP_PROMO_IN_QY);
-            dtHp.Columns.Add(DDHP_PROMO_OUT_QY);
-            dtHp.Columns.Add(DDHP_DISCOUNT_IN_QY);
-            dtHp.Columns.Add(DDHP_DISCOUNT_OUT_QY);
-            dtHp.Columns.Add(DDHP_EMPLOYEE_MEAL_QY);
-            dtHp.Columns.Add(DDHP_MGR_MEAL_QY);
-            dtHp.Columns.Add(DDHP_EMPLOYEE_MEAL_AM);
-            dtHp.Columns.Add(DDHP_CA_IN_AM);
-            dtHp.Columns.Add(DDHP_CA_OUT_AM);
-            dtHp.Columns.Add(DDHP_PROCESS_DT);
+            dtHp.Columns.Add(DDMX_SITE_ID);
+            dtHp.Columns.Add(DDMX_BUSINESS_DT);
+            dtHp.Columns.Add(DDMX_PROD_ID);
+            dtHp.Columns.Add(DDMX_SALES_TM);
+            dtHp.Columns.Add(DDMX_MCDE_SIR_ID);
+            dtHp.Columns.Add(DDMX_MVAL_SIR_ID);
+            dtHp.Columns.Add(DDMX_LLVR_SIR_ID);
+            dtHp.Columns.Add(DDMX_EAT_IN_QY);
+            dtHp.Columns.Add(DDMX_TAKE_OUT_QY);
+            dtHp.Columns.Add(DDMX_PROMO_IN_QY);
+            dtHp.Columns.Add(DDMX_PROMO_OUT_QY);
+            dtHp.Columns.Add(DDMX_DISCOUNT_IN_QY);
+            dtHp.Columns.Add(DDMX_DISCOUNT_OUT_QY);
+            dtHp.Columns.Add(DDMX_EMPLOYEE_MEAL_QY);
+            dtHp.Columns.Add(DDMX_MGR_MEAL_QY);
+            dtHp.Columns.Add(DDMX_EMPLOYEE_MEAL_AM);
+            dtHp.Columns.Add(DDMX_CA_IN_AM);
+            dtHp.Columns.Add(DDMX_CA_OUT_AM);
+            dtHp.Columns.Add(DDMX_PROCESS_DT);
 
 
 
             HpFinalList.ForEach((APP_DDAY_HOURLY_PMX hp) =>
             {
                 DataRow d = dtHp.NewRow();
-                d["DDHP_SITE_ID"] = hp.DDHP_SITE_ID;
-                d["DDHP_BUSINESS_DT"] = hp.DDHP_BUSINESS_DT;
-                d["DDHP_PROD_ID"] = hp.DDHP_PROD_ID;
-                d["DDHP_SALES_TM"] = hp.DDHP_SALES_TM;
-                d["DDHP_MCDE_SIR_ID"] = hp.DDHP_MCDE_SIR_ID;
-                d["DDHP_MVAL_SIR_ID"] = hp.DDHP_MVAL_SIR_ID;
-                d["DDHP_LLVR_SIR_ID"] = hp.DDHP_LLVR_SIR_ID;
-                d["DDHP_EAT_IN_QY"] = hp.DDHP_EAT_IN_QY;
-                d["DDHP_TAKE_OUT_QY"] = hp.DDHP_TAKE_OUT_QY;
-                d["DDHP_PROMO_IN_QY"] = hp.DDHP_PROMO_IN_QY;
-                d["DDHP_PROMO_OUT_QY"] = hp.DDHP_PROMO_OUT_QY;
-                d["DDHP_DISCOUNT_IN_QY"] = hp.DDHP_DISCOUNT_IN_QY;
-                d["DDHP_DISCOUNT_OUT_QY"] = hp.DDHP_DISCOUNT_OUT_QY;
-                d["DDHP_EMPLOYEE_MEAL_QY"] = hp.DDHP_EMPLOYEE_MEAL_QY;
-                d["DDHP_MGR_MEAL_QY"] = hp.DDHP_MGR_MEAL_QY;
-                d["DDHP_EMPLOYEE_MEAL_AM"] = hp.DDHP_EMPLOYEE_MEAL_AM;
-                d["DDHP_CA_IN_AM"] = hp.DDHP_CA_IN_AM;
-                d["DDHP_CA_OUT_AM"] = hp.DDHP_CA_OUT_AM;
-                d["DDHP_PROCESS_DT"] = hp.DDHP_PROCESS_DT;
+                d["DDMX_SITE_ID"] = hp.DDMX_SITE_ID;
+                d["DDMX_BUSINESS_DT"] = hp.DDMX_BUSINESS_DT;
+                d["DDMX_PROD_ID"] = hp.DDMX_PROD_ID;
+                d["DDMX_SALES_TM"] = hp.DDMX_SALES_TM;
+                d["DDMX_MCDE_SIR_ID"] = hp.DDMX_MCDE_SIR_ID;
+                d["DDMX_MVAL_SIR_ID"] = hp.DDMX_MVAL_SIR_ID;
+                d["DDMX_LLVR_SIR_ID"] = hp.DDMX_LLVR_SIR_ID;
+                d["DDMX_EAT_IN_QY"] = hp.DDMX_EAT_IN_QY;
+                d["DDMX_TAKE_OUT_QY"] = hp.DDMX_TAKE_OUT_QY;
+                d["DDMX_PROMO_IN_QY"] = hp.DDMX_PROMO_IN_QY;
+                d["DDMX_PROMO_OUT_QY"] = hp.DDMX_PROMO_OUT_QY;
+                d["DDMX_DISCOUNT_IN_QY"] = hp.DDMX_DISCOUNT_IN_QY;
+                d["DDMX_DISCOUNT_OUT_QY"] = hp.DDMX_DISCOUNT_OUT_QY;
+                d["DDMX_EMPLOYEE_MEAL_QY"] = hp.DDMX_EMPLOYEE_MEAL_QY;
+                d["DDMX_MGR_MEAL_QY"] = hp.DDMX_MGR_MEAL_QY;
+                d["DDMX_EMPLOYEE_MEAL_AM"] = hp.DDMX_EMPLOYEE_MEAL_AM;
+                d["DDMX_CA_IN_AM"] = hp.DDMX_CA_IN_AM;
+                d["DDMX_CA_OUT_AM"] = hp.DDMX_CA_OUT_AM;
+                d["DDMX_PROCESS_DT"] = hp.DDMX_PROCESS_DT;
 
                 dtHp.Rows.Add(d);
             });
@@ -445,11 +413,48 @@ namespace Mcd.App.GetXmlRpc
             return dtHp;
         }
 
+        public short Eat_In_Qy(string extTC_str,string eatInTC_str,string takeOutTC_str)
+        {
+            short extTC = short.Parse(extTC_str);
+            short eatInTC = short.Parse(eatInTC_str);
+            short takeOutTC = short.Parse(takeOutTC_str);
 
-        private NP6XML LireNP6(int numResto, DateTime dateActivity)
+            if (eatInTC + takeOutTC == extTC)
+            {
+                return eatInTC;
+            }
+            else if (extTC - takeOutTC < 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return (short)(extTC - takeOutTC);
+            }
+        }
+        public short Take_Out_Qy(string extTC_str, string eatInTC_str, string takeOutTC_str)
+        {
+            short extTC = short.Parse(extTC_str);
+            short eatInTC = short.Parse(eatInTC_str);
+            short takeOutTC = short.Parse(takeOutTC_str);
+            if (eatInTC + takeOutTC == extTC)
+            {
+                return takeOutTC;
+            }
+            else if (extTC - takeOutTC >= 0)
+            {
+                return takeOutTC;
+            }
+            else
+            {
+                return (short)(takeOutTC + (extTC - takeOutTC));
+            }
+        }
+
+       /* private NP6XML LireNP6(int numResto, DateTime dateActivity)
         {
             return _ctx.NP6XML.FirstOrDefault(n => n.NumRestaurant == numResto && n.DayActivity == dateActivity);
-        }
+        }*/
 
         public void Dispose()
         {

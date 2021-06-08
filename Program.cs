@@ -22,6 +22,7 @@ namespace Mcd.App.GetXmlRpc
         private static readonly string NP6Port =  ConfigurationManager.AppSettings["NP6Port"];
         private static readonly bool isDeplacer =  bool.Parse(ConfigurationManager.AppSettings["isDeplacer"]);
         private static readonly bool SaveXML = bool.Parse(ConfigurationManager.AppSettings["SaveXML"]);
+        private static readonly int ThreadSplit = int.Parse(ConfigurationManager.AppSettings["ThreadSplit"]);
         private static readonly logger _logger = new logger();
         private static int processRepeat = int.Parse(ConfigurationManager.AppSettings["processRepeat"]);
         static void Main(string[] args)
@@ -46,12 +47,13 @@ namespace Mcd.App.GetXmlRpc
                 stopWatch.Start();
                 _logger.Info($"Début process global de {Restaurants.Count} restaurants");
 
-                var splitRestaurants = SplitList(Restaurants, 600);
+                var splitRestaurants = SplitList(Restaurants, ThreadSplit);
                 var tasks = new List<Task>();
                 int i = 0;
 
                 foreach (var splitResto in splitRestaurants)
                 {
+                    
                     Console.WriteLine($"splitResto count : {splitResto.Count}");
                     Parallel.ForEach(splitResto, resto =>
                     {

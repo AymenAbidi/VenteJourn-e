@@ -66,28 +66,7 @@
     <Compile Include="DAL\APP_DDAY_HOURLY_SALES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\APP_HOURLY_PMX.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\APP_HOURLY_SALES.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\APP_LLVR.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\APP_MCDE.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\APP_MVAL.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\LLVR_TAB.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAL\Log.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\MCDE_TAB.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Model1.Context.cs">
@@ -105,10 +84,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>McDashboardEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DAL\MVAL_TAB.cs">
+    <Compile Include="DAL\RFU_LLVR.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\NP6XML.cs">
+    <Compile Include="DAL\RFU_MCDE.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RFU_MVAL.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\RFU_POD_SIR_ID.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TRA_LOG.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DataBase.cs" />

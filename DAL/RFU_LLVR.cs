@@ -12,10 +12,10 @@ namespace Mcd.App.GetXmlRpc.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class MCDE_TAB
+    public partial class RFU_LLVR
     {
-        public int MCDE_SIR_ID { get; set; }
-        public string PodShort { get; set; }
-        public string Signification { get; set; }
+        public int LLVR_SIR_ID { get; set; }
+        public string LLVR_PODSHORT { get; set; }
+        public string LLVR_SIGNIFICATION { get; set; }
     }
 }

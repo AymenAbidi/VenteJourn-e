@@ -12,11 +12,10 @@ namespace Mcd.App.GetXmlRpc.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class APP_MCDE
+    public partial class RFU_MCDE
     {
-        public short MCDE_ID { get; set; }
-        public short MCDE_SIR_ID { get; set; }
-        public string MCDE_CD { get; set; }
-        public string MCDE_NM { get; set; }
+        public int MCDE_SIR_ID { get; set; }
+        public string MCDE_PODSHORT { get; set; }
+        public string MCDE_SIGNIFICATION { get; set; }
     }
 }

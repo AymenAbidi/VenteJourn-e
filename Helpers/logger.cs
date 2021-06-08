@@ -14,8 +14,9 @@ namespace Mcd.App.GetXmlRpc.Helpers
         public static string dateExecution = DateTime.Now.ToString("yyyyMMddHHmm");
         public logger()
         {
-            log4net.Config.XmlConfigurator.Configure();
-            GlobalContext.Properties["processLogId"] = dateExecution;
+           log4net.Config.XmlConfigurator.Configure();
+           GlobalContext.Properties["processLogId"] = dateExecution;
+           
         }
 
         public void Debug(string message, int? restaurantId = null, TimeSpan? duree = null)
@@ -27,6 +28,7 @@ namespace Mcd.App.GetXmlRpc.Helpers
 
         public void Info(string message, int? restaurantId = null, TimeSpan? duree = null)
         {
+            
             log4net.LogicalThreadContext.Properties["restaurantId"] = restaurantId != null ? restaurantId.ToString() : "";
             log4net.LogicalThreadContext.Properties["duree"] = duree != null ? duree.Value.TotalSeconds.ToString() : "";
             _logger.Info(message);

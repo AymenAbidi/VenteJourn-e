@@ -1,5 +1,6 @@
 use McDashboard
 
+
 Delete from APP_DDAY_HOURLY_PMX where DDHP_BUSINESS_DT='2018-10-03 00:00:00'
 
 select * from log
