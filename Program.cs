@@ -128,15 +128,15 @@ namespace Mcd.App.GetXmlRpc
                 if (SaveXML)
                 {
                     string path = await NP6.SauvegarderHourlySalesAsync(dateActivity, _logger, mocknumResto);
-                    string PMXPath = await NP6.GetPMXAsync(dateActivity, mocknumResto);
+                    //string PMXPath = await NP6.GetPMXAsync(dateActivity, mocknumResto);
 
                     Console.WriteLine($"Chemin HourlySales généré : {path} \n");
-                    Console.WriteLine("Chemin PMix généré : " + PMXPath);
+                    //Console.WriteLine("Chemin PMix généré : " + PMXPath);
 
                     _logger.Info($"Chemin fichier HourlySales sauvegardé : {path}", mocknumResto);
-                    _logger.Info($"Chemin fichier PMix sauvegardé : {PMXPath}", mocknumResto);
+                    //_logger.Info($"Chemin fichier PMix sauvegardé : {PMXPath}", mocknumResto);
 
-                    processXML(path, PMXPath, Ip, mocknumResto);
+                    processXML(path, Ip, mocknumResto);
 
                 }
                 //Traitement direct des fichiers XML
@@ -146,11 +146,11 @@ namespace Mcd.App.GetXmlRpc
                     Console.WriteLine("Document XML HourlySales récupéré");
                     _logger.Info("Document XML HourlySales récupéré");
 
-                    XDocument hourlyPMIXDoc = await NP6.GetPMXAsyncDoc(dateActivity, mocknumResto);
+                    /*XDocument hourlyPMIXDoc = await NP6.GetPMXAsyncDoc(dateActivity, mocknumResto);
                     Console.WriteLine("Document XML PMix récupéré");
-                    _logger.Info("Document XML PMix récupéré");
+                    _logger.Info("Document XML PMix récupéré");*/
 
-                    processXMLDoc(hourlySalesDoc, hourlyPMIXDoc, Ip, mocknumResto);
+                    processXMLDoc(hourlySalesDoc, Ip, mocknumResto);
                 }
 
                 
@@ -187,7 +187,7 @@ namespace Mcd.App.GetXmlRpc
         }
 
         
-        private static void processXMLDoc(XDocument hourlySales,XDocument hourlyPMix , string Ip, int numResto)
+        private static void processXMLDoc(XDocument hourlySales, string Ip, int numResto)
         {
             Stopwatch stopWatch = new Stopwatch();
 
@@ -223,7 +223,8 @@ namespace Mcd.App.GetXmlRpc
                             else
                             {
                                 database.SaveHourlySales(hourlySalesObjet, numResto);
-                                isProcessed = true;
+                                //database.SavePmix(hourlySalesObjet, hourlySalesObjet.DayPartitioning, numResto);
+                    isProcessed = true;
                             }
                         
                 Stopwatch desHp = new Stopwatch();
@@ -231,11 +232,11 @@ namespace Mcd.App.GetXmlRpc
 
                
                            
-                            var hourlyPMXObjet = (HourlyPMX)PMXserializer.Deserialize(hourlyPMix.Root.CreateReader());
+                            /*var hourlyPMXObjet = (HourlyPMX)PMXserializer.Deserialize(hourlyPMix.Root.CreateReader());
                             desHp.Stop();
                             Console.WriteLine("--------Diagnostics--------- Deserialisation du fichier pmx en objet :" + desHp.Elapsed);
-
-
+                           
+                           
                             if (hourlyPMXObjet == null)
                             {
                                 _logger.Warn(string.Format($"Erreur lors de récupération Ventes Horaires ({0})", Ip), numResto);
@@ -248,9 +249,9 @@ namespace Mcd.App.GetXmlRpc
                             else
                             {
                                
-                                database.SavePmix(hourlyPMXObjet, hourlySalesObjet.DayPartitioning, numResto);
+                                database.SavePmix(hourlySalesObjet, hourlySalesObjet.DayPartitioning, numResto);
                                 isProcessed = true;
-                            }
+                            }*/
                        
 
 
@@ -274,7 +275,7 @@ namespace Mcd.App.GetXmlRpc
 
         }
 
-        private static void processXML(string path,string PMXPath, string Ip, int numResto)
+        private static void processXML(string path, string Ip, int numResto)
         {
             Stopwatch stopWatch = new Stopwatch();
 
@@ -326,7 +327,7 @@ namespace Mcd.App.GetXmlRpc
                 Stopwatch desHp = new Stopwatch();
                 desHp.Start();
 
-                using (FileStream fileStream = File.Open(PMXPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                /*using (FileStream fileStream = File.Open(PMXPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     using (BufferedStream bufferedStream = new BufferedStream(fileStream))
                     {
@@ -351,12 +352,12 @@ namespace Mcd.App.GetXmlRpc
                             else
                             {
                                 
-                                database.SavePmix(hourlyPMXObjet,hourlySalesObjet.DayPartitioning, numResto);
+                                //database.SavePmix(hourlySalesObjet, hourlySalesObjet.DayPartitioning, numResto);
                                 isProcessed = true;
                             }
                         }
                     }
-                }
+                }*/
                 
 
 

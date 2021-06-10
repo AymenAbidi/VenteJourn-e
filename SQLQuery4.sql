@@ -1,8 +1,8 @@
 create database McDashboard_Devl
 use McDashboard_Devl
 
-select * from APP_DDAY_HOURLY_SALES
-delete from APP_DDAY_HOURLY_SALES where DDES_BUSINESS_DT='2018-10-03 00:00:00'
+select * from APP_DDAY_HOURLY_PMX order by DDMX_PROD_ID
+delete from APP_DDAY_HOURLY_PMX where DDMX_BUSINESS_DT='2018-10-03 00:00:00'
 
 CREATE TABLE [dbo].[APP_DDAY_HOURLY_SALES](	
     [DDES_ID] [int] IDENTITY(1,1) NOT NULL,
