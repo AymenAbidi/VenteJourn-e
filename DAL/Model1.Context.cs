@@ -15,10 +15,10 @@ namespace Mcd.App.GetXmlRpc.DAL
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class McDashboard_DevlEntities : DbContext
+    public partial class McDashboard_Entities : DbContext
     {
-        public McDashboard_DevlEntities()
-            : base("name=McDashboard_DevlEntities")
+        public McDashboard_Entities()
+            : base("name=McDashboard_RectEntities")
         {
         }
     
@@ -29,11 +29,7 @@ namespace Mcd.App.GetXmlRpc.DAL
     
         public virtual DbSet<APP_DDAY_HOURLY_PMX> APP_DDAY_HOURLY_PMX { get; set; }
         public virtual DbSet<APP_DDAY_HOURLY_SALES> APP_DDAY_HOURLY_SALES { get; set; }
-        public virtual DbSet<RFU_LLVR> RFU_LLVR { get; set; }
-        public virtual DbSet<RFU_MCDE> RFU_MCDE { get; set; }
-        public virtual DbSet<RFU_MVAL> RFU_MVAL { get; set; }
         public virtual DbSet<RFU_POD_SIR_ID> RFU_POD_SIR_ID { get; set; }
-        public virtual DbSet<Log> Logs { get; set; }
         public virtual DbSet<TRA_LOG> TRA_LOG { get; set; }
     
         public virtual int SPW_INSERT_DDAY_HOURLY_PMX()

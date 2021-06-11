@@ -4,104 +4,55 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="McDashboard_DevlModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="McDashboard_RectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="APP_DDAY_HOURLY_PMX">
           <Key>
-            <PropertyRef Name="DDMX_ID" />
+            <PropertyRef Name="DDHP_ID" />
           </Key>
-          <Property Name="DDMX_SITE_ID" Type="smallint" Nullable="false" />
-          <Property Name="DDMX_BUSINESS_DT" Type="smalldatetime" Nullable="false" />
-          <Property Name="DDMX_PROD_ID" Type="int" Nullable="false" />
-          <Property Name="DDMX_SALES_TM" Type="smallint" Nullable="false" />
-          <Property Name="DDMX_MCDE_SIR_ID" Type="tinyint" Nullable="false" />
-          <Property Name="DDMX_MVAL_SIR_ID" Type="tinyint" Nullable="false" />
-          <Property Name="DDMX_LLVR_SIR_ID" Type="tinyint" Nullable="false" />
-          <Property Name="DDMX_EAT_IN_QY" Type="smallint" Nullable="false" />
-          <Property Name="DDMX_TAKE_OUT_QY" Type="smallint" Nullable="false" />
-          <Property Name="DDMX_PROMO_IN_QY" Type="smallint" />
-          <Property Name="DDMX_PROMO_OUT_QY" Type="smallint" />
-          <Property Name="DDMX_DISCOUNT_IN_QY" Type="smallint" />
-          <Property Name="DDMX_DISCOUNT_OUT_QY" Type="smallint" />
-          <Property Name="DDMX_EMPLOYEE_MEAL_QY" Type="smallint" />
-          <Property Name="DDMX_MGR_MEAL_QY" Type="smallint" />
-          <Property Name="DDMX_EMPLOYEE_MEAL_AM" Type="money" />
-          <Property Name="DDMX_CA_IN_AM" Type="smallmoney" />
-          <Property Name="DDMX_CA_OUT_AM" Type="smallmoney" />
-          <Property Name="DDMX_PROCESS_DT" Type="datetime" Nullable="false" />
-          <Property Name="DDMX_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DDHP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DDHP_SITE_ID" Type="smallint" Nullable="false" />
+          <Property Name="DDHP_BUSINESS_DT" Type="smalldatetime" Nullable="false" />
+          <Property Name="DDHP_PROD_ID" Type="int" Nullable="false" />
+          <Property Name="DDHP_SALES_TM" Type="smallint" Nullable="false" />
+          <Property Name="DDHP_MCDE_SIR_ID" Type="tinyint" Nullable="false" />
+          <Property Name="DDHP_MVAL_SIR_ID" Type="tinyint" Nullable="false" />
+          <Property Name="DDHP_LLVR_SIR_ID" Type="tinyint" Nullable="false" />
+          <Property Name="DDHP_EAT_IN_QY" Type="smallint" Nullable="false" />
+          <Property Name="DDHP_TAKE_OUT_QY" Type="smallint" Nullable="false" />
+          <Property Name="DDHP_PROMO_IN_QY" Type="smallint" />
+          <Property Name="DDHP_PROMO_OUT_QY" Type="smallint" />
+          <Property Name="DDHP_DISCOUNT_IN_QY" Type="smallint" />
+          <Property Name="DDHP_DISCOUNT_OUT_QY" Type="smallint" />
+          <Property Name="DDHP_EMPLOYEE_MEAL_QY" Type="smallint" />
+          <Property Name="DDHP_MGR_MEAL_QY" Type="smallint" />
+          <Property Name="DDHP_EMPLOYEE_MEAL_AM" Type="money" />
+          <Property Name="DDHP_CA_IN_AM" Type="smallmoney" />
+          <Property Name="DDHP_CA_OUT_AM" Type="smallmoney" />
+          <Property Name="DDHP_PROCESS_DT" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="APP_DDAY_HOURLY_SALES">
           <Key>
-            <PropertyRef Name="DDES_ID" />
+            <PropertyRef Name="DDHS_ID" />
           </Key>
-          <Property Name="DDES_SITE_ID" Type="smallint" Nullable="false" />
-          <Property Name="DDES_BUSINESS_DT" Type="smalldatetime" Nullable="false" />
-          <Property Name="DDES_SALES_TM" Type="smallint" Nullable="false" />
-          <Property Name="DDES_MCDE_SIR_ID" Type="smallint" Nullable="false" />
-          <Property Name="DDES_MVAL_SIR_ID" Type="smallint" Nullable="false" />
-          <Property Name="DDES_LLVR_SIR_ID" Type="smallint" Nullable="false" />
-          <Property Name="DDES_SALES_PROD_AM" Type="money" />
-          <Property Name="DDES_SALES_NON_PROD_AM" Type="money" />
-          <Property Name="DDES_EAT_IN_TAC_QY" Type="smallint" />
-          <Property Name="DDES_TAKE_OUT_TAC_QY" Type="smallint" />
-          <Property Name="DDES_EAT_IN_SALES_AM" Type="money" />
-          <Property Name="DDES_TAKE_OUT_SALES_AM" Type="money" />
-          <Property Name="DDES_DISCOUNT_IN_TAC_QY" Type="smallint" />
-          <Property Name="DDES_DISCOUNT_OUT_TAC_QY" Type="smallint" />
-          <Property Name="DDES_DISCOUNT_IN_SALES_AM" Type="money" />
-          <Property Name="DDES_DISCOUNT_OUT_SALES_AM" Type="money" />
-          <Property Name="DDES_CREW_HOURS_WORKED" Type="numeric" Precision="12" Scale="3" />
-          <Property Name="DDES_PROCESS_DT" Type="datetime" />
-          <Property Name="DDES_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'McDashboard_Devl.dbo.Log' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Log">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="Date" />
-            <PropertyRef Name="RestaurantId" />
-            <PropertyRef Name="Duree" />
-            <PropertyRef Name="Thread" />
-            <PropertyRef Name="Level" />
-            <PropertyRef Name="Logger" />
-            <PropertyRef Name="Message" />
-            <PropertyRef Name="ProcessLogId" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="RestaurantId" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Duree" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Thread" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Level" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Logger" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="Message" Type="varchar" MaxLength="4000" Nullable="false" />
-          <Property Name="ProcessLogId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Exception" Type="varchar" MaxLength="2000" />
-        </EntityType>
-        <EntityType Name="RFU_LLVR">
-          <Key>
-            <PropertyRef Name="LLVR_SIR_ID" />
-          </Key>
-          <Property Name="LLVR_SIR_ID" Type="int" Nullable="false" />
-          <Property Name="LLVR_PODSHORT" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="LLVR_SIGNIFICATION" Type="varchar" MaxLength="500" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RFU_MCDE">
-          <Key>
-            <PropertyRef Name="MCDE_SIR_ID" />
-          </Key>
-          <Property Name="MCDE_SIR_ID" Type="int" Nullable="false" />
-          <Property Name="MCDE_PODSHORT" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="MCDE_SIGNIFICATION" Type="varchar" MaxLength="500" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RFU_MVAL">
-          <Key>
-            <PropertyRef Name="MVAL_SIR_ID" />
-          </Key>
-          <Property Name="MVAL_SIR_ID" Type="int" Nullable="false" />
-          <Property Name="MVAL_PODSHORT" Type="varchar" MaxLength="255" Nullable="false" />
-          <Property Name="MVAL_SIGNIFICATION" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DDHS_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DDHS_SITE_ID" Type="smallint" Nullable="false" />
+          <Property Name="DDHS_BUSINESS_DT" Type="smalldatetime" Nullable="false" />
+          <Property Name="DDHS_SALES_TM" Type="smallint" Nullable="false" />
+          <Property Name="DDHS_MCDE_SIR_ID" Type="smallint" Nullable="false" />
+          <Property Name="DDHS_MVAL_SIR_ID" Type="smallint" Nullable="false" />
+          <Property Name="DDHS_LLVR_SIR_ID" Type="smallint" Nullable="false" />
+          <Property Name="DDHS_SALES_PROD_AM" Type="money" />
+          <Property Name="DDHS_SALES_NON_PROD_AM" Type="money" />
+          <Property Name="DDHS_EAT_IN_TAC_QY" Type="smallint" />
+          <Property Name="DDHS_TAKE_OUT_TAC_QY" Type="smallint" />
+          <Property Name="DDHS_EAT_IN_SALES_AM" Type="money" />
+          <Property Name="DDHS_TAKE_OUT_SALES_AM" Type="money" />
+          <Property Name="DDHS_DISCOUNT_IN_TAC_QY" Type="smallint" />
+          <Property Name="DDHS_DISCOUNT_OUT_TAC_QY" Type="smallint" />
+          <Property Name="DDHS_DISCOUNT_IN_SALES_AM" Type="money" />
+          <Property Name="DDHS_DISCOUNT_OUT_SALES_AM" Type="money" />
+          <Property Name="DDHS_CREW_HOURS_WORKED" Type="numeric" Precision="12" Scale="3" />
+          <Property Name="DDHS_PROCESS_DT" Type="datetime" />
         </EntityType>
         <EntityType Name="RFU_POD_SIR_ID">
           <Key>
@@ -113,7 +64,7 @@ warning 6002: The table/view 'McDashboard_Devl.dbo.Log' does not have a primary 
           <Property Name="PDID_LLVR_SIR_ID" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'McDashboard_Devl.dbo.TRA_LOG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'McDashboard_Rect.dbo.TRA_LOG' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TRA_LOG">
           <Key>
             <PropertyRef Name="LOG_ID" />
@@ -139,27 +90,10 @@ warning 6002: The table/view 'McDashboard_Devl.dbo.TRA_LOG' does not have a prim
         </EntityType>
         <Function Name="SPW_INSERT_DDAY_HOURLY_PMX" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SPW_INSERT_DDAY_HOURLY_SALES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="McDashboard_DevlModelStoreContainer">
+        <EntityContainer Name="McDashboard_RectModelStoreContainer">
           <EntitySet Name="APP_DDAY_HOURLY_PMX" EntityType="Self.APP_DDAY_HOURLY_PMX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APP_DDAY_HOURLY_SALES" EntityType="Self.APP_DDAY_HOURLY_SALES" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RFU_LLVR" EntityType="Self.RFU_LLVR" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RFU_MCDE" EntityType="Self.RFU_MCDE" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RFU_MVAL" EntityType="Self.RFU_MVAL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RFU_POD_SIR_ID" EntityType="Self.RFU_POD_SIR_ID" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Log" EntityType="Self.Log" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Log].[Id] AS [Id], 
-    [Log].[Date] AS [Date], 
-    [Log].[RestaurantId] AS [RestaurantId], 
-    [Log].[Duree] AS [Duree], 
-    [Log].[Thread] AS [Thread], 
-    [Log].[Level] AS [Level], 
-    [Log].[Logger] AS [Logger], 
-    [Log].[Message] AS [Message], 
-    [Log].[ProcessLogId] AS [ProcessLogId], 
-    [Log].[Exception] AS [Exception]
-    FROM [dbo].[Log] AS [Log]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="TRA_LOG" EntityType="Self.TRA_LOG" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [TRA_LOG].[LOG_ID] AS [LOG_ID], 
@@ -179,79 +113,55 @@ warning 6002: The table/view 'McDashboard_Devl.dbo.TRA_LOG' does not have a prim
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="McDashboard_DevlModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="McDashboard_RectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="APP_DDAY_HOURLY_PMX">
           <Key>
-            <PropertyRef Name="DDMX_ID" />
+            <PropertyRef Name="DDHP_ID" />
           </Key>
-          <Property Name="DDMX_SITE_ID" Type="Int16" Nullable="false" />
-          <Property Name="DDMX_BUSINESS_DT" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DDMX_PROD_ID" Type="Int32" Nullable="false" />
-          <Property Name="DDMX_SALES_TM" Type="Int16" Nullable="false" />
-          <Property Name="DDMX_MCDE_SIR_ID" Type="Byte" Nullable="false" />
-          <Property Name="DDMX_MVAL_SIR_ID" Type="Byte" Nullable="false" />
-          <Property Name="DDMX_LLVR_SIR_ID" Type="Byte" Nullable="false" />
-          <Property Name="DDMX_EAT_IN_QY" Type="Int16" Nullable="false" />
-          <Property Name="DDMX_TAKE_OUT_QY" Type="Int16" Nullable="false" />
-          <Property Name="DDMX_PROMO_IN_QY" Type="Int16" />
-          <Property Name="DDMX_PROMO_OUT_QY" Type="Int16" />
-          <Property Name="DDMX_DISCOUNT_IN_QY" Type="Int16" />
-          <Property Name="DDMX_DISCOUNT_OUT_QY" Type="Int16" />
-          <Property Name="DDMX_EMPLOYEE_MEAL_QY" Type="Int16" />
-          <Property Name="DDMX_MGR_MEAL_QY" Type="Int16" />
-          <Property Name="DDMX_EMPLOYEE_MEAL_AM" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DDMX_CA_IN_AM" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="DDMX_CA_OUT_AM" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="DDMX_PROCESS_DT" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="DDMX_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DDHP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DDHP_SITE_ID" Type="Int16" Nullable="false" />
+          <Property Name="DDHP_BUSINESS_DT" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DDHP_PROD_ID" Type="Int32" Nullable="false" />
+          <Property Name="DDHP_SALES_TM" Type="Int16" Nullable="false" />
+          <Property Name="DDHP_MCDE_SIR_ID" Type="Byte" Nullable="false" />
+          <Property Name="DDHP_MVAL_SIR_ID" Type="Byte" Nullable="false" />
+          <Property Name="DDHP_LLVR_SIR_ID" Type="Byte" Nullable="false" />
+          <Property Name="DDHP_EAT_IN_QY" Type="Int16" Nullable="false" />
+          <Property Name="DDHP_TAKE_OUT_QY" Type="Int16" Nullable="false" />
+          <Property Name="DDHP_PROMO_IN_QY" Type="Int16" />
+          <Property Name="DDHP_PROMO_OUT_QY" Type="Int16" />
+          <Property Name="DDHP_DISCOUNT_IN_QY" Type="Int16" />
+          <Property Name="DDHP_DISCOUNT_OUT_QY" Type="Int16" />
+          <Property Name="DDHP_EMPLOYEE_MEAL_QY" Type="Int16" />
+          <Property Name="DDHP_MGR_MEAL_QY" Type="Int16" />
+          <Property Name="DDHP_EMPLOYEE_MEAL_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DDHP_CA_IN_AM" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="DDHP_CA_OUT_AM" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="DDHP_PROCESS_DT" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="APP_DDAY_HOURLY_SALES">
           <Key>
-            <PropertyRef Name="DDES_ID" />
+            <PropertyRef Name="DDHS_ID" />
           </Key>
-          <Property Name="DDES_SITE_ID" Type="Int16" Nullable="false" />
-          <Property Name="DDES_BUSINESS_DT" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="DDES_SALES_TM" Type="Int16" Nullable="false" />
-          <Property Name="DDES_MCDE_SIR_ID" Type="Int16" Nullable="false" />
-          <Property Name="DDES_MVAL_SIR_ID" Type="Int16" Nullable="false" />
-          <Property Name="DDES_LLVR_SIR_ID" Type="Int16" Nullable="false" />
-          <Property Name="DDES_SALES_PROD_AM" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DDES_SALES_NON_PROD_AM" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DDES_EAT_IN_TAC_QY" Type="Int16" />
-          <Property Name="DDES_TAKE_OUT_TAC_QY" Type="Int16" />
-          <Property Name="DDES_EAT_IN_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DDES_TAKE_OUT_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DDES_DISCOUNT_IN_TAC_QY" Type="Int16" />
-          <Property Name="DDES_DISCOUNT_OUT_TAC_QY" Type="Int16" />
-          <Property Name="DDES_DISCOUNT_IN_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DDES_DISCOUNT_OUT_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="DDES_CREW_HOURS_WORKED" Type="Decimal" Precision="12" Scale="3" />
-          <Property Name="DDES_PROCESS_DT" Type="DateTime" Precision="3" />
-          <Property Name="DDES_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="RFU_LLVR">
-          <Key>
-            <PropertyRef Name="LLVR_SIR_ID" />
-          </Key>
-          <Property Name="LLVR_SIR_ID" Type="Int32" Nullable="false" />
-          <Property Name="LLVR_PODSHORT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LLVR_SIGNIFICATION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RFU_MCDE">
-          <Key>
-            <PropertyRef Name="MCDE_SIR_ID" />
-          </Key>
-          <Property Name="MCDE_SIR_ID" Type="Int32" Nullable="false" />
-          <Property Name="MCDE_PODSHORT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MCDE_SIGNIFICATION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RFU_MVAL">
-          <Key>
-            <PropertyRef Name="MVAL_SIR_ID" />
-          </Key>
-          <Property Name="MVAL_SIR_ID" Type="Int32" Nullable="false" />
-          <Property Name="MVAL_PODSHORT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MVAL_SIGNIFICATION" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DDHS_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DDHS_SITE_ID" Type="Int16" Nullable="false" />
+          <Property Name="DDHS_BUSINESS_DT" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DDHS_SALES_TM" Type="Int16" Nullable="false" />
+          <Property Name="DDHS_MCDE_SIR_ID" Type="Int16" Nullable="false" />
+          <Property Name="DDHS_MVAL_SIR_ID" Type="Int16" Nullable="false" />
+          <Property Name="DDHS_LLVR_SIR_ID" Type="Int16" Nullable="false" />
+          <Property Name="DDHS_SALES_PROD_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DDHS_SALES_NON_PROD_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DDHS_EAT_IN_TAC_QY" Type="Int16" />
+          <Property Name="DDHS_TAKE_OUT_TAC_QY" Type="Int16" />
+          <Property Name="DDHS_EAT_IN_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DDHS_TAKE_OUT_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DDHS_DISCOUNT_IN_TAC_QY" Type="Int16" />
+          <Property Name="DDHS_DISCOUNT_OUT_TAC_QY" Type="Int16" />
+          <Property Name="DDHS_DISCOUNT_IN_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DDHS_DISCOUNT_OUT_SALES_AM" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DDHS_CREW_HOURS_WORKED" Type="Decimal" Precision="12" Scale="3" />
+          <Property Name="DDHS_PROCESS_DT" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="RFU_POD_SIR_ID">
           <Key>
@@ -261,29 +171,6 @@ warning 6002: The table/view 'McDashboard_Devl.dbo.TRA_LOG' does not have a prim
           <Property Name="PDID_MCDE_SIR_ID" Type="Int32" Nullable="false" />
           <Property Name="PDID_MVAL_SIR_ID" Type="Int32" Nullable="false" />
           <Property Name="PDID_LLVR_SIR_ID" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Log">
-          <Key>
-            <PropertyRef Name="Id" />
-            <PropertyRef Name="Date" />
-            <PropertyRef Name="RestaurantId" />
-            <PropertyRef Name="Duree" />
-            <PropertyRef Name="Thread" />
-            <PropertyRef Name="Level" />
-            <PropertyRef Name="Logger" />
-            <PropertyRef Name="Message" />
-            <PropertyRef Name="ProcessLogId" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="RestaurantId" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Duree" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Thread" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Level" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Logger" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Message" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ProcessLogId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Exception" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="TRA_LOG">
           <Key>
@@ -308,14 +195,10 @@ warning 6002: The table/view 'McDashboard_Devl.dbo.TRA_LOG' does not have a prim
           <Property Name="LOG_PROCESSLOGID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LOG_EXCEPTION" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="McDashboard_RectEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="APP_DDAY_HOURLY_PMX" EntityType="Self.APP_DDAY_HOURLY_PMX" />
           <EntitySet Name="APP_DDAY_HOURLY_SALES" EntityType="Self.APP_DDAY_HOURLY_SALES" />
-          <EntitySet Name="RFU_LLVR" EntityType="Self.RFU_LLVR" />
-          <EntitySet Name="RFU_MCDE" EntityType="Self.RFU_MCDE" />
-          <EntitySet Name="RFU_MVAL" EntityType="Self.RFU_MVAL" />
           <EntitySet Name="RFU_POD_SIR_ID" EntityType="Self.RFU_POD_SIR_ID" />
-          <EntitySet Name="Logs" EntityType="Self.Log" />
           <EntitySet Name="TRA_LOG" EntityType="Self.TRA_LOG" />
           <FunctionImport Name="SPW_INSERT_DDAY_HOURLY_PMX" />
           <FunctionImport Name="SPW_INSERT_DDAY_HOURLY_SALES" />
@@ -325,87 +208,60 @@ warning 6002: The table/view 'McDashboard_Devl.dbo.TRA_LOG' does not have a prim
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="McDashboard_DevlModelStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="McDashboard_RectModelStoreContainer" CdmEntityContainer="McDashboard_RectEntities1">
           <EntitySetMapping Name="APP_DDAY_HOURLY_PMX">
-            <EntityTypeMapping TypeName="McDashboard_DevlModel.APP_DDAY_HOURLY_PMX">
+            <EntityTypeMapping TypeName="McDashboard_RectModel.APP_DDAY_HOURLY_PMX">
               <MappingFragment StoreEntitySet="APP_DDAY_HOURLY_PMX">
-                <ScalarProperty Name="DDMX_SITE_ID" ColumnName="DDMX_SITE_ID" />
-                <ScalarProperty Name="DDMX_BUSINESS_DT" ColumnName="DDMX_BUSINESS_DT" />
-                <ScalarProperty Name="DDMX_PROD_ID" ColumnName="DDMX_PROD_ID" />
-                <ScalarProperty Name="DDMX_SALES_TM" ColumnName="DDMX_SALES_TM" />
-                <ScalarProperty Name="DDMX_MCDE_SIR_ID" ColumnName="DDMX_MCDE_SIR_ID" />
-                <ScalarProperty Name="DDMX_MVAL_SIR_ID" ColumnName="DDMX_MVAL_SIR_ID" />
-                <ScalarProperty Name="DDMX_LLVR_SIR_ID" ColumnName="DDMX_LLVR_SIR_ID" />
-                <ScalarProperty Name="DDMX_EAT_IN_QY" ColumnName="DDMX_EAT_IN_QY" />
-                <ScalarProperty Name="DDMX_TAKE_OUT_QY" ColumnName="DDMX_TAKE_OUT_QY" />
-                <ScalarProperty Name="DDMX_PROMO_IN_QY" ColumnName="DDMX_PROMO_IN_QY" />
-                <ScalarProperty Name="DDMX_PROMO_OUT_QY" ColumnName="DDMX_PROMO_OUT_QY" />
-                <ScalarProperty Name="DDMX_DISCOUNT_IN_QY" ColumnName="DDMX_DISCOUNT_IN_QY" />
-                <ScalarProperty Name="DDMX_DISCOUNT_OUT_QY" ColumnName="DDMX_DISCOUNT_OUT_QY" />
-                <ScalarProperty Name="DDMX_EMPLOYEE_MEAL_QY" ColumnName="DDMX_EMPLOYEE_MEAL_QY" />
-                <ScalarProperty Name="DDMX_MGR_MEAL_QY" ColumnName="DDMX_MGR_MEAL_QY" />
-                <ScalarProperty Name="DDMX_EMPLOYEE_MEAL_AM" ColumnName="DDMX_EMPLOYEE_MEAL_AM" />
-                <ScalarProperty Name="DDMX_CA_IN_AM" ColumnName="DDMX_CA_IN_AM" />
-                <ScalarProperty Name="DDMX_CA_OUT_AM" ColumnName="DDMX_CA_OUT_AM" />
-                <ScalarProperty Name="DDMX_PROCESS_DT" ColumnName="DDMX_PROCESS_DT" />
-                <ScalarProperty Name="DDMX_ID" ColumnName="DDMX_ID" />
+                <ScalarProperty Name="DDHP_ID" ColumnName="DDHP_ID" />
+                <ScalarProperty Name="DDHP_SITE_ID" ColumnName="DDHP_SITE_ID" />
+                <ScalarProperty Name="DDHP_BUSINESS_DT" ColumnName="DDHP_BUSINESS_DT" />
+                <ScalarProperty Name="DDHP_PROD_ID" ColumnName="DDHP_PROD_ID" />
+                <ScalarProperty Name="DDHP_SALES_TM" ColumnName="DDHP_SALES_TM" />
+                <ScalarProperty Name="DDHP_MCDE_SIR_ID" ColumnName="DDHP_MCDE_SIR_ID" />
+                <ScalarProperty Name="DDHP_MVAL_SIR_ID" ColumnName="DDHP_MVAL_SIR_ID" />
+                <ScalarProperty Name="DDHP_LLVR_SIR_ID" ColumnName="DDHP_LLVR_SIR_ID" />
+                <ScalarProperty Name="DDHP_EAT_IN_QY" ColumnName="DDHP_EAT_IN_QY" />
+                <ScalarProperty Name="DDHP_TAKE_OUT_QY" ColumnName="DDHP_TAKE_OUT_QY" />
+                <ScalarProperty Name="DDHP_PROMO_IN_QY" ColumnName="DDHP_PROMO_IN_QY" />
+                <ScalarProperty Name="DDHP_PROMO_OUT_QY" ColumnName="DDHP_PROMO_OUT_QY" />
+                <ScalarProperty Name="DDHP_DISCOUNT_IN_QY" ColumnName="DDHP_DISCOUNT_IN_QY" />
+                <ScalarProperty Name="DDHP_DISCOUNT_OUT_QY" ColumnName="DDHP_DISCOUNT_OUT_QY" />
+                <ScalarProperty Name="DDHP_EMPLOYEE_MEAL_QY" ColumnName="DDHP_EMPLOYEE_MEAL_QY" />
+                <ScalarProperty Name="DDHP_MGR_MEAL_QY" ColumnName="DDHP_MGR_MEAL_QY" />
+                <ScalarProperty Name="DDHP_EMPLOYEE_MEAL_AM" ColumnName="DDHP_EMPLOYEE_MEAL_AM" />
+                <ScalarProperty Name="DDHP_CA_IN_AM" ColumnName="DDHP_CA_IN_AM" />
+                <ScalarProperty Name="DDHP_CA_OUT_AM" ColumnName="DDHP_CA_OUT_AM" />
+                <ScalarProperty Name="DDHP_PROCESS_DT" ColumnName="DDHP_PROCESS_DT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="APP_DDAY_HOURLY_SALES">
-            <EntityTypeMapping TypeName="McDashboard_DevlModel.APP_DDAY_HOURLY_SALES">
+            <EntityTypeMapping TypeName="McDashboard_RectModel.APP_DDAY_HOURLY_SALES">
               <MappingFragment StoreEntitySet="APP_DDAY_HOURLY_SALES">
-                <ScalarProperty Name="DDES_SITE_ID" ColumnName="DDES_SITE_ID" />
-                <ScalarProperty Name="DDES_BUSINESS_DT" ColumnName="DDES_BUSINESS_DT" />
-                <ScalarProperty Name="DDES_SALES_TM" ColumnName="DDES_SALES_TM" />
-                <ScalarProperty Name="DDES_MCDE_SIR_ID" ColumnName="DDES_MCDE_SIR_ID" />
-                <ScalarProperty Name="DDES_MVAL_SIR_ID" ColumnName="DDES_MVAL_SIR_ID" />
-                <ScalarProperty Name="DDES_LLVR_SIR_ID" ColumnName="DDES_LLVR_SIR_ID" />
-                <ScalarProperty Name="DDES_SALES_PROD_AM" ColumnName="DDES_SALES_PROD_AM" />
-                <ScalarProperty Name="DDES_SALES_NON_PROD_AM" ColumnName="DDES_SALES_NON_PROD_AM" />
-                <ScalarProperty Name="DDES_EAT_IN_TAC_QY" ColumnName="DDES_EAT_IN_TAC_QY" />
-                <ScalarProperty Name="DDES_TAKE_OUT_TAC_QY" ColumnName="DDES_TAKE_OUT_TAC_QY" />
-                <ScalarProperty Name="DDES_EAT_IN_SALES_AM" ColumnName="DDES_EAT_IN_SALES_AM" />
-                <ScalarProperty Name="DDES_TAKE_OUT_SALES_AM" ColumnName="DDES_TAKE_OUT_SALES_AM" />
-                <ScalarProperty Name="DDES_DISCOUNT_IN_TAC_QY" ColumnName="DDES_DISCOUNT_IN_TAC_QY" />
-                <ScalarProperty Name="DDES_DISCOUNT_OUT_TAC_QY" ColumnName="DDES_DISCOUNT_OUT_TAC_QY" />
-                <ScalarProperty Name="DDES_DISCOUNT_IN_SALES_AM" ColumnName="DDES_DISCOUNT_IN_SALES_AM" />
-                <ScalarProperty Name="DDES_DISCOUNT_OUT_SALES_AM" ColumnName="DDES_DISCOUNT_OUT_SALES_AM" />
-                <ScalarProperty Name="DDES_CREW_HOURS_WORKED" ColumnName="DDES_CREW_HOURS_WORKED" />
-                <ScalarProperty Name="DDES_PROCESS_DT" ColumnName="DDES_PROCESS_DT" />
-                <ScalarProperty Name="DDES_ID" ColumnName="DDES_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RFU_LLVR">
-            <EntityTypeMapping TypeName="McDashboard_DevlModel.RFU_LLVR">
-              <MappingFragment StoreEntitySet="RFU_LLVR">
-                <ScalarProperty Name="LLVR_SIR_ID" ColumnName="LLVR_SIR_ID" />
-                <ScalarProperty Name="LLVR_PODSHORT" ColumnName="LLVR_PODSHORT" />
-                <ScalarProperty Name="LLVR_SIGNIFICATION" ColumnName="LLVR_SIGNIFICATION" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RFU_MCDE">
-            <EntityTypeMapping TypeName="McDashboard_DevlModel.RFU_MCDE">
-              <MappingFragment StoreEntitySet="RFU_MCDE">
-                <ScalarProperty Name="MCDE_SIR_ID" ColumnName="MCDE_SIR_ID" />
-                <ScalarProperty Name="MCDE_PODSHORT" ColumnName="MCDE_PODSHORT" />
-                <ScalarProperty Name="MCDE_SIGNIFICATION" ColumnName="MCDE_SIGNIFICATION" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RFU_MVAL">
-            <EntityTypeMapping TypeName="McDashboard_DevlModel.RFU_MVAL">
-              <MappingFragment StoreEntitySet="RFU_MVAL">
-                <ScalarProperty Name="MVAL_SIR_ID" ColumnName="MVAL_SIR_ID" />
-                <ScalarProperty Name="MVAL_PODSHORT" ColumnName="MVAL_PODSHORT" />
-                <ScalarProperty Name="MVAL_SIGNIFICATION" ColumnName="MVAL_SIGNIFICATION" />
+                <ScalarProperty Name="DDHS_ID" ColumnName="DDHS_ID" />
+                <ScalarProperty Name="DDHS_SITE_ID" ColumnName="DDHS_SITE_ID" />
+                <ScalarProperty Name="DDHS_BUSINESS_DT" ColumnName="DDHS_BUSINESS_DT" />
+                <ScalarProperty Name="DDHS_SALES_TM" ColumnName="DDHS_SALES_TM" />
+                <ScalarProperty Name="DDHS_MCDE_SIR_ID" ColumnName="DDHS_MCDE_SIR_ID" />
+                <ScalarProperty Name="DDHS_MVAL_SIR_ID" ColumnName="DDHS_MVAL_SIR_ID" />
+                <ScalarProperty Name="DDHS_LLVR_SIR_ID" ColumnName="DDHS_LLVR_SIR_ID" />
+                <ScalarProperty Name="DDHS_SALES_PROD_AM" ColumnName="DDHS_SALES_PROD_AM" />
+                <ScalarProperty Name="DDHS_SALES_NON_PROD_AM" ColumnName="DDHS_SALES_NON_PROD_AM" />
+                <ScalarProperty Name="DDHS_EAT_IN_TAC_QY" ColumnName="DDHS_EAT_IN_TAC_QY" />
+                <ScalarProperty Name="DDHS_TAKE_OUT_TAC_QY" ColumnName="DDHS_TAKE_OUT_TAC_QY" />
+                <ScalarProperty Name="DDHS_EAT_IN_SALES_AM" ColumnName="DDHS_EAT_IN_SALES_AM" />
+                <ScalarProperty Name="DDHS_TAKE_OUT_SALES_AM" ColumnName="DDHS_TAKE_OUT_SALES_AM" />
+                <ScalarProperty Name="DDHS_DISCOUNT_IN_TAC_QY" ColumnName="DDHS_DISCOUNT_IN_TAC_QY" />
+                <ScalarProperty Name="DDHS_DISCOUNT_OUT_TAC_QY" ColumnName="DDHS_DISCOUNT_OUT_TAC_QY" />
+                <ScalarProperty Name="DDHS_DISCOUNT_IN_SALES_AM" ColumnName="DDHS_DISCOUNT_IN_SALES_AM" />
+                <ScalarProperty Name="DDHS_DISCOUNT_OUT_SALES_AM" ColumnName="DDHS_DISCOUNT_OUT_SALES_AM" />
+                <ScalarProperty Name="DDHS_CREW_HOURS_WORKED" ColumnName="DDHS_CREW_HOURS_WORKED" />
+                <ScalarProperty Name="DDHS_PROCESS_DT" ColumnName="DDHS_PROCESS_DT" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RFU_POD_SIR_ID">
-            <EntityTypeMapping TypeName="McDashboard_DevlModel.RFU_POD_SIR_ID">
+            <EntityTypeMapping TypeName="McDashboard_RectModel.RFU_POD_SIR_ID">
               <MappingFragment StoreEntitySet="RFU_POD_SIR_ID">
                 <ScalarProperty Name="PDID_PODSHORT" ColumnName="PDID_PODSHORT" />
                 <ScalarProperty Name="PDID_MCDE_SIR_ID" ColumnName="PDID_MCDE_SIR_ID" />
@@ -414,24 +270,8 @@ warning 6002: The table/view 'McDashboard_Devl.dbo.TRA_LOG' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Logs">
-            <EntityTypeMapping TypeName="McDashboard_DevlModel.Log">
-              <MappingFragment StoreEntitySet="Log">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="RestaurantId" ColumnName="RestaurantId" />
-                <ScalarProperty Name="Duree" ColumnName="Duree" />
-                <ScalarProperty Name="Thread" ColumnName="Thread" />
-                <ScalarProperty Name="Level" ColumnName="Level" />
-                <ScalarProperty Name="Logger" ColumnName="Logger" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="ProcessLogId" ColumnName="ProcessLogId" />
-                <ScalarProperty Name="Exception" ColumnName="Exception" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TRA_LOG">
-            <EntityTypeMapping TypeName="McDashboard_DevlModel.TRA_LOG">
+            <EntityTypeMapping TypeName="McDashboard_RectModel.TRA_LOG">
               <MappingFragment StoreEntitySet="TRA_LOG">
                 <ScalarProperty Name="LOG_ID" ColumnName="LOG_ID" />
                 <ScalarProperty Name="LOG_DATE" ColumnName="LOG_DATE" />
@@ -446,8 +286,8 @@ warning 6002: The table/view 'McDashboard_Devl.dbo.TRA_LOG' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SPW_INSERT_DDAY_HOURLY_PMX" FunctionName="McDashboard_DevlModel.Store.SPW_INSERT_DDAY_HOURLY_PMX" />
-          <FunctionImportMapping FunctionImportName="SPW_INSERT_DDAY_HOURLY_SALES" FunctionName="McDashboard_DevlModel.Store.SPW_INSERT_DDAY_HOURLY_SALES" />
+          <FunctionImportMapping FunctionImportName="SPW_INSERT_DDAY_HOURLY_PMX" FunctionName="McDashboard_RectModel.Store.SPW_INSERT_DDAY_HOURLY_PMX" />
+          <FunctionImportMapping FunctionImportName="SPW_INSERT_DDAY_HOURLY_SALES" FunctionName="McDashboard_RectModel.Store.SPW_INSERT_DDAY_HOURLY_SALES" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

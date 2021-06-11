@@ -14,24 +14,24 @@ namespace Mcd.App.GetXmlRpc.DAL
     
     public partial class APP_DDAY_HOURLY_SALES
     {
-        public short DDES_SITE_ID { get; set; }
-        public System.DateTime DDES_BUSINESS_DT { get; set; }
-        public short DDES_SALES_TM { get; set; }
-        public short DDES_MCDE_SIR_ID { get; set; }
-        public short DDES_MVAL_SIR_ID { get; set; }
-        public short DDES_LLVR_SIR_ID { get; set; }
-        public Nullable<decimal> DDES_SALES_PROD_AM { get; set; }
-        public Nullable<decimal> DDES_SALES_NON_PROD_AM { get; set; }
-        public Nullable<short> DDES_EAT_IN_TAC_QY { get; set; }
-        public Nullable<short> DDES_TAKE_OUT_TAC_QY { get; set; }
-        public Nullable<decimal> DDES_EAT_IN_SALES_AM { get; set; }
-        public Nullable<decimal> DDES_TAKE_OUT_SALES_AM { get; set; }
-        public Nullable<short> DDES_DISCOUNT_IN_TAC_QY { get; set; }
-        public Nullable<short> DDES_DISCOUNT_OUT_TAC_QY { get; set; }
-        public Nullable<decimal> DDES_DISCOUNT_IN_SALES_AM { get; set; }
-        public Nullable<decimal> DDES_DISCOUNT_OUT_SALES_AM { get; set; }
-        public Nullable<decimal> DDES_CREW_HOURS_WORKED { get; set; }
-        public Nullable<System.DateTime> DDES_PROCESS_DT { get; set; }
-        public int DDES_ID { get; set; }
+        public int DDHS_ID { get; set; }
+        public short DDHS_SITE_ID { get; set; }
+        public System.DateTime DDHS_BUSINESS_DT { get; set; }
+        public short DDHS_SALES_TM { get; set; }
+        public short DDHS_MCDE_SIR_ID { get; set; }
+        public short DDHS_MVAL_SIR_ID { get; set; }
+        public short DDHS_LLVR_SIR_ID { get; set; }
+        public Nullable<decimal> DDHS_SALES_PROD_AM { get; set; }
+        public Nullable<decimal> DDHS_SALES_NON_PROD_AM { get; set; }
+        public Nullable<short> DDHS_EAT_IN_TAC_QY { get; set; }
+        public Nullable<short> DDHS_TAKE_OUT_TAC_QY { get; set; }
+        public Nullable<decimal> DDHS_EAT_IN_SALES_AM { get; set; }
+        public Nullable<decimal> DDHS_TAKE_OUT_SALES_AM { get; set; }
+        public Nullable<short> DDHS_DISCOUNT_IN_TAC_QY { get; set; }
+        public Nullable<short> DDHS_DISCOUNT_OUT_TAC_QY { get; set; }
+        public Nullable<decimal> DDHS_DISCOUNT_IN_SALES_AM { get; set; }
+        public Nullable<decimal> DDHS_DISCOUNT_OUT_SALES_AM { get; set; }
+        public Nullable<decimal> DDHS_CREW_HOURS_WORKED { get; set; }
+        public Nullable<System.DateTime> DDHS_PROCESS_DT { get; set; }
     }
 }

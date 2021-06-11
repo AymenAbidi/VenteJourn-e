@@ -4,15 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="16333d4b35c54cdea6c785322dce3be3" Name="Diagram1">
-        <EntityTypeShape EntityType="McDashboard_DevlModel.APP_DDAY_HOURLY_PMX" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="McDashboard_DevlModel.APP_DDAY_HOURLY_SALES" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="McDashboard_DevlModel.RFU_LLVR" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="McDashboard_DevlModel.RFU_MCDE" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="McDashboard_DevlModel.RFU_MVAL" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="McDashboard_DevlModel.RFU_POD_SIR_ID" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="McDashboard_DevlModel.Log" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="McDashboard_DevlModel.TRA_LOG" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="943b7b31bd2c4753bc7b8a5577b7afe9" Name="Diagram1">
+        <EntityTypeShape EntityType="McDashboard_RectModel.APP_DDAY_HOURLY_PMX" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="McDashboard_RectModel.APP_DDAY_HOURLY_SALES" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="McDashboard_RectModel.RFU_POD_SIR_ID" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="McDashboard_RectModel.TRA_LOG" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

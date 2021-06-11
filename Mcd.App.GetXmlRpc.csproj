@@ -66,9 +66,6 @@
     <Compile Include="DAL\APP_DDAY_HOURLY_SALES.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DAL\Log.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="DAL\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,15 +80,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>McDashboardEntities.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RFU_LLVR.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RFU_MCDE.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\RFU_MVAL.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\RFU_POD_SIR_ID.cs">
       <DependentUpon>Model1.tt</DependentUpon>
