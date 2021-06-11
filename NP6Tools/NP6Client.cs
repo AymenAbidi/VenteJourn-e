@@ -27,7 +27,7 @@ namespace Mcd.App.GetXmlRpc
             saveXML = SaveXML;
             client = new XmlRpcClient
             {
-                Url = "http://127.0.0.1:5678/"
+                Url = url
             };
             return;
         }
