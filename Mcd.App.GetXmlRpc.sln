@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mcd.App.GetXmlRpc", "Mcd.App.GetXmlRpc.csproj", "{2B77A4F2-7CD3-46AD-957D-1283A347EFED}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "..\Setup1\Setup1.vdproj", "{8CF5F936-1C3F-4EFB-BEFA-CE92CC1D6986}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Vente journée", "..\Vente journée\Vente journée.vdproj", "{1962E109-09D4-4806-8D70-3B946DF259CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VenteJournéeTest", "..\VenteJournéeTest\VenteJournéeTest.csproj", "{A884E85B-A0F1-4234-8E85-94F5FB506479}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +19,12 @@ Global
 		{2B77A4F2-7CD3-46AD-957D-1283A347EFED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B77A4F2-7CD3-46AD-957D-1283A347EFED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B77A4F2-7CD3-46AD-957D-1283A347EFED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8CF5F936-1C3F-4EFB-BEFA-CE92CC1D6986}.Debug|Any CPU.ActiveCfg = Debug
-		{8CF5F936-1C3F-4EFB-BEFA-CE92CC1D6986}.Release|Any CPU.ActiveCfg = Release
+		{1962E109-09D4-4806-8D70-3B946DF259CC}.Debug|Any CPU.ActiveCfg = Debug
+		{1962E109-09D4-4806-8D70-3B946DF259CC}.Release|Any CPU.ActiveCfg = Release
+		{A884E85B-A0F1-4234-8E85-94F5FB506479}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A884E85B-A0F1-4234-8E85-94F5FB506479}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A884E85B-A0F1-4234-8E85-94F5FB506479}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A884E85B-A0F1-4234-8E85-94F5FB506479}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

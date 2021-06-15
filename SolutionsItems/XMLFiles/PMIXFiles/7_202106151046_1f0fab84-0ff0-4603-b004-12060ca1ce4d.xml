@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Response npVersion="NP6.1.30.MR3QR036B18573" creationDate="20210615 10:46:53" storeId="25000765" storeName="LAB EXPERTS" requestDataType="HOURLYSALES" requestReport="HOURLYSALES" requestPOD="" requestPOSList="" minCirculatingAmount="0.01" requestDate="20210610" requestTime="" openingDate="20210610" openingTime="10:03:22" closingDate="" closingTime="" UTCOffset="+02:00">
+  <ProductTable>
+    <ProductInfo id="2506" name="BIGM BO" familyGroup="REGULAR_ENTREE" class="VALUE_MEAL" department="" classDepartment="" subClassDepartment="" />
+    <ProductInfo id="2581" name="BIGM MX" familyGroup="REGULAR_ENTREE" class="VALUE_MEAL" department="" classDepartment="" subClassDepartment="" />
+    <ProductInfo id="3012" name="FRITE BO" familyGroup="FRIES" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+    <ProductInfo id="3022" name="FRITE MX" familyGroup="FRIES" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+    <ProductInfo id="6155" name="EAU33 BO" familyGroup="REGULAR_DRINK" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+    <ProductInfo id="6158" name="EAU50 MX" familyGroup="REGULAR_DRINK" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+    <ProductInfo id="9311" name="COKE  BO" familyGroup="REGULAR_DRINK" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+  </ProductTable>
+  <DayPartitioning>
+    <Segment id="1" begTime="1200" endTime="1214" dayOffset="0" />
+    <Segment id="2" begTime="1330" endTime="1344" dayOffset="0" />
+    <Segment id="3" begTime="1400" endTime="1414" dayOffset="0" />
+  </DayPartitioning>
+  <StoreTotal>
+    <Sales id="1" tc="2" prodTC="2" nonProdTC="0" extTC="2" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="1" takeOutTC="1" eatInNetAmount="7.54" takeOutNetAmount="7.54" netAmount="15.08" taxAmount="1.52" productNetAmount="15.08" productTaxAmount="1.52" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+      <Product id="2506" tc="2" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+        <OperationType operationType="SALE">
+          <PMix qtyEatIn="1" qtyTakeOut="1" eatInNetAmount="7.54" takeOutNetAmount="7.54" netAmount="15.08" taxAmount="1.52">
+            <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.76" />
+          </PMix>
+          <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+        </OperationType>
+      </Product>
+      <Product id="3012" tc="2" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+        <OperationType operationType="SALE">
+          <PMix qtyEatIn="1" qtyTakeOut="1" eatInNetAmount="0.00" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+            <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+          </PMix>
+          <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+        </OperationType>
+      </Product>
+      <Product id="6155" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+        <OperationType operationType="SALE">
+          <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+            <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+          </PMix>
+          <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+        </OperationType>
+      </Product>
+      <Product id="9311" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+        <OperationType operationType="SALE">
+          <PMix qtyEatIn="1" qtyTakeOut="0" eatInNetAmount="0.00" takeOutNetAmount="0" netAmount="0.00" taxAmount="0.00">
+            <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0" />
+          </PMix>
+          <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+        </OperationType>
+      </Product>
+    </Sales>
+    <Sales id="2" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="0" takeOutTC="1" eatInNetAmount="0" takeOutNetAmount="7.54" netAmount="7.54" taxAmount="0.76" productNetAmount="7.54" productTaxAmount="0.76" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+      <Product id="2506" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+        <OperationType operationType="SALE">
+          <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="7.54" netAmount="7.54" taxAmount="0.76">
+            <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.76" />
+          </PMix>
+          <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+        </OperationType>
+      </Product>
+      <Product id="3012" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+        <OperationType operationType="SALE">
+          <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+            <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+          </PMix>
+          <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+        </OperationType>
+      </Product>
+      <Product id="6155" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+        <OperationType operationType="SALE">
+          <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+            <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+          </PMix>
+          <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+        </OperationType>
+      </Product>
+    </Sales>
+    <Sales id="3" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="0" takeOutTC="1" eatInNetAmount="0" takeOutNetAmount="8.18" netAmount="8.18" taxAmount="0.82" productNetAmount="8.18" productTaxAmount="0.82" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+      <Product id="2581" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+        <OperationType operationType="SALE">
+          <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="8.18" netAmount="8.18" taxAmount="0.82">
+            <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.82" />
+          </PMix>
+          <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+        </OperationType>
+      </Product>
+      <Product id="3022" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+        <OperationType operationType="SALE">
+          <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+            <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+          </PMix>
+          <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+        </OperationType>
+      </Product>
+      <Product id="6158" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+        <OperationType operationType="SALE">
+          <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+            <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+          </PMix>
+          <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+        </OperationType>
+      </Product>
+    </Sales>
+  </StoreTotal>
+  <POD id="DLV" podShort="DLV">
+    <StoreTotal>
+      <Sales id="1" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="0" takeOutTC="1" eatInNetAmount="0" takeOutNetAmount="7.54" netAmount="7.54" taxAmount="0.76" productNetAmount="7.54" productTaxAmount="0.76" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+        <Product id="2506" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="7.54" netAmount="7.54" taxAmount="0.76">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.76" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="3012" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="6155" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+      </Sales>
+      <Sales id="2" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="0" takeOutTC="1" eatInNetAmount="0" takeOutNetAmount="7.54" netAmount="7.54" taxAmount="0.76" productNetAmount="7.54" productTaxAmount="0.76" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+        <Product id="2506" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="7.54" netAmount="7.54" taxAmount="0.76">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.76" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="3012" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="6155" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+      </Sales>
+      <Sales id="3" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="0" takeOutTC="1" eatInNetAmount="0" takeOutNetAmount="8.18" netAmount="8.18" taxAmount="0.82" productNetAmount="8.18" productTaxAmount="0.82" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+        <Product id="2581" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="8.18" netAmount="8.18" taxAmount="0.82">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.82" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="3022" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="6158" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+      </Sales>
+    </StoreTotal>
+  </POD>
+  <POD id="FC" podShort="FC">
+    <StoreTotal>
+      <Sales id="1" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="1" takeOutTC="0" eatInNetAmount="7.54" takeOutNetAmount="0" netAmount="7.54" taxAmount="0.76" productNetAmount="7.54" productTaxAmount="0.76" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+        <Product id="2506" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="1" qtyTakeOut="0" eatInNetAmount="7.54" takeOutNetAmount="0" netAmount="7.54" taxAmount="0.76">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="3012" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="1" qtyTakeOut="0" eatInNetAmount="0.00" takeOutNetAmount="0" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="9311" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="1" qtyTakeOut="0" eatInNetAmount="0.00" takeOutNetAmount="0" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+      </Sales>
+    </StoreTotal>
+  </POD>
+  <POS id="0001" serviceType="POS" podShort="DT" businessDay="20210610" openedDate="20210610 10:03:09" status="OPENED"></POS>
+  <POS id="0002" serviceType="POS" podShort="DT" businessDay="20210610" openedDate="20210610 10:03:09" status="OPENED"></POS>
+  <POS id="0003" serviceType="POS" podShort="DT" businessDay="20210610" openedDate="20210610 10:03:08" status="OPENED"></POS>
+  <POS id="0005" serviceType="POS" podShort="FC" businessDay="20210610" openedDate="20210610 10:03:09" status="OPLOGGED">
+    <StoreTotal>
+      <Sales id="1" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="1" takeOutTC="0" eatInNetAmount="7.54" takeOutNetAmount="0" netAmount="7.54" taxAmount="0.76" productNetAmount="7.54" productTaxAmount="0.76" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+        <Product id="2506" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="1" qtyTakeOut="0" eatInNetAmount="7.54" takeOutNetAmount="0" netAmount="7.54" taxAmount="0.76">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="3012" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="1" qtyTakeOut="0" eatInNetAmount="0.00" takeOutNetAmount="0" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="9311" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="1" qtyTakeOut="0" eatInNetAmount="0.00" takeOutNetAmount="0" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+      </Sales>
+    </StoreTotal>
+  </POS>
+  <POS id="0006" serviceType="POS" podShort="FC" businessDay="20210610" openedDate="20210610 10:03:09" status="OPLOGGED"></POS>
+  <POS id="0021" serviceType="POS" podShort="" businessDay="20210610" openedDate="20210610 10:03:12" status="OPENED"></POS>
+  <POS id="0023" serviceType="POS" podShort="" businessDay="20210610" openedDate="20210610 10:03:12" status="OPENED"></POS>
+  <POS id="0025" serviceType="POS" podShort="" businessDay="20210610" openedDate="20210610 10:03:12" status="OPENED"></POS>
+  <POS id="0026" serviceType="POS" podShort="" businessDay="20210610" openedDate="20210610 10:03:12" status="OPENED"></POS>
+  <POS id="0027" serviceType="POS" podShort="" businessDay="20210610" openedDate="20210610 10:03:12" status="OPENED"></POS>
+  <POS id="0028" serviceType="POS" podShort="" businessDay="20210610" openedDate="20210610 10:03:12" status="OPENED"></POS>
+  <POS id="0040" serviceType="POS" podShort="CSO" businessDay="20210610" openedDate="20210610 10:03:09" status="OPLOGGED"></POS>
+  <POS id="0060" serviceType="POS" podShort="DLV" businessDay="20210610" openedDate="20210610 10:03:09" status="OPLOGGED">
+    <StoreTotal>
+      <Sales id="1" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="0" takeOutTC="1" eatInNetAmount="0" takeOutNetAmount="7.54" netAmount="7.54" taxAmount="0.76" productNetAmount="7.54" productTaxAmount="0.76" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+        <Product id="2506" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="7.54" netAmount="7.54" taxAmount="0.76">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.76" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="3012" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="6155" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+      </Sales>
+      <Sales id="2" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="0" takeOutTC="1" eatInNetAmount="0" takeOutNetAmount="7.54" netAmount="7.54" taxAmount="0.76" productNetAmount="7.54" productTaxAmount="0.76" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+        <Product id="2506" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="7.54" netAmount="7.54" taxAmount="0.76">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.76" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="3012" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="6155" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+      </Sales>
+      <Sales id="3" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="0" takeOutTC="1" eatInNetAmount="0" takeOutNetAmount="8.18" netAmount="8.18" taxAmount="0.82" productNetAmount="8.18" productTaxAmount="0.82" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+        <Product id="2581" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="8.18" netAmount="8.18" taxAmount="0.82">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.82" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="3022" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+        <Product id="6158" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="0" qtyTakeOut="1" eatInNetAmount="0" takeOutNetAmount="0.00" netAmount="0.00" taxAmount="0.00">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0.00" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+      </Sales>
+    </StoreTotal>
+  </POS>
+  <POS id="0061" serviceType="POS" podShort="DT" businessDay="20210610" openedDate="20210610 10:03:09" status="OPLOGGED"></POS>
+  <POS id="0062" serviceType="POS" podShort="CK" businessDay="20210610" openedDate="20210610 10:03:09" status="OPLOGGED"></POS>
+  <POS id="0063" serviceType="POS" podShort="MCC" businessDay="20210610" openedDate="20210610 10:03:10" status="OPLOGGED"></POS>
+  <POS id="0064" serviceType="POS" podShort="CKD" businessDay="20210610" openedDate="20210610 10:03:11" status="OPLOGGED"></POS>
+</Response>

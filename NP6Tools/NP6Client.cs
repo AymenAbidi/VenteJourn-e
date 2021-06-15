@@ -72,6 +72,14 @@ namespace Mcd.App.GetXmlRpc
                             Stopwatch doc = new Stopwatch();
                             doc.Start();
                             string responsepayload = Encoding.UTF8.GetString((byte[])responseQuery.GetStruct()["payload"]);
+                            Console.WriteLine(responsepayload);
+                            string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+                            if (responsepayload.StartsWith(_byteOrderMarkUtf8))
+                            {
+                                Console.WriteLine("find");
+                                responsepayload = responsepayload.Remove(0, _byteOrderMarkUtf8.Length);
+                            }
+                            Console.WriteLine("pass");
                             var xmlDoc = XDocument.Load(new StringReader(responsepayload));
                             string path = $"{xmlFilesPath}\\{numResto}_{logger.dateExecution}_{Guid.NewGuid()}.xml";
                             Console.Write($"Chemin où on va déplacer le contenu xml : {path} \n");
@@ -179,6 +187,8 @@ namespace Mcd.App.GetXmlRpc
                             Stopwatch doc = new Stopwatch();
                             doc.Start();
                             string responsepayload = Encoding.UTF8.GetString((byte[])responseQuery.GetStruct()["payload"]);
+                            string _byteOrderMarkUtf8 = Encoding.UTF8.GetString(Encoding.UTF8.GetPreamble());
+                            if (responsepayload.StartsWith(_byteOrderMarkUtf8)) { responsepayload = responsepayload.Remove(0, _byteOrderMarkUtf8.Length); }
                             TextReader tr = new StringReader(responsepayload);
                             return XDocument.Load(tr);
                         }
