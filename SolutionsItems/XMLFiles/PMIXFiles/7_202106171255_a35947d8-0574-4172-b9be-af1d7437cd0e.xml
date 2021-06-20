@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Response npVersion="NP6.1.30.MR3QR036B18573" creationDate="20210617 12:55:27" storeId="25000765" storeName="LAB EXPERTS" requestDataType="HOURLYSALES" requestReport="HOURLYSALES" requestPOD="" requestPOSList="" minCirculatingAmount="0.01" requestDate="20210617" requestTime="" openingDate="20210617" openingTime="11:58:52" closingDate="" closingTime="" UTCOffset="+02:00">
+  <POS id="0001" serviceType="POS" podShort="DT" businessDay="20210617" openedDate="20210617 11:58:37" status="OPENED"></POS>
+  <POS id="0002" serviceType="POS" podShort="DT" businessDay="20210617" openedDate="20210617 11:58:37" status="OPENED"></POS>
+  <POS id="0003" serviceType="POS" podShort="DT" businessDay="20210617" openedDate="20210617 11:58:37" status="OPENED"></POS>
+  <POS id="0005" serviceType="POS" podShort="FC" businessDay="20210617" openedDate="20210617 11:58:37" status="OPENED"></POS>
+  <POS id="0006" serviceType="POS" podShort="FC" businessDay="20210617" openedDate="20210617 11:58:37" status="OPENED"></POS>
+  <POS id="0021" serviceType="POS" podShort="" businessDay="20210617" openedDate="20210617 11:58:37" status="OPENED"></POS>
+  <POS id="0023" serviceType="POS" podShort="" businessDay="20210617" openedDate="20210617 11:58:37" status="OPENED"></POS>
+  <POS id="0025" serviceType="POS" podShort="" businessDay="20210617" openedDate="20210617 11:58:37" status="OPENED"></POS>
+  <POS id="0026" serviceType="POS" podShort="" businessDay="20210617" openedDate="20210617 11:58:37" status="OPENED"></POS>
+  <POS id="0027" serviceType="POS" podShort="" businessDay="20210617" openedDate="20210617 11:58:37" status="OPENED"></POS>
+  <POS id="0028" serviceType="POS" podShort="" businessDay="20210617" openedDate="20210617 11:58:37" status="OPENED"></POS>
+  <POS id="0040" serviceType="POS" podShort="CSO" businessDay="20210617" openedDate="20210617 11:58:37" status="OPLOGGED"></POS>
+  <POS id="0060" serviceType="POS" podShort="DLV" businessDay="20210617" openedDate="20210617 11:58:34" status="OPLOGGED"></POS>
+  <POS id="0061" serviceType="POS" podShort="DT" businessDay="20210617" openedDate="20210617 11:58:35" status="OPLOGGED"></POS>
+  <POS id="0062" serviceType="POS" podShort="CK" businessDay="20210617" openedDate="20210617 11:58:35" status="OPLOGGED"></POS>
+  <POS id="0063" serviceType="POS" podShort="MCC" businessDay="20210617" openedDate="20210617 11:58:35" status="OPLOGGED"></POS>
+  <POS id="0064" serviceType="POS" podShort="CKD" businessDay="20210617" openedDate="20210617 11:58:36" status="OPLOGGED"></POS>
+</Response>

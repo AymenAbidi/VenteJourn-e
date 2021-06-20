@@ -168,13 +168,15 @@ namespace Mcd.App.GetXmlRpc
             {
                 _logger.Debug("Parcours de l'objet HourlySales pour récuperation de données");
             }
-
+            
+            
             hourlySales.POD.ForEach((POD pod) =>
             {
                 if (pod.StoreTotal != null)
                 {
                     pod.StoreTotal.Sales.ForEach((Sales sales) =>
                     {
+                        
 
                         APP_DDAY_HOURLY_SALES app_hourly_sale = new APP_DDAY_HOURLY_SALES
                         {
@@ -183,10 +185,10 @@ namespace Mcd.App.GetXmlRpc
                             DDHS_MVAL_SIR_ID = (short)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort).PDID_MVAL_SIR_ID : 0),
                             DDHS_LLVR_SIR_ID = (short)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort).PDID_LLVR_SIR_ID : 0),
                             DDHS_SALES_TM = short.Parse(hourlySales.DayPartitioning.Segment.FirstOrDefault(seg => seg.Id == sales.Id.ToString()).BegTime),
-                            DDHS_SALES_PROD_AM = decimal.Parse(sales.ProductNetAmount),
-                            DDHS_SALES_NON_PROD_AM = decimal.Parse(sales.NetAmount) - decimal.Parse(sales.ProductNetAmount),
-                            DDHS_EAT_IN_SALES_AM = decimal.Parse(sales.EatInNetAmount),
-                            DDHS_TAKE_OUT_SALES_AM = decimal.Parse(sales.TakeOutNetAmount),
+                            DDHS_SALES_PROD_AM = decimal.Parse(cultureConvertor(sales.ProductNetAmount)),
+                            DDHS_SALES_NON_PROD_AM = decimal.Parse(cultureConvertor(sales.NetAmount)) - decimal.Parse(cultureConvertor(sales.ProductNetAmount)),
+                            DDHS_EAT_IN_SALES_AM = decimal.Parse(cultureConvertor(sales.EatInNetAmount)),
+                            DDHS_TAKE_OUT_SALES_AM = decimal.Parse(cultureConvertor(sales.TakeOutNetAmount)),
                             DDHS_EAT_IN_TAC_QY = Eat_In_Qy(sales.ExtTC, sales.EatInTC, sales.TakeOutTC),
                             DDHS_TAKE_OUT_TAC_QY = Take_Out_Qy(sales.ExtTC, sales.EatInTC, sales.TakeOutTC),
                             DDHS_DISCOUNT_IN_TAC_QY = 0,
@@ -227,8 +229,8 @@ namespace Mcd.App.GetXmlRpc
                                     {
                                         DDHP_EAT_IN_QY = short.Parse(opT.PMix.QtyEatIn);
                                         DDHP_TAKE_OUT_QY = short.Parse(opT.PMix.QtyTakeOut);
-                                        DDHP_CA_IN_AM = decimal.Parse(opT.PMix.EatInNetAmount);
-                                        DDHP_CA_OUT_AM = decimal.Parse(opT.PMix.TakeOutNetAmount);
+                                        DDHP_CA_IN_AM = decimal.Parse(opT.PMix.EatInNetAmount.Replace(".", ","));
+                                        DDHP_CA_OUT_AM = decimal.Parse(opT.PMix.TakeOutNetAmount.Replace(".", ","));
                                     }
                                     if (opT.operationType == "PROMO")
                                     {
@@ -243,7 +245,10 @@ namespace Mcd.App.GetXmlRpc
                                     if (opT.operationType == "CREW")
                                     {
                                         DDHP_EMPLOYEE_MEAL_QY = (short)(int.Parse(opT.PMix.QtyEatIn) + int.Parse(opT.PMix.QtyTakeOut));
-                                        DDHP_EMPLOYEE_MEAL_AM = decimal.Parse(opT.PMix.EatInNetAmount) + decimal.Parse(opT.PMix.TakeOutNetAmount);
+                                      
+
+
+                                        DDHP_EMPLOYEE_MEAL_AM = decimal.Parse(opT.PMix.EatInNetAmount.Replace(".", ",")) + decimal.Parse(opT.PMix.TakeOutNetAmount.Replace(".", ","));
                                     }
                                     if (opT.operationType == "MANAGER")
                                     {
@@ -253,8 +258,8 @@ namespace Mcd.App.GetXmlRpc
                                     {
                                         DDHP_EAT_IN_QY -= short.Parse(opT.PMix.QtyEatIn);
                                         DDHP_TAKE_OUT_QY -= short.Parse(opT.PMix.QtyTakeOut);
-                                        DDHP_CA_IN_AM -= decimal.Parse(opT.PMix.EatInNetAmount);
-                                        DDHP_CA_OUT_AM -= decimal.Parse(opT.PMix.TakeOutNetAmount);
+                                        DDHP_CA_IN_AM -= decimal.Parse(opT.PMix.EatInNetAmount.Replace(".", ","));
+                                        DDHP_CA_OUT_AM -= decimal.Parse(opT.PMix.TakeOutNetAmount.Replace(".", ","));
                                     }
 
 
@@ -292,6 +297,28 @@ namespace Mcd.App.GetXmlRpc
             {
                 _logger.Debug("Fin du parcours de l'objet HourlySales");
             }
+        }
+
+        private string cultureConvertor(string str)
+        {
+            NumberFormatInfo nfi = new NumberFormatInfo();
+            
+            
+            if (str.Contains("."))
+            {
+                if (nfi.ToString() != ".")
+                {
+                    str.Replace(".", nfi.ToString());
+                }
+            }
+            else if (str.Contains(","))
+            {
+                if (nfi.ToString() != ",")
+                {
+                    str.Replace(",", nfi.ToString());
+                }
+            }
+            return str;
         }
 
         private DataTable GenHsDataTable()
