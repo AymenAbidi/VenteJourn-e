@@ -1,4 +1,5 @@
 ﻿using log4net;
+using Mcd.App.GetXmlRpc.DAL;
 using Mcd.App.GetXmlRpc.Helpers;
 using Mcd.App.GetXmlRpc.PMX;
 using System;
@@ -17,9 +18,14 @@ namespace Mcd.App.GetXmlRpc
     {
         private static DataBase database;
 
+        private readonly McDashboard_Entities _ctx;
+
         private static readonly logger _logger = new logger();
 
         private static readonly string NP6Port = ConfigurationManager.AppSettings["NP6Port"];
+        
+        private static readonly string RestoWhiteList = ConfigurationManager.AppSettings["RestaurantList"];
+        private static readonly string ConnString = ConfigurationManager.ConnectionStrings[1].ConnectionString;
 
         private static readonly bool SaveXML = bool.Parse(ConfigurationManager.AppSettings["SaveXML"]);
 
@@ -37,11 +43,17 @@ namespace Mcd.App.GetXmlRpc
 
             if (args.Count() == 0)
             {
-
-                List<string> Restaurants = File.ReadAllLines("Restaurants.txt")
-                                               .Where(r => !string.IsNullOrEmpty(r))
-                                               .ToList();
-
+                
+                List<string> Restaurants = new List<string>();
+                if (RestoWhiteList != "")
+                {
+                     Restaurants= RestoWhiteList.Split(':').ToList();
+                }
+                else
+                {
+                    Restaurants = database.RestoList();
+                }
+                
 
                 if (processRepeat > 0)
                     Restaurants = Enumerable.Repeat(Restaurants.FirstOrDefault(), processRepeat).ToList();

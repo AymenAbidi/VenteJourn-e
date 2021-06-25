@@ -4,11 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="943b7b31bd2c4753bc7b8a5577b7afe9" Name="Diagram1">
+      <Diagram DiagramId="7b1742b30abc4f5ea8b492c8f56df38b" Name="Diagram1">
         <EntityTypeShape EntityType="McDashboard_RectModel.APP_DDAY_HOURLY_PMX" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="McDashboard_RectModel.APP_DDAY_HOURLY_SALES" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="McDashboard_RectModel.RFU_POD_SIR_ID" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="McDashboard_RectModel.TRA_LOG" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="McDashboard_RectModel.APP_SITE" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="McDashboard_RectModel.RFU_POD_SIR_ID" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="McDashboard_RectModel.TRA_LOG" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="McDashboard_RectModel.VW_For_DatalakeExploit_APP_SITE" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="McDashboard_RectModel.VW_From_InfoSite4u_APP_SITE" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

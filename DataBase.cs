@@ -23,13 +23,15 @@ namespace Mcd.App.GetXmlRpc
 
         private static List<RFU_POD_SIR_ID> Pod_SIR_ID;
 
+        private static List<VW_From_InfoSite4u_APP_SITE> VW_From_InfoSite4u_APP_SITE;
+
         private readonly bool StoredProcedure = bool.Parse(ConfigurationManager.AppSettings["StoredProcedure"]);
 
         private static readonly bool logXmlToData = bool.Parse(ConfigurationManager.AppSettings["LogXML-To-DATA"]);
 
         private static readonly bool logDataToDb = bool.Parse(ConfigurationManager.AppSettings["LogDATA-To-DB"]);
 
-        private string connectionString = ConfigurationManager.AppSettings["StoredProcConnectionString"];
+        private string connectionString = ConfigurationManager.ConnectionStrings[1].ConnectionString.Split('"')[1];
 
         public DataBase(logger _logger)
         {
@@ -39,6 +41,7 @@ namespace Mcd.App.GetXmlRpc
             HsFinalList = new List<APP_DDAY_HOURLY_SALES>();
             HpFinalList = new List<APP_DDAY_HOURLY_PMX>();
             Pod_SIR_ID = _ctx.RFU_POD_SIR_ID.ToList();
+            VW_From_InfoSite4u_APP_SITE = _ctx.VW_From_InfoSite4u_APP_SITE.ToList();
         }
 
         public void SaveHourlySales(HourlySales hourlySalesObjet, int? numResto = null, DateTime? dateActivity = null)
@@ -185,10 +188,10 @@ namespace Mcd.App.GetXmlRpc
                             DDHS_MVAL_SIR_ID = (short)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort).PDID_MVAL_SIR_ID : 0),
                             DDHS_LLVR_SIR_ID = (short)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort).PDID_LLVR_SIR_ID : 0),
                             DDHS_SALES_TM = short.Parse(hourlySales.DayPartitioning.Segment.FirstOrDefault(seg => seg.Id == sales.Id.ToString()).BegTime),
-                            DDHS_SALES_PROD_AM = decimal.Parse(cultureConvertor(sales.ProductNetAmount)),
-                            DDHS_SALES_NON_PROD_AM = decimal.Parse(cultureConvertor(sales.NetAmount)) - decimal.Parse(cultureConvertor(sales.ProductNetAmount)),
-                            DDHS_EAT_IN_SALES_AM = decimal.Parse(cultureConvertor(sales.EatInNetAmount)),
-                            DDHS_TAKE_OUT_SALES_AM = decimal.Parse(cultureConvertor(sales.TakeOutNetAmount)),
+                            DDHS_SALES_PROD_AM = decimal.Parse(sales.ProductNetAmount.Replace(".", ",")),
+                            DDHS_SALES_NON_PROD_AM = decimal.Parse(sales.NetAmount.Replace(".", ",")) - decimal.Parse(sales.ProductNetAmount.Replace(".", ",")),
+                            DDHS_EAT_IN_SALES_AM = decimal.Parse(sales.EatInNetAmount.Replace(".", ",")),
+                            DDHS_TAKE_OUT_SALES_AM = decimal.Parse(sales.TakeOutNetAmount.Replace(".", ",")),
                             DDHS_EAT_IN_TAC_QY = Eat_In_Qy(sales.ExtTC, sales.EatInTC, sales.TakeOutTC),
                             DDHS_TAKE_OUT_TAC_QY = Take_Out_Qy(sales.ExtTC, sales.EatInTC, sales.TakeOutTC),
                             DDHS_DISCOUNT_IN_TAC_QY = 0,
@@ -197,8 +200,9 @@ namespace Mcd.App.GetXmlRpc
                             DDHS_DISCOUNT_OUT_SALES_AM = 0,
                             DDHS_CREW_HOURS_WORKED = 0,
                             DDHS_PROCESS_DT = DateTime.Now,
-                            DDHS_BUSINESS_DT = DateTime.ParseExact(hourlySales.RequestDate, "yyyyMMdd",
-                                                           CultureInfo.InvariantCulture),
+                            /*DDHS_BUSINESS_DT = DateTime.ParseExact(hourlySales.RequestDate, "yyyyMMdd",
+                                                           CultureInfo.InvariantCulture),*/
+                            DDHS_BUSINESS_DT = DateTime.Now
                         };
                         app_dday_hourly_sales.Add(app_hourly_sale);
 
@@ -283,8 +287,7 @@ namespace Mcd.App.GetXmlRpc
                                     DDHP_EMPLOYEE_MEAL_AM = DDHP_EMPLOYEE_MEAL_AM,
                                     DDHP_CA_IN_AM = DDHP_CA_IN_AM,
                                     DDHP_CA_OUT_AM = DDHP_CA_OUT_AM,
-                                    DDHP_BUSINESS_DT = DateTime.ParseExact(hourlySales.RequestDate, "yyyyMMdd",
-                                                           CultureInfo.InvariantCulture),
+                                    DDHP_BUSINESS_DT = DateTime.Now,
                                     DDHP_PROCESS_DT = DateTime.Now
                                 };
                                 app_dday_hourly_pmx.Add(app_hourly_pmx);
@@ -299,7 +302,7 @@ namespace Mcd.App.GetXmlRpc
             }
         }
 
-        private string cultureConvertor(string str)
+        /*private string cultureConvertor(string str)
         {
             NumberFormatInfo nfi = new NumberFormatInfo();
             
@@ -319,7 +322,7 @@ namespace Mcd.App.GetXmlRpc
                 }
             }
             return str;
-        }
+        }*/
 
         private DataTable GenHsDataTable()
         {
@@ -486,6 +489,18 @@ namespace Mcd.App.GetXmlRpc
             {
                 return (short)(extTC - takeOutTC);
             }
+        }
+
+        public List<string> RestoList()
+        {
+            List<string> result = new List<string>();
+            VW_From_InfoSite4u_APP_SITE.ForEach((VW_From_InfoSite4u_APP_SITE entry) =>
+            {
+                result.Add(entry.SITE_ID.ToString());
+                Console.WriteLine(entry.SITE_ID.ToString());
+                Console.WriteLine(result.Count);
+            });
+            return result;
         }
 
         public short Take_Out_Qy(string extTC_str, string eatInTC_str, string takeOutTC_str)

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Aymen.DESKTOP-D86AF7C\Desktop\Captiva\New folder (2)\DAL\McDashboardEntities.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\aymen\Source\Repos\VenteJournee\DAL\McDashboardEntities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

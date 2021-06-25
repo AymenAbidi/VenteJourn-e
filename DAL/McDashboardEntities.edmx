@@ -54,6 +54,89 @@
           <Property Name="DDHS_CREW_HOURS_WORKED" Type="numeric" Precision="12" Scale="3" />
           <Property Name="DDHS_PROCESS_DT" Type="datetime" />
         </EntityType>
+        <EntityType Name="APP_SITE">
+          <Key>
+            <PropertyRef Name="SITE_ID" />
+          </Key>
+          <Property Name="SITE_ID" Type="int" Nullable="false" />
+          <Property Name="SITE_REGN_ID" Type="int" />
+          <Property Name="SITE_BUDL_ID" Type="int" />
+          <Property Name="SITE_BUTP_ID" Type="int" />
+          <Property Name="SITE_HOZN_ID" Type="int" />
+          <Property Name="SITE_OPTR_ID" Type="int" />
+          <Property Name="SITE_DETP_ID" Type="int" />
+          <Property Name="SITE_COTN_ID" Type="int" />
+          <Property Name="SITE_JV_ID" Type="int" />
+          <Property Name="SITE_OPTP_ID" Type="int" />
+          <Property Name="SITE_GGCH_ID" Type="int" />
+          <Property Name="SITE_OPCH_ID" Type="int" />
+          <Property Name="SITE_MIZN_ID" Type="int" />
+          <Property Name="SITE_SPBX_ID" Type="int" />
+          <Property Name="SITE_SMHN_ID" Type="int" />
+          <Property Name="SITE_CTBX_ID" Type="int" />
+          <Property Name="SITE_ISTR_ID" Type="int" />
+          <Property Name="SITE_CMTP_ID" Type="int" />
+          <Property Name="SITE_PCTP_ADM_ID" Type="int" />
+          <Property Name="SITE_PCTP_OPS_ID" Type="int" />
+          <Property Name="SITE_CAOS_ID" Type="int" />
+          <Property Name="SITE_PRPE_ID" Type="int" />
+          <Property Name="SITE_OPPN_ID" Type="int" />
+          <Property Name="SITE_OSVS_ID" Type="int" />
+          <Property Name="SITE_PRINC_SITE_ID" Type="int" />
+          <Property Name="SITE_TEMP_ID" Type="int" />
+          <Property Name="SITE_TX" Type="varchar" MaxLength="40" />
+          <Property Name="SITE_PLANNED_OPENING_DT" Type="datetime" />
+          <Property Name="SITE_OPENING_DT" Type="datetime" />
+          <Property Name="SITE_PERMANENT_CLOSURE_DT" Type="datetime" />
+          <Property Name="SITE_DRIVE_BL" Type="bit" />
+          <Property Name="SITE_ISD_INSIDE_SEAT_QY" Type="smallint" />
+          <Property Name="SITE_ISD_INSIDE_SEAT_UPDATE_DT" Type="datetime" />
+          <Property Name="SITE_ISD_OUTSIDE_SEAT_QY" Type="smallint" />
+          <Property Name="SITE_ISD_OUTSIDE_SEAT_UPDATE_DT" Type="datetime" />
+          <Property Name="SITE_INSIDE_SEAT_QY" Type="smallint" />
+          <Property Name="SITE_INSIDE_SEAT_UPDATE_DT" Type="datetime" />
+          <Property Name="SITE_OUTSIDE_SEAT_QY" Type="smallint" />
+          <Property Name="SITE_OUTSIDE_SEAT_UPDATE_DT" Type="datetime" />
+          <Property Name="SITE_MC_PARK_PLACE_QY" Type="smallint" />
+          <Property Name="SITE_MC_PARK_PLACE_UPDATE_DT" Type="datetime" />
+          <Property Name="SITE_TOT_PARK_STALLS_QY" Type="smallint" />
+          <Property Name="SITE_TOT_PARK_STALLS_UPDATE_DT" Type="datetime" />
+          <Property Name="SITE_SURFACE_AR" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="SITE_SURFACE_UPDATE_DT" Type="datetime" />
+          <Property Name="SITE_DECO_TYPE_UPDATE_DT" Type="datetime" />
+          <Property Name="SITE_GROUP_CAPACITY_QY" Type="smallint" />
+          <Property Name="SITE_PHOTO_BY" Type="image" />
+          <Property Name="SITE_PHOTO_UPDATE_DT" Type="datetime" />
+          <Property Name="SITE_LO_ORDER_PROPOSAL_BEGIN_DT" Type="datetime" />
+          <Property Name="SITE_LO_HAPPY_MEAL_ORDER_PROPOSAL_BL" Type="bit" />
+          <Property Name="SITE_LO_BREAKFAST_BL" Type="bit" />
+          <Property Name="SITE_LO_STANDARD_KEYBOARD_BL" Type="bit" />
+          <Property Name="SITE_EQ_CASH_REGISTER_QY" Type="smallint" />
+          <Property Name="SITE_EQ_OPS_ADDRESS_IP_TX" Type="varchar" MaxLength="15" />
+          <Property Name="SITE_EQ_ADMIN_ADDRESS_IP_TX" Type="varchar" MaxLength="15" />
+          <Property Name="SITE_EQ_ADMIN_PC_LOCALISATION_TX" Type="varchar" MaxLength="1" />
+          <Property Name="SITE_EQ_MEMO_GARDE_CONTRACT_BL" Type="bit" />
+          <Property Name="SITE_EQ_BBOX_ADDRESS_IP_TX" Type="varchar" MaxLength="15" />
+          <Property Name="SITE_EQ_COMMENT_CM" Type="varchar" MaxLength="500" />
+          <Property Name="SITE_ALLIANCE_PRTNR_RESP_BL" Type="bit" />
+          <Property Name="SITE_ENTRY_WAY_RESP_BL" Type="bit" />
+          <Property Name="SITE_FRNT_CNTR_RESP_BL" Type="bit" />
+          <Property Name="SITE_REST_ROOM_RESP_BL" Type="bit" />
+          <Property Name="SITE_SEAT_AREA_RESP_BL" Type="bit" />
+          <Property Name="SITE_PARK_LOT_RESP_BL" Type="bit" />
+          <Property Name="SITE_ALTN_ID" Type="int" />
+          <Property Name="SITE_DTMT_ID" Type="int" />
+          <Property Name="SITE_SHORT_TX" Type="varchar" MaxLength="10" />
+          <Property Name="SITE_BUDE_ID" Type="int" />
+          <Property Name="SITE_REF_INFO_NM" Type="varchar" MaxLength="100" />
+          <Property Name="SITE_GP_NM" Type="varchar" MaxLength="200" />
+          <Property Name="SITE_GEO_LAT" Type="decimal" Precision="11" Scale="8" />
+          <Property Name="SITE_GEO_LONG" Type="decimal" Precision="11" Scale="8" />
+          <Property Name="SITE_GEO_USERCHANGE_NM" Type="varchar" MaxLength="50" />
+          <Property Name="SITE_GEO_UPDATE_DT" Type="datetime" />
+          <Property Name="SITE_UPDATE_DT" Type="datetime" />
+          <Property Name="SITE_UPDATE_TYPE" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="RFU_POD_SIR_ID">
           <Key>
             <PropertyRef Name="PDID_PODSHORT" />
@@ -88,11 +171,32 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.TRA_LOG' does not have a prim
           <Property Name="LOG_PROCESSLOGID" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LOG_EXCEPTION" Type="varchar" MaxLength="2000" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'McDashboard_Rect.dbo.VW_For_DatalakeExploit_APP_SITE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_For_DatalakeExploit_APP_SITE">
+          <Key>
+            <PropertyRef Name="SITE_ID" />
+          </Key>
+          <Property Name="SITE_ID" Type="int" Nullable="false" />
+          <Property Name="SITE_TX" Type="varchar" MaxLength="40" />
+          <Property Name="SITE_OPENING_DT" Type="datetime" />
+          <Property Name="SITE_PERMANENT_CLOSURE_DT" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'McDashboard_Rect.dbo.VW_From_InfoSite4u_APP_SITE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_From_InfoSite4u_APP_SITE">
+          <Key>
+            <PropertyRef Name="SITE_ID" />
+          </Key>
+          <Property Name="SITE_ID" Type="int" Nullable="false" />
+          <Property Name="SITE_TX" Type="varchar" MaxLength="40" />
+        </EntityType>
         <Function Name="SPW_INSERT_DDAY_HOURLY_PMX" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SPW_INSERT_DDAY_HOURLY_SALES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="McDashboard_RectModelStoreContainer">
           <EntitySet Name="APP_DDAY_HOURLY_PMX" EntityType="Self.APP_DDAY_HOURLY_PMX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APP_DDAY_HOURLY_SALES" EntityType="Self.APP_DDAY_HOURLY_SALES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APP_SITE" EntityType="Self.APP_SITE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RFU_POD_SIR_ID" EntityType="Self.RFU_POD_SIR_ID" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TRA_LOG" EntityType="Self.TRA_LOG" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -107,6 +211,20 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.TRA_LOG' does not have a prim
     [TRA_LOG].[LOG_PROCESSLOGID] AS [LOG_PROCESSLOGID], 
     [TRA_LOG].[LOG_EXCEPTION] AS [LOG_EXCEPTION]
     FROM [dbo].[TRA_LOG] AS [TRA_LOG]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_For_DatalakeExploit_APP_SITE" EntityType="Self.VW_For_DatalakeExploit_APP_SITE" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_For_DatalakeExploit_APP_SITE].[SITE_ID] AS [SITE_ID], 
+    [VW_For_DatalakeExploit_APP_SITE].[SITE_TX] AS [SITE_TX], 
+    [VW_For_DatalakeExploit_APP_SITE].[SITE_OPENING_DT] AS [SITE_OPENING_DT], 
+    [VW_For_DatalakeExploit_APP_SITE].[SITE_PERMANENT_CLOSURE_DT] AS [SITE_PERMANENT_CLOSURE_DT]
+    FROM [dbo].[VW_For_DatalakeExploit_APP_SITE] AS [VW_For_DatalakeExploit_APP_SITE]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_From_InfoSite4u_APP_SITE" EntityType="Self.VW_From_InfoSite4u_APP_SITE" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_From_InfoSite4u_APP_SITE].[SITE_ID] AS [SITE_ID], 
+    [VW_From_InfoSite4u_APP_SITE].[SITE_TX] AS [SITE_TX]
+    FROM [dbo].[VW_From_InfoSite4u_APP_SITE] AS [VW_From_InfoSite4u_APP_SITE]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema>
@@ -163,6 +281,89 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.TRA_LOG' does not have a prim
           <Property Name="DDHS_CREW_HOURS_WORKED" Type="Decimal" Precision="12" Scale="3" />
           <Property Name="DDHS_PROCESS_DT" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="APP_SITE">
+          <Key>
+            <PropertyRef Name="SITE_ID" />
+          </Key>
+          <Property Name="SITE_ID" Type="Int32" Nullable="false" />
+          <Property Name="SITE_REGN_ID" Type="Int32" />
+          <Property Name="SITE_BUDL_ID" Type="Int32" />
+          <Property Name="SITE_BUTP_ID" Type="Int32" />
+          <Property Name="SITE_HOZN_ID" Type="Int32" />
+          <Property Name="SITE_OPTR_ID" Type="Int32" />
+          <Property Name="SITE_DETP_ID" Type="Int32" />
+          <Property Name="SITE_COTN_ID" Type="Int32" />
+          <Property Name="SITE_JV_ID" Type="Int32" />
+          <Property Name="SITE_OPTP_ID" Type="Int32" />
+          <Property Name="SITE_GGCH_ID" Type="Int32" />
+          <Property Name="SITE_OPCH_ID" Type="Int32" />
+          <Property Name="SITE_MIZN_ID" Type="Int32" />
+          <Property Name="SITE_SPBX_ID" Type="Int32" />
+          <Property Name="SITE_SMHN_ID" Type="Int32" />
+          <Property Name="SITE_CTBX_ID" Type="Int32" />
+          <Property Name="SITE_ISTR_ID" Type="Int32" />
+          <Property Name="SITE_CMTP_ID" Type="Int32" />
+          <Property Name="SITE_PCTP_ADM_ID" Type="Int32" />
+          <Property Name="SITE_PCTP_OPS_ID" Type="Int32" />
+          <Property Name="SITE_CAOS_ID" Type="Int32" />
+          <Property Name="SITE_PRPE_ID" Type="Int32" />
+          <Property Name="SITE_OPPN_ID" Type="Int32" />
+          <Property Name="SITE_OSVS_ID" Type="Int32" />
+          <Property Name="SITE_PRINC_SITE_ID" Type="Int32" />
+          <Property Name="SITE_TEMP_ID" Type="Int32" />
+          <Property Name="SITE_TX" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_PLANNED_OPENING_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_OPENING_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_PERMANENT_CLOSURE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_DRIVE_BL" Type="Boolean" />
+          <Property Name="SITE_ISD_INSIDE_SEAT_QY" Type="Int16" />
+          <Property Name="SITE_ISD_INSIDE_SEAT_UPDATE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_ISD_OUTSIDE_SEAT_QY" Type="Int16" />
+          <Property Name="SITE_ISD_OUTSIDE_SEAT_UPDATE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_INSIDE_SEAT_QY" Type="Int16" />
+          <Property Name="SITE_INSIDE_SEAT_UPDATE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_OUTSIDE_SEAT_QY" Type="Int16" />
+          <Property Name="SITE_OUTSIDE_SEAT_UPDATE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_MC_PARK_PLACE_QY" Type="Int16" />
+          <Property Name="SITE_MC_PARK_PLACE_UPDATE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_TOT_PARK_STALLS_QY" Type="Int16" />
+          <Property Name="SITE_TOT_PARK_STALLS_UPDATE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_SURFACE_AR" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="SITE_SURFACE_UPDATE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_DECO_TYPE_UPDATE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_GROUP_CAPACITY_QY" Type="Int16" />
+          <Property Name="SITE_PHOTO_BY" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="SITE_PHOTO_UPDATE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_LO_ORDER_PROPOSAL_BEGIN_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_LO_HAPPY_MEAL_ORDER_PROPOSAL_BL" Type="Boolean" />
+          <Property Name="SITE_LO_BREAKFAST_BL" Type="Boolean" />
+          <Property Name="SITE_LO_STANDARD_KEYBOARD_BL" Type="Boolean" />
+          <Property Name="SITE_EQ_CASH_REGISTER_QY" Type="Int16" />
+          <Property Name="SITE_EQ_OPS_ADDRESS_IP_TX" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_EQ_ADMIN_ADDRESS_IP_TX" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_EQ_ADMIN_PC_LOCALISATION_TX" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_EQ_MEMO_GARDE_CONTRACT_BL" Type="Boolean" />
+          <Property Name="SITE_EQ_BBOX_ADDRESS_IP_TX" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_EQ_COMMENT_CM" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_ALLIANCE_PRTNR_RESP_BL" Type="Boolean" />
+          <Property Name="SITE_ENTRY_WAY_RESP_BL" Type="Boolean" />
+          <Property Name="SITE_FRNT_CNTR_RESP_BL" Type="Boolean" />
+          <Property Name="SITE_REST_ROOM_RESP_BL" Type="Boolean" />
+          <Property Name="SITE_SEAT_AREA_RESP_BL" Type="Boolean" />
+          <Property Name="SITE_PARK_LOT_RESP_BL" Type="Boolean" />
+          <Property Name="SITE_ALTN_ID" Type="Int32" />
+          <Property Name="SITE_DTMT_ID" Type="Int32" />
+          <Property Name="SITE_SHORT_TX" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_BUDE_ID" Type="Int32" />
+          <Property Name="SITE_REF_INFO_NM" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_GP_NM" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_GEO_LAT" Type="Decimal" Precision="11" Scale="8" />
+          <Property Name="SITE_GEO_LONG" Type="Decimal" Precision="11" Scale="8" />
+          <Property Name="SITE_GEO_USERCHANGE_NM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_GEO_UPDATE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_UPDATE_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_UPDATE_TYPE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="RFU_POD_SIR_ID">
           <Key>
             <PropertyRef Name="PDID_PODSHORT" />
@@ -195,11 +396,30 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.TRA_LOG' does not have a prim
           <Property Name="LOG_PROCESSLOGID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LOG_EXCEPTION" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="McDashboard_RectEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityType Name="VW_For_DatalakeExploit_APP_SITE">
+          <Key>
+            <PropertyRef Name="SITE_ID" />
+          </Key>
+          <Property Name="SITE_ID" Type="Int32" Nullable="false" />
+          <Property Name="SITE_TX" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="SITE_OPENING_DT" Type="DateTime" Precision="3" />
+          <Property Name="SITE_PERMANENT_CLOSURE_DT" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="VW_From_InfoSite4u_APP_SITE">
+          <Key>
+            <PropertyRef Name="SITE_ID" />
+          </Key>
+          <Property Name="SITE_ID" Type="Int32" Nullable="false" />
+          <Property Name="SITE_TX" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="APP_DDAY_HOURLY_PMX" EntityType="Self.APP_DDAY_HOURLY_PMX" />
           <EntitySet Name="APP_DDAY_HOURLY_SALES" EntityType="Self.APP_DDAY_HOURLY_SALES" />
+          <EntitySet Name="APP_SITE" EntityType="Self.APP_SITE" />
           <EntitySet Name="RFU_POD_SIR_ID" EntityType="Self.RFU_POD_SIR_ID" />
           <EntitySet Name="TRA_LOG" EntityType="Self.TRA_LOG" />
+          <EntitySet Name="VW_For_DatalakeExploit_APP_SITE" EntityType="Self.VW_For_DatalakeExploit_APP_SITE" />
+          <EntitySet Name="VW_From_InfoSite4u_APP_SITE" EntityType="Self.VW_From_InfoSite4u_APP_SITE" />
           <FunctionImport Name="SPW_INSERT_DDAY_HOURLY_PMX" />
           <FunctionImport Name="SPW_INSERT_DDAY_HOURLY_SALES" />
         </EntityContainer>
@@ -208,7 +428,7 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.TRA_LOG' does not have a prim
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="McDashboard_RectModelStoreContainer" CdmEntityContainer="McDashboard_RectEntities1">
+        <EntityContainerMapping StorageEntityContainer="McDashboard_RectModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="APP_DDAY_HOURLY_PMX">
             <EntityTypeMapping TypeName="McDashboard_RectModel.APP_DDAY_HOURLY_PMX">
               <MappingFragment StoreEntitySet="APP_DDAY_HOURLY_PMX">
@@ -260,6 +480,90 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.TRA_LOG' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="APP_SITE">
+            <EntityTypeMapping TypeName="McDashboard_RectModel.APP_SITE">
+              <MappingFragment StoreEntitySet="APP_SITE">
+                <ScalarProperty Name="SITE_ID" ColumnName="SITE_ID" />
+                <ScalarProperty Name="SITE_REGN_ID" ColumnName="SITE_REGN_ID" />
+                <ScalarProperty Name="SITE_BUDL_ID" ColumnName="SITE_BUDL_ID" />
+                <ScalarProperty Name="SITE_BUTP_ID" ColumnName="SITE_BUTP_ID" />
+                <ScalarProperty Name="SITE_HOZN_ID" ColumnName="SITE_HOZN_ID" />
+                <ScalarProperty Name="SITE_OPTR_ID" ColumnName="SITE_OPTR_ID" />
+                <ScalarProperty Name="SITE_DETP_ID" ColumnName="SITE_DETP_ID" />
+                <ScalarProperty Name="SITE_COTN_ID" ColumnName="SITE_COTN_ID" />
+                <ScalarProperty Name="SITE_JV_ID" ColumnName="SITE_JV_ID" />
+                <ScalarProperty Name="SITE_OPTP_ID" ColumnName="SITE_OPTP_ID" />
+                <ScalarProperty Name="SITE_GGCH_ID" ColumnName="SITE_GGCH_ID" />
+                <ScalarProperty Name="SITE_OPCH_ID" ColumnName="SITE_OPCH_ID" />
+                <ScalarProperty Name="SITE_MIZN_ID" ColumnName="SITE_MIZN_ID" />
+                <ScalarProperty Name="SITE_SPBX_ID" ColumnName="SITE_SPBX_ID" />
+                <ScalarProperty Name="SITE_SMHN_ID" ColumnName="SITE_SMHN_ID" />
+                <ScalarProperty Name="SITE_CTBX_ID" ColumnName="SITE_CTBX_ID" />
+                <ScalarProperty Name="SITE_ISTR_ID" ColumnName="SITE_ISTR_ID" />
+                <ScalarProperty Name="SITE_CMTP_ID" ColumnName="SITE_CMTP_ID" />
+                <ScalarProperty Name="SITE_PCTP_ADM_ID" ColumnName="SITE_PCTP_ADM_ID" />
+                <ScalarProperty Name="SITE_PCTP_OPS_ID" ColumnName="SITE_PCTP_OPS_ID" />
+                <ScalarProperty Name="SITE_CAOS_ID" ColumnName="SITE_CAOS_ID" />
+                <ScalarProperty Name="SITE_PRPE_ID" ColumnName="SITE_PRPE_ID" />
+                <ScalarProperty Name="SITE_OPPN_ID" ColumnName="SITE_OPPN_ID" />
+                <ScalarProperty Name="SITE_OSVS_ID" ColumnName="SITE_OSVS_ID" />
+                <ScalarProperty Name="SITE_PRINC_SITE_ID" ColumnName="SITE_PRINC_SITE_ID" />
+                <ScalarProperty Name="SITE_TEMP_ID" ColumnName="SITE_TEMP_ID" />
+                <ScalarProperty Name="SITE_TX" ColumnName="SITE_TX" />
+                <ScalarProperty Name="SITE_PLANNED_OPENING_DT" ColumnName="SITE_PLANNED_OPENING_DT" />
+                <ScalarProperty Name="SITE_OPENING_DT" ColumnName="SITE_OPENING_DT" />
+                <ScalarProperty Name="SITE_PERMANENT_CLOSURE_DT" ColumnName="SITE_PERMANENT_CLOSURE_DT" />
+                <ScalarProperty Name="SITE_DRIVE_BL" ColumnName="SITE_DRIVE_BL" />
+                <ScalarProperty Name="SITE_ISD_INSIDE_SEAT_QY" ColumnName="SITE_ISD_INSIDE_SEAT_QY" />
+                <ScalarProperty Name="SITE_ISD_INSIDE_SEAT_UPDATE_DT" ColumnName="SITE_ISD_INSIDE_SEAT_UPDATE_DT" />
+                <ScalarProperty Name="SITE_ISD_OUTSIDE_SEAT_QY" ColumnName="SITE_ISD_OUTSIDE_SEAT_QY" />
+                <ScalarProperty Name="SITE_ISD_OUTSIDE_SEAT_UPDATE_DT" ColumnName="SITE_ISD_OUTSIDE_SEAT_UPDATE_DT" />
+                <ScalarProperty Name="SITE_INSIDE_SEAT_QY" ColumnName="SITE_INSIDE_SEAT_QY" />
+                <ScalarProperty Name="SITE_INSIDE_SEAT_UPDATE_DT" ColumnName="SITE_INSIDE_SEAT_UPDATE_DT" />
+                <ScalarProperty Name="SITE_OUTSIDE_SEAT_QY" ColumnName="SITE_OUTSIDE_SEAT_QY" />
+                <ScalarProperty Name="SITE_OUTSIDE_SEAT_UPDATE_DT" ColumnName="SITE_OUTSIDE_SEAT_UPDATE_DT" />
+                <ScalarProperty Name="SITE_MC_PARK_PLACE_QY" ColumnName="SITE_MC_PARK_PLACE_QY" />
+                <ScalarProperty Name="SITE_MC_PARK_PLACE_UPDATE_DT" ColumnName="SITE_MC_PARK_PLACE_UPDATE_DT" />
+                <ScalarProperty Name="SITE_TOT_PARK_STALLS_QY" ColumnName="SITE_TOT_PARK_STALLS_QY" />
+                <ScalarProperty Name="SITE_TOT_PARK_STALLS_UPDATE_DT" ColumnName="SITE_TOT_PARK_STALLS_UPDATE_DT" />
+                <ScalarProperty Name="SITE_SURFACE_AR" ColumnName="SITE_SURFACE_AR" />
+                <ScalarProperty Name="SITE_SURFACE_UPDATE_DT" ColumnName="SITE_SURFACE_UPDATE_DT" />
+                <ScalarProperty Name="SITE_DECO_TYPE_UPDATE_DT" ColumnName="SITE_DECO_TYPE_UPDATE_DT" />
+                <ScalarProperty Name="SITE_GROUP_CAPACITY_QY" ColumnName="SITE_GROUP_CAPACITY_QY" />
+                <ScalarProperty Name="SITE_PHOTO_BY" ColumnName="SITE_PHOTO_BY" />
+                <ScalarProperty Name="SITE_PHOTO_UPDATE_DT" ColumnName="SITE_PHOTO_UPDATE_DT" />
+                <ScalarProperty Name="SITE_LO_ORDER_PROPOSAL_BEGIN_DT" ColumnName="SITE_LO_ORDER_PROPOSAL_BEGIN_DT" />
+                <ScalarProperty Name="SITE_LO_HAPPY_MEAL_ORDER_PROPOSAL_BL" ColumnName="SITE_LO_HAPPY_MEAL_ORDER_PROPOSAL_BL" />
+                <ScalarProperty Name="SITE_LO_BREAKFAST_BL" ColumnName="SITE_LO_BREAKFAST_BL" />
+                <ScalarProperty Name="SITE_LO_STANDARD_KEYBOARD_BL" ColumnName="SITE_LO_STANDARD_KEYBOARD_BL" />
+                <ScalarProperty Name="SITE_EQ_CASH_REGISTER_QY" ColumnName="SITE_EQ_CASH_REGISTER_QY" />
+                <ScalarProperty Name="SITE_EQ_OPS_ADDRESS_IP_TX" ColumnName="SITE_EQ_OPS_ADDRESS_IP_TX" />
+                <ScalarProperty Name="SITE_EQ_ADMIN_ADDRESS_IP_TX" ColumnName="SITE_EQ_ADMIN_ADDRESS_IP_TX" />
+                <ScalarProperty Name="SITE_EQ_ADMIN_PC_LOCALISATION_TX" ColumnName="SITE_EQ_ADMIN_PC_LOCALISATION_TX" />
+                <ScalarProperty Name="SITE_EQ_MEMO_GARDE_CONTRACT_BL" ColumnName="SITE_EQ_MEMO_GARDE_CONTRACT_BL" />
+                <ScalarProperty Name="SITE_EQ_BBOX_ADDRESS_IP_TX" ColumnName="SITE_EQ_BBOX_ADDRESS_IP_TX" />
+                <ScalarProperty Name="SITE_EQ_COMMENT_CM" ColumnName="SITE_EQ_COMMENT_CM" />
+                <ScalarProperty Name="SITE_ALLIANCE_PRTNR_RESP_BL" ColumnName="SITE_ALLIANCE_PRTNR_RESP_BL" />
+                <ScalarProperty Name="SITE_ENTRY_WAY_RESP_BL" ColumnName="SITE_ENTRY_WAY_RESP_BL" />
+                <ScalarProperty Name="SITE_FRNT_CNTR_RESP_BL" ColumnName="SITE_FRNT_CNTR_RESP_BL" />
+                <ScalarProperty Name="SITE_REST_ROOM_RESP_BL" ColumnName="SITE_REST_ROOM_RESP_BL" />
+                <ScalarProperty Name="SITE_SEAT_AREA_RESP_BL" ColumnName="SITE_SEAT_AREA_RESP_BL" />
+                <ScalarProperty Name="SITE_PARK_LOT_RESP_BL" ColumnName="SITE_PARK_LOT_RESP_BL" />
+                <ScalarProperty Name="SITE_ALTN_ID" ColumnName="SITE_ALTN_ID" />
+                <ScalarProperty Name="SITE_DTMT_ID" ColumnName="SITE_DTMT_ID" />
+                <ScalarProperty Name="SITE_SHORT_TX" ColumnName="SITE_SHORT_TX" />
+                <ScalarProperty Name="SITE_BUDE_ID" ColumnName="SITE_BUDE_ID" />
+                <ScalarProperty Name="SITE_REF_INFO_NM" ColumnName="SITE_REF_INFO_NM" />
+                <ScalarProperty Name="SITE_GP_NM" ColumnName="SITE_GP_NM" />
+                <ScalarProperty Name="SITE_GEO_LAT" ColumnName="SITE_GEO_LAT" />
+                <ScalarProperty Name="SITE_GEO_LONG" ColumnName="SITE_GEO_LONG" />
+                <ScalarProperty Name="SITE_GEO_USERCHANGE_NM" ColumnName="SITE_GEO_USERCHANGE_NM" />
+                <ScalarProperty Name="SITE_GEO_UPDATE_DT" ColumnName="SITE_GEO_UPDATE_DT" />
+                <ScalarProperty Name="SITE_UPDATE_DT" ColumnName="SITE_UPDATE_DT" />
+                <ScalarProperty Name="SITE_UPDATE_TYPE" ColumnName="SITE_UPDATE_TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RFU_POD_SIR_ID">
             <EntityTypeMapping TypeName="McDashboard_RectModel.RFU_POD_SIR_ID">
               <MappingFragment StoreEntitySet="RFU_POD_SIR_ID">
@@ -283,6 +587,24 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.TRA_LOG' does not have a prim
                 <ScalarProperty Name="LOG_MESSAGE" ColumnName="LOG_MESSAGE" />
                 <ScalarProperty Name="LOG_PROCESSLOGID" ColumnName="LOG_PROCESSLOGID" />
                 <ScalarProperty Name="LOG_EXCEPTION" ColumnName="LOG_EXCEPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_For_DatalakeExploit_APP_SITE">
+            <EntityTypeMapping TypeName="McDashboard_RectModel.VW_For_DatalakeExploit_APP_SITE">
+              <MappingFragment StoreEntitySet="VW_For_DatalakeExploit_APP_SITE">
+                <ScalarProperty Name="SITE_ID" ColumnName="SITE_ID" />
+                <ScalarProperty Name="SITE_TX" ColumnName="SITE_TX" />
+                <ScalarProperty Name="SITE_OPENING_DT" ColumnName="SITE_OPENING_DT" />
+                <ScalarProperty Name="SITE_PERMANENT_CLOSURE_DT" ColumnName="SITE_PERMANENT_CLOSURE_DT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_From_InfoSite4u_APP_SITE">
+            <EntityTypeMapping TypeName="McDashboard_RectModel.VW_From_InfoSite4u_APP_SITE">
+              <MappingFragment StoreEntitySet="VW_From_InfoSite4u_APP_SITE">
+                <ScalarProperty Name="SITE_ID" ColumnName="SITE_ID" />
+                <ScalarProperty Name="SITE_TX" ColumnName="SITE_TX" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
