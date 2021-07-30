@@ -117,12 +117,21 @@ namespace Mcd.App.GetXmlRpc
             XmlDocument xmlRequest = RequestFactory.BuildRequest(request);
             this.xmlRequest = xmlRequest;
             
+            
             XmlDocument xmlResponse = await SendRequestAsync(xmlRequest);
             
             
+            
+
             this.xmlResponse = xmlResponse;
 
+            
             this.response = ResponseFactory.BuildResponse(xmlResponse);
+            
+           
+            
+            
+            
 
             return response;
         }

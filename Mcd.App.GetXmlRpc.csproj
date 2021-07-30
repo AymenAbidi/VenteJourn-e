@@ -96,6 +96,9 @@
     <Compile Include="DAL\VW_From_InfoSite4u_APP_SITE.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\VW_From_InfoSite4u_Resto_APP_SITE.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataBase.cs" />
     <Compile Include="Helpers\logger.cs" />
     <Compile Include="NP6Tools\hs.cs" />

@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Response npVersion="NP6.1.30.MR3QR0B18900" creationDate="20210617 13:17:30" storeId="25000008" storeName="LAB 8 FRENCH COE" requestDataType="HOURLYSALES" requestReport="HOURLYSALES" requestPOD="" requestPOSList="" minCirculatingAmount="0.01" requestDate="20210617" requestTime="" openingDate="20210617" openingTime="09:17:28" closingDate="" closingTime="" UTCOffset="+02:00">
+  <ProductTable>
+    <ProductInfo id="2010" name="CHEESE" familyGroup="REGULAR_ENTREE" class="PRODUCT" department="" classDepartment="" subClassDepartment="" />
+  </ProductTable>
+  <DayPartitioning>
+    <Segment id="1" begTime="0915" endTime="0929" dayOffset="0" />
+  </DayPartitioning>
+  <StoreTotal>
+    <Sales id="1" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="1" takeOutTC="0" eatInNetAmount="1.64" takeOutNetAmount="0" netAmount="1.64" taxAmount="0.16" productNetAmount="1.64" productTaxAmount="0.16" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+      <Product id="2010" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+        <OperationType operationType="SALE">
+          <PMix qtyEatIn="1" qtyTakeOut="0" eatInNetAmount="1.64" takeOutNetAmount="0" netAmount="1.64" taxAmount="0.16">
+            <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0" />
+          </PMix>
+          <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+        </OperationType>
+      </Product>
+    </Sales>
+  </StoreTotal>
+  <POD id="FC" podShort="FC">
+    <StoreTotal>
+      <Sales id="1" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="1" takeOutTC="0" eatInNetAmount="1.64" takeOutNetAmount="0" netAmount="1.64" taxAmount="0.16" productNetAmount="1.64" productTaxAmount="0.16" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+        <Product id="2010" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="1" qtyTakeOut="0" eatInNetAmount="1.64" takeOutNetAmount="0" netAmount="1.64" taxAmount="0.16">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+      </Sales>
+    </StoreTotal>
+  </POD>
+  <POS id="0001" serviceType="POS" podShort="DT" businessDay="20210617" openedDate="20210617 09:17:16" status="OPENED"></POS>
+  <POS id="0002" serviceType="POS" podShort="DT" businessDay="20210617" openedDate="20210617 09:17:16" status="OPENED"></POS>
+  <POS id="0003" serviceType="POS" podShort="DT" businessDay="20210617" openedDate="20210617 09:17:17" status="OPENED"></POS>
+  <POS id="0005" serviceType="POS" podShort="FC" businessDay="20210617" openedDate="20210617 09:17:16" status="OPENED">
+    <StoreTotal>
+      <Sales id="1" tc="1" prodTC="1" nonProdTC="0" extTC="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0" eatInTC="1" takeOutTC="0" eatInNetAmount="1.64" takeOutNetAmount="0" netAmount="1.64" taxAmount="0.16" productNetAmount="1.64" productTaxAmount="0.16" tabNetAmount="0" tabTaxAmount="0" wavesAmount="0" wavesReceivedAmount="0">
+        <Product id="2010" tc="1" tabTC="0" tabsCount="0" wavesCount="0" wavesReceivedCount="0">
+          <OperationType operationType="SALE">
+            <PMix qtyEatIn="1" qtyTakeOut="0" eatInNetAmount="1.64" takeOutNetAmount="0" netAmount="1.64" taxAmount="0.16">
+              <Tab qtyEatIn="0" qtyTakeOut="0" netAmount="0" taxAmount="0" />
+            </PMix>
+            <WavePMix qtyEatIn="0" qtyTakeOut="0" wavesAmount="0" receivedQtyEatIn="0" receivedQtyTakeOut="0" receivedAmount="0" />
+          </OperationType>
+        </Product>
+      </Sales>
+    </StoreTotal>
+  </POS>
+  <POS id="0021" serviceType="POS" podShort="MCE" businessDay="20210617" openedDate="20210617 09:17:16" status="OPENED"></POS>
+  <POS id="0023" serviceType="POS" podShort="MCC" businessDay="20210617" openedDate="20210617 09:17:17" status="OPENED"></POS>
+  <POS id="0025" serviceType="POS" podShort="DT" businessDay="20210617" openedDate="20210617 09:17:16" status="OPENED"></POS>
+  <POS id="0040" serviceType="POS" podShort="CSO" businessDay="20210617" openedDate="20210617 09:17:16" status="OPLOGGED"></POS>
+  <POS id="0041" serviceType="POS" podShort="CSO" businessDay="20210617" openedDate="20210617 09:17:17" status="OPENED"></POS>
+  <POS id="0060" serviceType="POS" podShort="DLV" businessDay="20210617" openedDate="20210617 09:17:17" status="OPLOGGED"></POS>
+  <POS id="0061" serviceType="POS" podShort="DT" businessDay="20210617" openedDate="20210617 09:17:17" status="OPLOGGED"></POS>
+  <POS id="0062" serviceType="POS" podShort="CK" businessDay="20210617" openedDate="20210617 09:17:17" status="OPLOGGED"></POS>
+  <POS id="0063" serviceType="POS" podShort="MCC" businessDay="20210617" openedDate="20210617 09:17:18" status="OPLOGGED"></POS>
+  <POS id="0064" serviceType="POS" podShort="CKD" businessDay="20210617" openedDate="20210617 09:17:18" status="OPLOGGED"></POS>
+</Response>

@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Xml.Linq;
+using System.Configuration;
 
 namespace Mcd.App.GetXmlRpc
 {
@@ -19,6 +20,7 @@ namespace Mcd.App.GetXmlRpc
     {
         public string Url { get; set; }
 
+        private static readonly int RequestTimeout = int.Parse(ConfigurationManager.AppSettings["RequestTimeout"]);
         public async Task<XmlDocument> SendRequestAsync(string dataRequest)
         {
             XmlDocument xmlDocument = new XmlDocument();
@@ -44,14 +46,17 @@ namespace Mcd.App.GetXmlRpc
                 client.DefaultRequestHeaders.Add("Connection", "keep-alive");
                 client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/3.0 (compatible; Indy Library)");
                 client.DefaultRequestHeaders.Add("Accept", "*/*");
-
-                var response = await client.PostAsync(this.Url, content);
+                client.Timeout = TimeSpan.FromSeconds(RequestTimeout);
                 
+                var response = await client.PostAsync(this.Url, content);
                 responseMsg = await response.Content.ReadAsStringAsync();
-               
+                XDocument xdoc = XDocument.Parse(responseMsg);
+                
+
+                return xdoc.ToString();
+
             }
-            XDocument xdoc = XDocument.Parse(responseMsg);
-            return xdoc.ToString();
+            
         }
 
     }

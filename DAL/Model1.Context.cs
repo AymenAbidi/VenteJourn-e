@@ -12,8 +12,6 @@ namespace Mcd.App.GetXmlRpc.DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class McDashboard_Entities : DbContext
     {
@@ -34,15 +32,6 @@ namespace Mcd.App.GetXmlRpc.DAL
         public virtual DbSet<TRA_LOG> TRA_LOG { get; set; }
         public virtual DbSet<VW_For_DatalakeExploit_APP_SITE> VW_For_DatalakeExploit_APP_SITE { get; set; }
         public virtual DbSet<VW_From_InfoSite4u_APP_SITE> VW_From_InfoSite4u_APP_SITE { get; set; }
-    
-        public virtual int SPW_INSERT_DDAY_HOURLY_PMX()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPW_INSERT_DDAY_HOURLY_PMX");
-        }
-    
-        public virtual int SPW_INSERT_DDAY_HOURLY_SALES()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SPW_INSERT_DDAY_HOURLY_SALES");
-        }
+        public virtual DbSet<VW_From_InfoSite4u_Resto_APP_SITE> VW_From_InfoSite4u_Resto_APP_SITE { get; set; }
     }
 }

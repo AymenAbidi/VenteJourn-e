@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler,Log4net" />
+  </configSections>
+  <connectionStrings>
+   <add name="McDashboard_RectEntities" connectionString="metadata=res://*/DAL.McDashboardEntities.csdl|res://*/DAL.McDashboardEntities.ssdl|res://*/DAL.McDashboardEntities.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=(localdb)\MSSQLLocalDB;initial catalog=McDashboard_Rect;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+  </connectionStrings>
+  <appSettings>
+    <clear />
+    <add key="xmlFilesPath" value="C:\Users\aymen\source\repos\VenteJournee\SolutionsItems\XMLFiles\XMLFiles" />
+    <add key="processRepeat" value="0" />
+    <add key="NP6Port" value="8080" />
+    <add key="SaveXML" value="true" />
+	<add key="ThreadSplit" value="300" />
+	<add key="LogXML-RPC-Req" value="true" />
+	<add key="LogXML-To-DATA" value="true" />
+	<add key="LogDATA-To-DB" value="true" />
+	<add key="StoredProcedure" value="true"/>
+    <add key="RestaurantList" value="1"/>
+	 <add key="RequestTimeout" value="500"/>
+	  <add key="BusinessDate" value="20/03/2021"/>
+	  <add key="DateFormat" value="MM/dd/yyyy"/>
+	</appSettings>
+  <log4net>
+    <root>
+      <level value="DEBUG" />
+      <appender-ref ref="ADONetAppender" />
+    </root>
+    <appender name="ADONetAppender" type="log4net.Appender.ADONetAppender">
+      <bufferSize value="1" />
+      <connectionType value="System.Data.SqlClient.SqlConnection, System.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+      <connectionString value="Data Source=(localdb)\MSSQLLocalDB;initial Catalog=McDashboard_Rect; Integrated Security=True;" />
+      <commandText value="INSERT INTO TRA_LOG ([LOG_DATE],[LOG_RESTAURANTID],[LOG_DUREE],[LOG_THREAD],[LOG_LEVEL],[LOG_LOGGER],[LOG_MESSAGE],[LOG_PROCESSLOGID],[LOG_EXCEPTION]) VALUES (@log_date, @restaurantId, @duree, @thread, @log_level, @logger, @message, @processLogId, @exception)" />
+      <parameter>
+        <parameterName value="@log_date" />
+        <dbType value="DateTime" />
+        <layout type="log4net.Layout.RawTimeStampLayout" />
+      </parameter>
+      <parameter>
+        <parameterName value="@restaurantId" />
+        <dbType value="String" />
+        <size value="255" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%property{restaurantId}" />
+        </layout>
+      </parameter>
+      <parameter>
+        <parameterName value="@duree" />
+        <dbType value="String" />
+        <size value="255" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%property{duree}" />
+        </layout>
+      </parameter>
+      <parameter>
+        <parameterName value="@thread" />
+        <dbType value="String" />
+        <size value="255" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%thread" />
+        </layout>
+      </parameter>
+      <parameter>
+        <parameterName value="@log_level" />
+        <dbType value="String" />
+        <size value="50" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%level" />
+        </layout>
+      </parameter>
+      <parameter>
+        <parameterName value="@logger" />
+        <dbType value="String" />
+        <size value="255" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%logger" />
+        </layout>
+      </parameter>
+      <parameter>
+        <parameterName value="@message" />
+        <dbType value="String" />
+        <size value="4000" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%message" />
+        </layout>
+      </parameter>
+      <parameter>
+        <parameterName value="@processLogId" />
+        <dbType value="String" />
+        <size value="50" />
+        <layout type="log4net.Layout.PatternLayout">
+          <conversionPattern value="%property{processLogId}" />
+        </layout>
+      </parameter>
+      <parameter>
+        <parameterName value="@exception" />
+        <dbType value="String" />
+        <size value="2000" />
+        <layout type="log4net.Layout.ExceptionLayout" />
+      </parameter>
+    </appender>
+  </log4net>
+ 
+  <startup>
+    <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5" />
+  </startup>
+  <system.web>
+    <membership defaultProvider="ClientAuthenticationMembershipProvider">
+      <providers>
+        <add name="ClientAuthenticationMembershipProvider" type="System.Web.ClientServices.Providers.ClientFormsAuthenticationMembershipProvider, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri="" />
+      </providers>
+    </membership>
+    <roleManager defaultProvider="ClientRoleProvider" enabled="true">
+      <providers>
+        <add name="ClientRoleProvider" type="System.Web.ClientServices.Providers.ClientRoleProvider, System.Web.Extensions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri="" cacheTimeout="86400" />
+      </providers>
+    </roleManager>
+  </system.web>
+  <system.net>
+    <settings>
+      <httpWebRequest useUnsafeHeaderParsing="true" />
+    </settings>
+  </system.net>
+</configuration>

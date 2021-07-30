@@ -191,8 +191,15 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.VW_From_InfoSite4u_APP_SITE' 
           <Property Name="SITE_ID" Type="int" Nullable="false" />
           <Property Name="SITE_TX" Type="varchar" MaxLength="40" />
         </EntityType>
-        <Function Name="SPW_INSERT_DDAY_HOURLY_PMX" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="SPW_INSERT_DDAY_HOURLY_SALES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'McDashboard_Rect.dbo.VW_From_InfoSite4u_Resto_APP_SITE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_From_InfoSite4u_Resto_APP_SITE">
+          <Key>
+            <PropertyRef Name="SITE_ID" />
+          </Key>
+          <Property Name="SITE_ID" Type="int" Nullable="false" />
+          <Property Name="SITE_TX" Type="varchar" MaxLength="40" />
+        </EntityType>
         <EntityContainer Name="McDashboard_RectModelStoreContainer">
           <EntitySet Name="APP_DDAY_HOURLY_PMX" EntityType="Self.APP_DDAY_HOURLY_PMX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APP_DDAY_HOURLY_SALES" EntityType="Self.APP_DDAY_HOURLY_SALES" Schema="dbo" store:Type="Tables" />
@@ -225,6 +232,12 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.VW_From_InfoSite4u_APP_SITE' 
     [VW_From_InfoSite4u_APP_SITE].[SITE_ID] AS [SITE_ID], 
     [VW_From_InfoSite4u_APP_SITE].[SITE_TX] AS [SITE_TX]
     FROM [dbo].[VW_From_InfoSite4u_APP_SITE] AS [VW_From_InfoSite4u_APP_SITE]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VW_From_InfoSite4u_Resto_APP_SITE" EntityType="Self.VW_From_InfoSite4u_Resto_APP_SITE" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_From_InfoSite4u_Resto_APP_SITE].[SITE_ID] AS [SITE_ID], 
+    [VW_From_InfoSite4u_Resto_APP_SITE].[SITE_TX] AS [SITE_TX]
+    FROM [dbo].[VW_From_InfoSite4u_Resto_APP_SITE] AS [VW_From_InfoSite4u_Resto_APP_SITE]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema>
@@ -412,6 +425,13 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.VW_From_InfoSite4u_APP_SITE' 
           <Property Name="SITE_ID" Type="Int32" Nullable="false" />
           <Property Name="SITE_TX" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="VW_From_InfoSite4u_Resto_APP_SITE">
+          <Key>
+            <PropertyRef Name="SITE_ID" />
+          </Key>
+          <Property Name="SITE_ID" Type="Int32" Nullable="false" />
+          <Property Name="SITE_TX" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="APP_DDAY_HOURLY_PMX" EntityType="Self.APP_DDAY_HOURLY_PMX" />
           <EntitySet Name="APP_DDAY_HOURLY_SALES" EntityType="Self.APP_DDAY_HOURLY_SALES" />
@@ -420,8 +440,7 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.VW_From_InfoSite4u_APP_SITE' 
           <EntitySet Name="TRA_LOG" EntityType="Self.TRA_LOG" />
           <EntitySet Name="VW_For_DatalakeExploit_APP_SITE" EntityType="Self.VW_For_DatalakeExploit_APP_SITE" />
           <EntitySet Name="VW_From_InfoSite4u_APP_SITE" EntityType="Self.VW_From_InfoSite4u_APP_SITE" />
-          <FunctionImport Name="SPW_INSERT_DDAY_HOURLY_PMX" />
-          <FunctionImport Name="SPW_INSERT_DDAY_HOURLY_SALES" />
+          <EntitySet Name="VW_From_InfoSite4u_Resto_APP_SITE" EntityType="Self.VW_From_InfoSite4u_Resto_APP_SITE" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -608,8 +627,14 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.VW_From_InfoSite4u_APP_SITE' 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SPW_INSERT_DDAY_HOURLY_PMX" FunctionName="McDashboard_RectModel.Store.SPW_INSERT_DDAY_HOURLY_PMX" />
-          <FunctionImportMapping FunctionImportName="SPW_INSERT_DDAY_HOURLY_SALES" FunctionName="McDashboard_RectModel.Store.SPW_INSERT_DDAY_HOURLY_SALES" />
+          <EntitySetMapping Name="VW_From_InfoSite4u_Resto_APP_SITE">
+            <EntityTypeMapping TypeName="McDashboard_RectModel.VW_From_InfoSite4u_Resto_APP_SITE">
+              <MappingFragment StoreEntitySet="VW_From_InfoSite4u_Resto_APP_SITE">
+                <ScalarProperty Name="SITE_ID" ColumnName="SITE_ID" />
+                <ScalarProperty Name="SITE_TX" ColumnName="SITE_TX" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -5,7 +5,9 @@ using Mcd.App.GetXmlRpc.PMX;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,31 +32,44 @@ namespace Mcd.App.GetXmlRpc
         private static readonly bool SaveXML = bool.Parse(ConfigurationManager.AppSettings["SaveXML"]);
 
         private static readonly int ThreadSplit = int.Parse(ConfigurationManager.AppSettings["ThreadSplit"]);
+        
+        private static readonly string BusinessDate = ConfigurationManager.AppSettings["BusinessDate"];
 
         private static readonly bool logXmlToData = bool.Parse(ConfigurationManager.AppSettings["LogXML-To-DATA"]);
 
         private static int processRepeat = int.Parse(ConfigurationManager.AppSettings["processRepeat"]);
+        private static string connectionString = ConfigurationManager.ConnectionStrings[1].ConnectionString.Split('"')[1];
 
         static void Main(string[] args)
         {
-            GlobalContext.Properties["LogFileName"] = ConfigurationManager.AppSettings["logPath"]; //log file path
+            //GlobalContext.Properties["LogFileName"] = ConfigurationManager.AppSettings["logPath"]; //log file path
             log4net.Config.XmlConfigurator.Configure();
             database = new DataBase(_logger);
 
-            if (args.Count() == 0)
-            {
+            /*if (args.Count() == 0)
+            {*/
                 
                 List<string> Restaurants = new List<string>();
                 if (RestoWhiteList != "")
                 {
-                     Restaurants= RestoWhiteList.Split(':').ToList();
+                    if (RestoWhiteList == "f")
+                    {
+                        Restaurants = File.ReadAllLines("Restaurants.txt")
+                                               .Where(r => !string.IsNullOrEmpty(r))
+                                               .ToList();
+                    }
+                    else 
+                    {
+                        Restaurants = RestoWhiteList.Split(':').ToList();
+                    }
+                    
                 }
                 else
                 {
                     Restaurants = database.RestoList();
                 }
-                
 
+                
                 if (processRepeat > 0)
                     Restaurants = Enumerable.Repeat(Restaurants.FirstOrDefault(), processRepeat).ToList();
 
@@ -64,11 +79,32 @@ namespace Mcd.App.GetXmlRpc
 
                 var splitRestaurants = SplitList(Restaurants, ThreadSplit);
                 var tasks = new List<Task>();
+                var actions = new List<Action>();
                 int i = 0;
 
-                foreach (var splitResto in splitRestaurants)
-                {
 
+            SqlConnection con = new SqlConnection(connectionString);
+            con.Open();
+            Console.WriteLine("connexion version : " + con.ServerVersion);
+            Restaurants.ForEach((string restaurant) =>
+                {
+                    int j = i;
+                    actions.Add(() =>
+                    {
+                        int? mockIndex = null;
+                        if (processRepeat > 0) mockIndex = int.Parse(restaurant.Trim()) + j;
+                        callResto(Convert.ToInt32(restaurant.Trim()),con,BusinessDate==""? DateTime.Now:DateTime.ParseExact(BusinessDate,"dd/MM/yyyy", CultureInfo.InvariantCulture), mockIndex).Wait();
+                        Console.WriteLine($"Processing resto index {j} Finished");
+
+                    });
+                });
+                
+                var options = new ParallelOptions { MaxDegreeOfParallelism = ThreadSplit };
+                Parallel.Invoke(options , actions.ToArray());
+                
+                /*foreach (var splitResto in splitRestaurants)
+                {
+                    
                     Console.WriteLine($"splitResto count : {splitResto.Count}");
                     Parallel.ForEach(splitResto, resto =>
                     {
@@ -87,13 +123,13 @@ namespace Mcd.App.GetXmlRpc
                     Task.WaitAll(tasks.ToArray());
 
                     tasks = new List<Task>();
-                }
+                }*/
 
                 try
                 {
                     _logger.Info($"Ajout des nouveaux enregistrements dans la BDD");
 
-                    database.SaveChanges();
+                    //database.SaveChanges();
                 }
                 catch (Exception ex)
                 {
@@ -103,15 +139,15 @@ namespace Mcd.App.GetXmlRpc
                 stopWatch.Stop();
 
                 _logger.Info($"Fin process global", null, stopWatch.Elapsed);
-            }
+           /* }
             else
-                callResto(Convert.ToInt32(args[0].Trim()), DateTime.Parse(args[1])).Wait();
+                callResto(Convert.ToInt32(args[0].Trim()),con, DateTime.Parse(args[1])).Wait();*/
 
-            Console.WriteLine("Tapez Entrer pour quitter...");
-            Console.ReadLine();
+           // Console.WriteLine("Tapez Entrer pour quitter...");
+           // Console.ReadLine();
         }
 
-        async private static Task callResto(int numResto, DateTime dateActivity, int? mockIndex = null)
+        async private static Task callResto(int numResto,SqlConnection con, DateTime dateActivity, int? mockIndex = null)
         {
             int mocknumResto = mockIndex != null ? mockIndex.Value : numResto;
             string Ip = String.Empty;
@@ -147,7 +183,7 @@ namespace Mcd.App.GetXmlRpc
                     _logger.Info($"Chemin fichier HourlySales sauvegardé : {path}", mocknumResto);
 
 
-                    processXML(path, Ip, mocknumResto);
+                    processXML(path,con, Ip, mocknumResto,dateActivity);
 
                 }
                 //Traitement direct des fichiers XML
@@ -155,10 +191,10 @@ namespace Mcd.App.GetXmlRpc
                 {
                     XDocument hourlySalesDoc = await NP6.SauvegarderHourlySalesAsyncDoc(dateActivity, _logger, mocknumResto);
                     Console.WriteLine("Document XML HourlySales récupéré");
-                    _logger.Info("Document XML HourlySales récupéré");
+                    _logger.Info("Document XML HourlySales récupéré",mocknumResto);
 
 
-                    processXMLDoc(hourlySalesDoc, Ip, mocknumResto);
+                    processXMLDoc(hourlySalesDoc,con, Ip, mocknumResto,dateActivity);
                 }
 
 
@@ -172,12 +208,12 @@ namespace Mcd.App.GetXmlRpc
             finally
             {
                 stopWatch.Stop();
-                _logger.Info($"Fin du traitement pour le resto # {mockIndex}, durée du traitement : {stopWatch.Elapsed}",
-                                mockIndex, stopWatch.Elapsed);
+                _logger.Info($"Fin du traitement pour le resto # {numResto}, durée du traitement : {stopWatch.Elapsed}",
+                                numResto, stopWatch.Elapsed);
             }
         }
 
-        private static void processXMLDoc(XDocument hourlySales, string Ip, int numResto)
+        private static void processXMLDoc(XDocument hourlySales,SqlConnection con, string Ip, int numResto, DateTime date)
         {
             Stopwatch stopWatch = new Stopwatch();
 
@@ -201,13 +237,13 @@ namespace Mcd.App.GetXmlRpc
                     desHs.Stop();
                     if (logXmlToData)
                     {
-                        _logger.Debug("Durée : Deserialisation du fichier hourlysales en objet :" + desHs.Elapsed);
+                        _logger.Debug("Durée : Deserialisation du fichier hourlysales en objet",numResto,desHs.Elapsed);
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    _logger.Error("Erreur lors de la Deserialisation du fichier XML en objet", ex);
+                    _logger.Error("Erreur lors de la Deserialisation du fichier XML en objet", ex,numResto);
                 }
 
                 if (hourlySalesObjet == null)
@@ -220,14 +256,14 @@ namespace Mcd.App.GetXmlRpc
                 }
                 else
                 {
-                    database.SaveHourlySales(hourlySalesObjet, numResto);
+                    database.SaveHourlySales(hourlySalesObjet,con,date, numResto);
                 }
 
                 return;
             }
             catch (Exception ex)
             {
-                _logger.Error($"Erreur lors du process du fichier XML, chemin Ip : {Ip}", ex, numResto);
+                _logger.Error($"Erreur lors du traitement du fichier XML : {Ip}", ex, numResto);
                 Console.WriteLine(ex);
 
                 throw ex;
@@ -240,10 +276,10 @@ namespace Mcd.App.GetXmlRpc
             }
         }
 
-        private static void processXML(string path, string Ip, int numResto)
+        private static void processXML(string path,SqlConnection con, string Ip, int numResto,DateTime date)
         {
             Stopwatch stopWatch = new Stopwatch();
-
+            
             try
             {
                 stopWatch.Start();
@@ -258,6 +294,7 @@ namespace Mcd.App.GetXmlRpc
 
                 Stopwatch desHs = new Stopwatch();
                 desHs.Start();
+                try { 
                 using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
                     using (BufferedStream bufferedStream = new BufferedStream(fileStream))
@@ -272,40 +309,47 @@ namespace Mcd.App.GetXmlRpc
                                 desHs.Stop();
                                 if (logXmlToData)
                                 {
-                                    _logger.Debug("Durée : Deserialisation du fichier hourlysales en objet :" + desHs.Elapsed);
+                                    _logger.Debug("Durée : Deserialisation du fichier hourlysales en objet",numResto, desHs.Elapsed);
                                 }
 
                             }
                             catch (Exception ex)
                             {
-                                _logger.Error("Erreur lors de la Deserialisation du fichier XML en objet", ex);
+                                _logger.Error("Erreur lors de la Deserialisation du fichier XML en objet", ex,numResto);
                             }
 
 
 
                             if (hourlySalesObjet == null)
-                            {
+                            {    
                                 _logger.Warn(string.Format($"Erreur lors de récupération Ventes Horaires ({0})", Ip), numResto);
+
                             }
                             else if (hourlySalesObjet.RequestReport != "HOURLYSALES")
                             {
-                                _logger.Warn(string.Format($"RequestReport = {hourlySalesObjet.RequestReport} " + $"quand ca doit être HOURLYSALES"), numResto);
+                                    
+                                    _logger.Warn(string.Format($"RequestReport = {hourlySalesObjet.RequestReport} " + $"quand ca doit être HOURLYSALES"), numResto);
                             }
                             else
                             {
-                                database.SaveHourlySales(hourlySalesObjet, numResto);
+                                    
+                                    database.SaveHourlySales(hourlySalesObjet,con,date, numResto);
 
                             }
                         }
                     }
                 }
-
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine("Fichier non récuperé pour l'adresse Ip :"+Ip);
+                }
 
                 return;
             }
             catch (Exception ex)
             {
-                _logger.Error($"Erreur lors du process du fichier XML, chemin : {path}, Ip : {Ip}", ex, numResto);
+                _logger.Error($"Erreur lors du traitement du fichier XML, chemin : {path}, Ip : {Ip}", ex, numResto);
                 Console.WriteLine(ex);
                 throw ex;
             }
