@@ -1,23 +1,6 @@
 create database McDashboard_Rect
 use McDashboard_Rect
 
-delete from APP_DDAY_HOURLY_SALES
-delete from APP_DDAY_HOURLY_PMX
-delete from TRA_LOG
-
-select * from TRA_LOG where LOG_MESSAGE like '%JOB%'
- 
-update APP_DDAY_HOURLY_SALES set DDHS_SITE_ID=2
-
-select sum(DDHS_SALES_PROD_AM) from APP_DDAY_HOURLY_SALES order by DDHS_SALES_PROD_AM
-select DDHS_SALES_PROD_AM from APP_DDAY_HOURLY_SALES where DDHS_SALES_TM=1515
-select sum(DDHS_SALES_PROD_AM) from APP_DDAY_HOURLY_SALES where DDHS_SALES_TM <1515
-select * from APP_DDAY_HOURLY_PMX where DDHP_SALES_TM <1515 and DDHP_MCDE_SIR_ID=1 and DDHP_MVAL_SIR_ID=2
-select * from APP_DDAY_HOURLY_SALES where DDHS_TAKE_OUT_SALES_AM=11.36
-select * from APP_DDAY_HOURLY_SALES order by DDHS_SALES_TM
-select * from APP_DDAY_HOURLY_PMX where  DDHP_DISCOUNT_OUT_QY <> 0
-select sum(DDHP_CA_OUT_AM) from APP_DDAY_HOURLY_PMX where DDHP_SALES_TM <1515
-select sum(DDHP_MGR_MEAL_QY) from APP_DDAY_HOURLY_PMX where DDHP_SALES_TM <1515
 
 CREATE TABLE [dbo].[APP_DDAY_HOURLY_SALES](	
     [DDHS_ID] [int] IDENTITY(1,1) NOT NULL,
@@ -97,10 +80,7 @@ CREATE TABLE [dbo].[TRA_LOG](
 	[LOG_EXCEPTION] [varchar](2000) NULL
 ) ON [PRIMARY]
 
-use McDashboard_Rect
-select * from TRA_LOG where LOG_DUREE like '___.%' and LOG_MESSAGE like '%Requete Data%' order by LOG_DUREE desc
-select * from APP_DDAY_HOURLY_SALES
-delete from TRA_LOG 
+
 
 CREATE TYPE [dbo].[APP_DDAY_HOURLY_PMX_TYPE] AS TABLE(	
 	[DDHP_SITE_ID] [smallint] NOT NULL,
@@ -122,8 +102,7 @@ CREATE TYPE [dbo].[APP_DDAY_HOURLY_PMX_TYPE] AS TABLE(
 	[DDHP_CA_OUT_AM] [smallmoney] NULL
 	
 );
-drop type APP_DDAY_HOURLY_SALES_TYPE
-drop procedure SPW_INSERT_DDAY_HOURLY_SALES_2
+
 
 CREATE TYPE [dbo].[APP_DDAY_HOURLY_SALES_TYPE] AS TABLE(	
 	[DDHS_SITE_ID] [smallint] NOT NULL,

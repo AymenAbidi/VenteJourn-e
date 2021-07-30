@@ -27,7 +27,7 @@ namespace Mcd.App.GetXmlRpc
 
         private readonly bool StoredProcedure = bool.Parse(ConfigurationManager.AppSettings["StoredProcedure"]);
 
-        //private readonly bool StoredProcedure = false;
+        
         
         private static readonly bool logXmlToData = bool.Parse(ConfigurationManager.AppSettings["LogXML-To-DATA"]);
 
@@ -47,6 +47,8 @@ namespace Mcd.App.GetXmlRpc
             VW_From_InfoSite4u_APP_SITE = _ctx.VW_From_InfoSite4u_Resto_APP_SITE.ToList();
         }
 
+        
+        // Sauvegarde des données récuperées depuis les fichiers xml dans la base de données
         public void SaveHourlySales(HourlySales hourlySalesObjet,SqlConnection con, DateTime dateActivity, int? numResto = null)
         {
             Stopwatch retDataHs = new Stopwatch();
@@ -60,8 +62,7 @@ namespace Mcd.App.GetXmlRpc
                 _logger.Debug("Durée : Recuperation des données db depuis objet Hs",numResto, retDataHs.Elapsed);
             }
 
-            /*HsFinalList.AddRange(app_dday_hourly_sales);
-            HpFinalList.AddRange(app_dday_hourly_pmx);*/
+           
 
             
             DataTable dtHs = GenHsDataTable(app_dday_hourly_sales);
@@ -99,124 +100,8 @@ namespace Mcd.App.GetXmlRpc
             }
         }
 
-       /* public void SaveChanges()
-        {
-            if (logDataToDb)
-            {
-                Console.WriteLine($"Début du commit en BDD de # {HsFinalList.Count} enregistrements pour HourlySales");
-                Console.WriteLine($"Début du commit en BDD de # {HpFinalList.Count} enregistrements pour PMix");
-                _logger.Info($"Début du commit en BDD de # {HsFinalList.Count} enregistrements pour HourlySales");
-                _logger.Info($"Début du commit en BDD de # {HpFinalList.Count} enregistrements pour PMix");
-            }
-
-            Stopwatch savedb = new Stopwatch();
-            savedb.Start();
-            if (StoredProcedure)
-            {
-                using (var con = new SqlConnection(connectionString))
-                {
-                    con.Open();
-                    Console.WriteLine("connexion version : " + con.ServerVersion);
-                    DataTable dtHs = GenHsDataTable();
-                    DataTable dtHp = GenHpDataTable();
-                    using (SqlCommand cmdHp = new SqlCommand("exec SPW_INSERT_DDAY_HOURLY_PMX @list", con))
-                    {
-                        var pList = new SqlParameter("@list", SqlDbType.Structured);
-                        //Console.WriteLine("1");
-                        pList.TypeName = "dbo.APP_DDAY_HOURLY_PMX_TYPE";
-                        //Console.WriteLine("1");
-
-                        pList.Value = dtHp;
-                        //Console.WriteLine("1");
-
-                        cmdHp.Parameters.Add(pList);
-                       // Console.WriteLine("1");
-
-                        try { var drHp = cmdHp.ExecuteReader(); }
-                        catch (Exception e)
-                        {
-                            _logger.Error("Erreur lors de l'execution de la procedure sp_insert_ddhp_hourly_pmx :", e);
-                            
-                            Console.WriteLine(e);
-                        }
-                    }
-                    using (SqlCommand cmdHs = new SqlCommand("exec SPW_INSERT_DDAY_HOURLY_SALES @list", con))
-                    {
-                        var pList = new SqlParameter("@list", SqlDbType.Structured);
-                        //Console.WriteLine("1");
-                        pList.TypeName = "dbo.APP_DDAY_HOURLY_SALES_TYPE";
-                        //Console.WriteLine("1");
-
-                        pList.Value = dtHs;
-                        //Console.WriteLine("1");
-                        cmdHs.Parameters.Add(pList);
-                        //Console.WriteLine("1");
-                        try { var drHs = cmdHs.ExecuteReader(); }
-                        catch (Exception e)
-                        {
-                            _logger.Error("Erreur lors de l'execution de la procedure sp_insert_ddhs_hourly_sales :", e);
-                            //Console.WriteLine("1");
-                            Console.WriteLine(e);
-                        }
-                    }
-                    savedb.Stop();
-                    if (logDataToDb)
-                    {
-                        _logger.Debug("Durée : Integration base de données",null,savedb.Elapsed);
-                    }
-
-                }
-            }
-            else
-            {
-                try
-                {
-                    Stopwatch addDbhs = new Stopwatch();
-                    addDbhs.Start();
-                    _ctx.APP_DDAY_HOURLY_SALES.AddRange(HsFinalList);
-                    addDbhs.Stop();
-                    if (logDataToDb)
-                    {
-                        _logger.Debug("Durée : Ajout hs dans la table db",null, addDbhs.Elapsed);
-                    }
-
-                    Stopwatch addDbhp = new Stopwatch();
-                    addDbhp.Start();
-                    _ctx.APP_DDAY_HOURLY_PMX.AddRange(HpFinalList);
-                    addDbhp.Stop();
-                    if (logDataToDb)
-                    {
-                        _logger.Debug("Durée : Ajout hp dans la table db",null, addDbhp.Elapsed);
-                    }
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    _logger.Error("Erreur lors de l'integration des données avec Entity Framework :", e);
-                }
-                try
-                {
-                    Stopwatch comdb = new Stopwatch();
-                    comdb.Start();
-                    _ctx.SaveChanges();
-                    comdb.Stop();
-                    if (logDataToDb)
-                    {
-                        _logger.Debug("Durée : Commit db :",null, comdb.Elapsed);
-                    }
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    _logger.Error("Erreur lors du commit DB Entity Framework :", e);
-                }
-            }
-            _logger.Info($"Fin du commit en BDD de # {HsFinalList.Count} enregistrements ");
-            HsFinalList = new List<APP_DDAY_HOURLY_SALES>();
-        }*/
-
+     
+        // Récupération des données dépuis les fichiers xml HourlySales
         private void MapToSales(HourlySales hourlySales, List<APP_DDAY_HOURLY_SALES> app_dday_hourly_sales, List<APP_DDAY_HOURLY_PMX> app_dday_hourly_pmx, int? numResto = null)
         {
             if (logXmlToData)
@@ -224,11 +109,9 @@ namespace Mcd.App.GetXmlRpc
                 _logger.Debug("Parcours de l'objet HourlySales pour récuperation de données",numResto);
             }
 
-            NumberFormatInfo nfi = new NumberFormatInfo();
             
-            /*Console.WriteLine("********************************");
-            nfi.NumberDecimalSeparator = ",";
-            Console.WriteLine(nfi.NumberDecimalSeparator);*/
+            
+            
             
             hourlySales.POD.ForEach((POD pod) =>
             {
@@ -375,34 +258,14 @@ namespace Mcd.App.GetXmlRpc
             }
         }
 
-        /*private string cultureConvertor(string str)
-        {
-            NumberFormatInfo nfi = new NumberFormatInfo();
-            
-            
-            if (str.Contains("."))
-            {
-                if (nfi.ToString() != ".")
-                {
-                    str.Replace(".", nfi.ToString());
-                }
-            }
-            else if (str.Contains(","))
-            {
-                if (nfi.ToString() != ",")
-                {
-                    str.Replace(",", nfi.ToString());
-                }
-            }
-            return str;
-        }*/
-
+        
+        //Conversion des données récupérées en table de données pour l'intégration dans la base de données
         private DataTable GenHsDataTable(List<APP_DDAY_HOURLY_SALES> hsList)
         {
             DataTable dtHs = new DataTable();
 
             DataColumn DDHS_SITE_ID = new DataColumn("DDHS_SITE_ID");
-            //DataColumn DDHS_BUSINESS_DT = new DataColumn("DDHS_BUSINESS_DT");
+            
             DataColumn DDHS_SALES_TM = new DataColumn("DDHS_SALES_TM");
             DataColumn DDHS_MCDE_SIR_ID = new DataColumn("DDHS_MCDE_SIR_ID");
             DataColumn DDHS_MVAL_SIR_ID = new DataColumn("DDHS_MVAL_SIR_ID");
@@ -418,10 +281,10 @@ namespace Mcd.App.GetXmlRpc
             DataColumn DDHS_DISCOUNT_IN_SALES_AM = new DataColumn("DDHS_DISCOUNT_IN_SALES_AM");
             DataColumn DDHS_DISCOUNT_OUT_SALES_AM = new DataColumn("DDHS_DISCOUNT_OUT_SALES_AM");
             DataColumn DDHS_CREW_HOURS_WORKED = new DataColumn("DDHS_CREW_HOURS_WORKED");
-            //DataColumn DDHS_PROCESS_DT = new DataColumn("DDHS_PROCESS_DT");
+            
 
             dtHs.Columns.Add(DDHS_SITE_ID);
-            //dtHs.Columns.Add(DDHS_BUSINESS_DT);
+            
             dtHs.Columns.Add(DDHS_SALES_TM);
             dtHs.Columns.Add(DDHS_MCDE_SIR_ID);
             dtHs.Columns.Add(DDHS_MVAL_SIR_ID);
@@ -437,13 +300,13 @@ namespace Mcd.App.GetXmlRpc
             dtHs.Columns.Add(DDHS_DISCOUNT_IN_SALES_AM);
             dtHs.Columns.Add(DDHS_DISCOUNT_OUT_SALES_AM);
             dtHs.Columns.Add(DDHS_CREW_HOURS_WORKED);
-            //dtHs.Columns.Add(DDHS_PROCESS_DT);
+            
 
             hsList.ForEach((APP_DDAY_HOURLY_SALES hs) =>
             {
                 DataRow d = dtHs.NewRow();
                 d["DDHS_SITE_ID"] = hs.DDHS_SITE_ID;
-                //d["DDHS_BUSINESS_DT"] = hs.DDHS_BUSINESS_DT;
+                
                 d["DDHS_SALES_TM"] = hs.DDHS_SALES_TM;
                 d["DDHS_MCDE_SIR_ID"] = hs.DDHS_MCDE_SIR_ID;
                 d["DDHS_MVAL_SIR_ID"] = hs.DDHS_MVAL_SIR_ID;
@@ -459,7 +322,7 @@ namespace Mcd.App.GetXmlRpc
                 d["DDHS_DISCOUNT_IN_SALES_AM"] = hs.DDHS_DISCOUNT_IN_SALES_AM;
                 d["DDHS_DISCOUNT_OUT_SALES_AM"] = hs.DDHS_DISCOUNT_OUT_SALES_AM;
                 d["DDHS_CREW_HOURS_WORKED"] = hs.DDHS_CREW_HOURS_WORKED;
-                //d["DDHS_PROCESS_DT"] = hs.DDHS_PROCESS_DT;
+                
 
                 dtHs.Rows.Add(d);
 
@@ -472,7 +335,7 @@ namespace Mcd.App.GetXmlRpc
             DataTable dtHp = new DataTable();
 
             DataColumn DDHP_SITE_ID = new DataColumn("DDHP_SITE_ID");
-            //DataColumn DDHP_BUSINESS_DT = new DataColumn("DDHP_BUSINESS_DT");
+            
             DataColumn DDHP_PROD_ID = new DataColumn("DDHP_PROD_ID");
             DataColumn DDHP_SALES_TM = new DataColumn("DDHP_SALES_TM");
             DataColumn DDHP_MCDE_SIR_ID = new DataColumn("DDHP_MCDE_SIR_ID");
@@ -489,12 +352,12 @@ namespace Mcd.App.GetXmlRpc
             DataColumn DDHP_EMPLOYEE_MEAL_AM = new DataColumn("DDHP_EMPLOYEE_MEAL_AM");
             DataColumn DDHP_CA_IN_AM = new DataColumn("DDHP_CA_IN_AM");
             DataColumn DDHP_CA_OUT_AM = new DataColumn("DDHP_CA_OUT_AM");
-            //DataColumn DDHP_PROCESS_DT = new DataColumn("DDHP_PROCESS_DT");
+            
 
 
 
             dtHp.Columns.Add(DDHP_SITE_ID);
-            //dtHp.Columns.Add(DDHP_BUSINESS_DT);
+            
             dtHp.Columns.Add(DDHP_PROD_ID);
             dtHp.Columns.Add(DDHP_SALES_TM);
             dtHp.Columns.Add(DDHP_MCDE_SIR_ID);
@@ -511,7 +374,7 @@ namespace Mcd.App.GetXmlRpc
             dtHp.Columns.Add(DDHP_EMPLOYEE_MEAL_AM);
             dtHp.Columns.Add(DDHP_CA_IN_AM);
             dtHp.Columns.Add(DDHP_CA_OUT_AM);
-            //dtHp.Columns.Add(DDHP_PROCESS_DT);
+            
 
 
 
@@ -519,7 +382,7 @@ namespace Mcd.App.GetXmlRpc
             {
                 DataRow d = dtHp.NewRow();
                 d["DDHP_SITE_ID"] = hp.DDHP_SITE_ID;
-                //d["DDHP_BUSINESS_DT"] = hp.DDHP_BUSINESS_DT;
+                
                 d["DDHP_PROD_ID"] = hp.DDHP_PROD_ID;
                 d["DDHP_SALES_TM"] = hp.DDHP_SALES_TM;
                 d["DDHP_MCDE_SIR_ID"] = hp.DDHP_MCDE_SIR_ID;
@@ -536,7 +399,7 @@ namespace Mcd.App.GetXmlRpc
                 d["DDHP_EMPLOYEE_MEAL_AM"] = hp.DDHP_EMPLOYEE_MEAL_AM;
                 d["DDHP_CA_IN_AM"] = hp.DDHP_CA_IN_AM;
                 d["DDHP_CA_OUT_AM"] = hp.DDHP_CA_OUT_AM;
-                //d["DDHP_PROCESS_DT"] = hp.DDHP_PROCESS_DT;
+                
 
                 dtHp.Rows.Add(d);
             });
