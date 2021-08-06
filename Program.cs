@@ -32,6 +32,7 @@ namespace Mcd.App.GetXmlRpc
         private static readonly bool SaveXML = bool.Parse(ConfigurationManager.AppSettings["SaveXML"]);
 
         private static readonly int ThreadSplit = int.Parse(ConfigurationManager.AppSettings["ThreadSplit"]);
+        private static readonly int ConnectionRetry = int.Parse(ConfigurationManager.AppSettings["ConnectionRetry"]);
 
         private static readonly string BusinessDate = ConfigurationManager.AppSettings["BusinessDate"];
 
@@ -72,20 +73,34 @@ namespace Mcd.App.GetXmlRpc
             if (processRepeat > 0)
                 Restaurants = Enumerable.Repeat(Restaurants.FirstOrDefault(), processRepeat).ToList();
 
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
+            //Stopwatch stopWatch = new Stopwatch();
+            //stopWatch.Start();
             _logger.Info($"Début process global de {Restaurants.Count} restaurants");
 
-            var splitRestaurants = SplitList(Restaurants, ThreadSplit);
-            var tasks = new List<Task>();
-            var actions = new List<Action>();
+            
+            List<Action> actions = new List<Action>();
+            Stack<string> ErrorResto = new Stack<string>();
             int i = 0;
-
+            Console.WriteLine("CurrentCulture is {0}.", CultureInfo.CurrentCulture.Name);
+            
             // Ouverture de la connexion vers la base des données
             SqlConnection con = new SqlConnection(connectionString);
             con.Open();
             Console.WriteLine("connexion version : " + con.ServerVersion);
             // Création des thread responsable du traitement pour chaque restaurants
+
+           /*var options = new ParallelOptions { MaxDegreeOfParallelism = ThreadSplit };
+            Parallel.ForEach(Restaurants,options, restaurant =>
+            {
+                int j = i;
+                
+                    int? mockIndex = null;
+                    if (processRepeat > 0) mockIndex = int.Parse(restaurant.Trim()) + j;
+                    callResto(Convert.ToInt32(restaurant.Trim()), con, BusinessDate == "" ? DateTime.Now : DateTime.ParseExact(BusinessDate, "dd/MM/yyyy", CultureInfo.InvariantCulture), ErrorResto, mockIndex).Wait();
+                    Console.WriteLine($"Processing resto index {j} Finished");
+
+                
+            });*/
             Restaurants.ForEach((string restaurant) =>
                 {
                     int j = i;
@@ -93,17 +108,54 @@ namespace Mcd.App.GetXmlRpc
                     {
                         int? mockIndex = null;
                         if (processRepeat > 0) mockIndex = int.Parse(restaurant.Trim()) + j;
-                        callResto(Convert.ToInt32(restaurant.Trim()), con, BusinessDate == "" ? DateTime.Now : DateTime.ParseExact(BusinessDate, "dd/MM/yyyy", CultureInfo.InvariantCulture), mockIndex).Wait();
+                        callResto(Convert.ToInt32(restaurant.Trim()), con, BusinessDate == "" ? DateTime.Now : DateTime.ParseExact(BusinessDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),ErrorResto, mockIndex).Wait();
                         Console.WriteLine($"Processing resto index {j} Finished");
-
+                        GC.Collect();
                     });
                 });
             // Precision du nombre limite de thread traité simultanement 
+            
             var options = new ParallelOptions { MaxDegreeOfParallelism = ThreadSplit };
-            //Lancement du traitement    
+            // Lancement du traitement    
+           
             Parallel.Invoke(options, actions.ToArray());
 
+            Console.WriteLine($"Répétition de {ErrorResto.Count} restaurants");
+           
+            int k = 0;
+            while (ErrorResto.Count != 0 && k < ConnectionRetry)
+            {
+                
+                k += 1;
+                Console.WriteLine($"Répétition de {ErrorResto.Count} restaurants : Tentative : {k}");
+                _logger.Debug($"Répétition de {ErrorResto.Count} restaurants : Tentative : {k}");
+                List<Action> repeatingActions = new List<Action>();
+                for (int j =0; j < ErrorResto.Count; j++)
+                {
+                    repeatingActions.Add(() =>
+                    {
 
+                        
+                        int? mockIndex = null;
+                        
+                        callResto(Convert.ToInt32(ErrorResto.Pop().Trim()), con, BusinessDate == "" ? DateTime.Now : DateTime.ParseExact(BusinessDate, "dd/MM/yyyy", CultureInfo.InvariantCulture), ErrorResto, mockIndex).Wait();
+                        Console.WriteLine($"Processing resto index {j} Finished");
+                        
+                        GC.Collect();
+                    });
+                }
+                ErrorResto = new Stack<string>();
+                
+                Parallel.Invoke(options, actions.ToArray());
+
+            }
+
+           /* Console.WriteLine("Repeating out of memory error restaurants ...");
+            ErrorResto.ForEach((string res) =>
+            {
+                Console.WriteLine($"Restaurant : {res}");
+
+            });*/
 
             try
             {
@@ -116,22 +168,24 @@ namespace Mcd.App.GetXmlRpc
                 while (ex.InnerException != null) ex = ex.InnerException;
                 _logger.Error(string.Format($"Erreur lors de sauvegarde des enregistrements : {ex.Message}"), ex);
             }
-            stopWatch.Stop();
+            //stopWatch.Stop();
 
-            _logger.Info($"Fin process global", null, stopWatch.Elapsed);
+            // _logger.Info($"Fin process global", null, stopWatch.Elapsed);
+
+            // Console.ReadLine();
 
         }
         // Traitement effectué à chaque restaurant
-        async private static Task callResto(int numResto, SqlConnection con, DateTime dateActivity, int? mockIndex = null)
+        async private static Task callResto(int numResto, SqlConnection con, DateTime dateActivity, Stack<string> ErrorResto, int? mockIndex = null)
         {
             int mocknumResto = mockIndex != null ? mockIndex.Value : numResto;
             string Ip = String.Empty;
 
             Console.WriteLine($"callResto execution");
 
-            Stopwatch stopWatch = new Stopwatch();
+            //Stopwatch stopWatch = new Stopwatch();
 
-            stopWatch.Start();
+            //stopWatch.Start();
             try
             {
                 _logger.Info($"Début Appel XML pour le resto # {mocknumResto}", mocknumResto);
@@ -149,8 +203,8 @@ namespace Mcd.App.GetXmlRpc
                 // Sauvegarde des fichiers XML 
                 if (SaveXML)
                 {
-                    string path = await NP6.SauvegarderHourlySalesAsync(dateActivity, _logger, mocknumResto);
-
+                    string path = await NP6.SauvegarderHourlySalesAsync(dateActivity, _logger,ErrorResto, mocknumResto);
+                    GC.Collect();
 
                     Console.WriteLine($"Chemin HourlySales généré : {path} \n");
 
@@ -182,19 +236,19 @@ namespace Mcd.App.GetXmlRpc
             }
             finally
             {
-                stopWatch.Stop();
-                _logger.Info($"Fin du traitement pour le resto # {numResto}, durée du traitement : {stopWatch.Elapsed}",
-                                numResto, stopWatch.Elapsed);
+                //stopWatch.Stop();
+               // _logger.Info($"Fin du traitement pour le resto # {numResto}, durée du traitement : {stopWatch.Elapsed}",
+                               // numResto, stopWatch.Elapsed);
             }
         }
 
         private static void processXMLDoc(XDocument hourlySales, SqlConnection con, string Ip, int numResto, DateTime date)
         {
-            Stopwatch stopWatch = new Stopwatch();
+           // Stopwatch stopWatch = new Stopwatch();
 
             try
             {
-                stopWatch.Start();
+               // stopWatch.Start();
 
                 _logger.Info($"Début du process XML-RPC pour le resto # {numResto}", numResto);
 
@@ -203,16 +257,16 @@ namespace Mcd.App.GetXmlRpc
                 HourlySales hourlySalesObjet = new HourlySales();
 
 
-                Stopwatch desHs = new Stopwatch();
-                desHs.Start();
+                //Stopwatch desHs = new Stopwatch();
+                //desHs.Start();
 
                 try
                 {
                     hourlySalesObjet = (HourlySales)serializer.Deserialize(hourlySales.Root.CreateReader());
-                    desHs.Stop();
+                   // desHs.Stop();
                     if (logXmlToData)
                     {
-                        _logger.Debug("Durée : Deserialisation du fichier hourlysales en objet", numResto, desHs.Elapsed);
+                       // _logger.Debug("Durée : Deserialisation du fichier hourlysales en objet", numResto, desHs.Elapsed);
                     }
 
                 }
@@ -245,19 +299,19 @@ namespace Mcd.App.GetXmlRpc
             }
             finally
             {
-                stopWatch.Stop();
-                _logger.Info($"Fin du process XML-RPC pour le resto # {numResto}, durée du traitement : {stopWatch.Elapsed}",
-                                numResto, stopWatch.Elapsed);
+               // stopWatch.Stop();
+                //_logger.Info($"Fin du process XML-RPC pour le resto # {numResto}, durée du traitement : {stopWatch.Elapsed}",
+                               // numResto, stopWatch.Elapsed);
             }
         }
 
         private static void processXML(string path, SqlConnection con, string Ip, int numResto, DateTime date)
         {
-            Stopwatch stopWatch = new Stopwatch();
+            //Stopwatch stopWatch = new Stopwatch();
 
             try
             {
-                stopWatch.Start();
+               // stopWatch.Start();
 
                 _logger.Info($"Début du process XML-RPC pour le resto # {numResto}", numResto);
 
@@ -267,8 +321,8 @@ namespace Mcd.App.GetXmlRpc
 
 
                 // Déserialisation de la chaine de caractère du fichier xml en objet HourlySales
-                Stopwatch desHs = new Stopwatch();
-                desHs.Start();
+                //Stopwatch desHs = new Stopwatch();
+                //desHs.Start();
                 try
                 {
                     using (FileStream fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
@@ -282,10 +336,10 @@ namespace Mcd.App.GetXmlRpc
                                 {
                                     hourlySalesObjet = (HourlySales)serializer.Deserialize(rdr);
 
-                                    desHs.Stop();
+                                    //desHs.Stop();
                                     if (logXmlToData)
                                     {
-                                        _logger.Debug("Durée : Deserialisation du fichier hourlysales en objet", numResto, desHs.Elapsed);
+                                        //_logger.Debug("Durée : Deserialisation du fichier hourlysales en objet", numResto, desHs.Elapsed);
                                     }
 
                                 }
@@ -310,6 +364,7 @@ namespace Mcd.App.GetXmlRpc
                                 {
 
                                     database.SaveHourlySales(hourlySalesObjet, con, date, numResto);
+                                    GC.Collect();
 
                                 }
                             }
@@ -331,9 +386,9 @@ namespace Mcd.App.GetXmlRpc
             }
             finally
             {
-                stopWatch.Stop();
-                _logger.Info($"Fin du process XML-RPC pour le resto # {numResto}, durée du traitement : {stopWatch.Elapsed}",
-                                numResto, stopWatch.Elapsed);
+                //stopWatch.Stop();
+                //_logger.Info($"Fin du process XML-RPC pour le resto # {numResto}, durée du traitement : {stopWatch.Elapsed}",
+                                //numResto, stopWatch.Elapsed);
             }
         }
 

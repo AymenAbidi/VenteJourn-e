@@ -50,6 +50,7 @@ namespace Mcd.App.GetXmlRpc
                 
                 var response = await client.PostAsync(this.Url, content);
                 responseMsg = await response.Content.ReadAsStringAsync();
+                
                 XDocument xdoc = XDocument.Parse(responseMsg);
                 
 

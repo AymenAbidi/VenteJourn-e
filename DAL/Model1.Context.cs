@@ -28,7 +28,7 @@ namespace Mcd.App.GetXmlRpc.DAL
         public virtual DbSet<APP_DDAY_HOURLY_PMX> APP_DDAY_HOURLY_PMX { get; set; }
         public virtual DbSet<APP_DDAY_HOURLY_SALES> APP_DDAY_HOURLY_SALES { get; set; }
         public virtual DbSet<APP_SITE> APP_SITE { get; set; }
-        public virtual DbSet<RFU_POD_SIR_ID> RFU_POD_SIR_ID { get; set; }
+        public virtual DbSet<RFA_POD_SIR_ID> RFA_POD_SIR_ID { get; set; }
         public virtual DbSet<TRA_LOG> TRA_LOG { get; set; }
         public virtual DbSet<VW_For_DatalakeExploit_APP_SITE> VW_For_DatalakeExploit_APP_SITE { get; set; }
         public virtual DbSet<VW_From_InfoSite4u_APP_SITE> VW_From_InfoSite4u_APP_SITE { get; set; }

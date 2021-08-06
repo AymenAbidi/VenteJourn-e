@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 
 namespace Mcd.App.GetXmlRpc
 {
@@ -21,14 +22,15 @@ namespace Mcd.App.GetXmlRpc
 
         private List<APP_DDAY_HOURLY_PMX> HpFinalList;
 
-        private static List<RFU_POD_SIR_ID> Pod_SIR_ID;
+        private static List<RFA_POD_SIR_ID> Pod_SIR_ID;
 
         private static List<VW_From_InfoSite4u_Resto_APP_SITE> VW_From_InfoSite4u_APP_SITE;
 
+
         private readonly bool StoredProcedure = bool.Parse(ConfigurationManager.AppSettings["StoredProcedure"]);
 
-        
-        
+
+
         private static readonly bool logXmlToData = bool.Parse(ConfigurationManager.AppSettings["LogXML-To-DATA"]);
 
         private static readonly bool logDataToDb = bool.Parse(ConfigurationManager.AppSettings["LogDATA-To-DB"]);
@@ -43,33 +45,33 @@ namespace Mcd.App.GetXmlRpc
             this._logger = _logger;
             HsFinalList = new List<APP_DDAY_HOURLY_SALES>();
             HpFinalList = new List<APP_DDAY_HOURLY_PMX>();
-            Pod_SIR_ID = _ctx.RFU_POD_SIR_ID.ToList();
+            Pod_SIR_ID = _ctx.RFA_POD_SIR_ID.ToList();
             VW_From_InfoSite4u_APP_SITE = _ctx.VW_From_InfoSite4u_Resto_APP_SITE.ToList();
         }
 
-        
+
         // Sauvegarde des données récuperées depuis les fichiers xml dans la base de données
-        public void SaveHourlySales(HourlySales hourlySalesObjet,SqlConnection con, DateTime dateActivity, int? numResto = null)
+        public void SaveHourlySales(HourlySales hourlySalesObjet, SqlConnection con, DateTime dateActivity, int? numResto = null)
         {
-            Stopwatch retDataHs = new Stopwatch();
-            retDataHs.Start();
+            //Stopwatch retDataHs = new Stopwatch();
+            //retDataHs.Start();
             List<APP_DDAY_HOURLY_SALES> app_dday_hourly_sales = new List<APP_DDAY_HOURLY_SALES>();
             List<APP_DDAY_HOURLY_PMX> app_dday_hourly_pmx = new List<APP_DDAY_HOURLY_PMX>();
             MapToSales(hourlySalesObjet, app_dday_hourly_sales, app_dday_hourly_pmx, numResto);
-            retDataHs.Stop();
+            //retDataHs.Stop();
             if (logXmlToData)
             {
-                _logger.Debug("Durée : Recuperation des données db depuis objet Hs",numResto, retDataHs.Elapsed);
+                //_logger.Debug("Durée : Recuperation des données db depuis objet Hs", numResto, retDataHs.Elapsed);
             }
 
-           
 
-            
+
+
             DataTable dtHs = GenHsDataTable(app_dday_hourly_sales);
             DataTable dtHp = GenHpDataTable(app_dday_hourly_pmx);
-            using (SqlCommand cmdHp = new SqlCommand("exec SPW_INSERT_DDAY_HOURLY_PMX @list , @business_date='" + dateActivity.ToString(dateFormat)+"'", con))
+            using (SqlCommand cmdHp = new SqlCommand("exec SPW_INSERT_DDAY_HOURLY_PMX @list , @business_date='" + dateActivity.ToString(dateFormat) + "'", con))
             {
-                
+
                 var pList = new SqlParameter("@list", SqlDbType.Structured);
                 pList.TypeName = "dbo.APP_DDAY_HOURLY_PMX_TYPE";
                 pList.Value = dtHp;
@@ -81,38 +83,54 @@ namespace Mcd.App.GetXmlRpc
                     Console.WriteLine(e);
                 }
             }
-            using (SqlCommand cmdHs = new SqlCommand("exec SPW_INSERT_DDAY_HOURLY_SALES @list , @business_date='"+dateActivity.ToString(dateFormat)+"'", con))
+            using (SqlCommand cmdHs = new SqlCommand("exec SPW_INSERT_DDAY_HOURLY_SALES @list , @business_date='" + dateActivity.ToString(dateFormat) + "'", con))
             {
                 var pList = new SqlParameter("@list", SqlDbType.Structured);
-                
+
                 pList.TypeName = "dbo.APP_DDAY_HOURLY_SALES_TYPE";
                 pList.Value = dtHs;
-                
+
                 cmdHs.Parameters.Add(pList);
-                
+
                 try { var drHs = cmdHs.ExecuteReader(); }
                 catch (Exception e)
                 {
                     _logger.Error("Erreur lors de l'execution de la procedure sp_insert_ddhs_hourly_sales :", e);
-                    
+
                     Console.WriteLine(e);
                 }
             }
         }
 
-     
+        public static decimal GetDouble(string value, decimal defaultValue)
+        {
+            
+            decimal result;
+            NumberStyles style;
+            CultureInfo provider;
+            style = NumberStyles.Number;
+
+            provider = new CultureInfo("en-US");
+            result = Decimal.Parse(value, style, provider);
+
+
+            
+            return result*10;
+        }
         // Récupération des données dépuis les fichiers xml HourlySales
         private void MapToSales(HourlySales hourlySales, List<APP_DDAY_HOURLY_SALES> app_dday_hourly_sales, List<APP_DDAY_HOURLY_PMX> app_dday_hourly_pmx, int? numResto = null)
         {
             if (logXmlToData)
             {
-                _logger.Debug("Parcours de l'objet HourlySales pour récuperation de données",numResto);
+                _logger.Debug("Parcours de l'objet HourlySales pour récuperation de données", numResto);
             }
 
+            CultureInfo usCulture = new CultureInfo("en-US");
+            NumberFormatInfo dbNumberFormat = usCulture.NumberFormat;
             
-            
-            
-            
+
+
+
             hourlySales.POD.ForEach((POD pod) =>
             {
                 if (pod.StoreTotal != null)
@@ -124,7 +142,7 @@ namespace Mcd.App.GetXmlRpc
                         decimal DDHS_DISCOUNT_IN_SALES_AM = 0;
                         decimal DDHS_DISCOUNT_OUT_SALES_AM = 0;
 
-                        
+
 
                         sales.Product.ForEach((Product product) =>
                         {
@@ -153,8 +171,8 @@ namespace Mcd.App.GetXmlRpc
                                     {
                                         DDHP_EAT_IN_QY = short.Parse(opT.PMix.QtyEatIn);
                                         DDHP_TAKE_OUT_QY = short.Parse(opT.PMix.QtyTakeOut);
-                                        DDHP_CA_IN_AM = decimal.Parse(opT.PMix.EatInNetAmount.Replace(".", ","))/100;
-                                        DDHP_CA_OUT_AM = decimal.Parse(opT.PMix.TakeOutNetAmount.Replace(".", ","))/100;
+                                        DDHP_CA_IN_AM = GetDouble(opT.PMix.EatInNetAmount,decimal.Parse(opT.PMix.EatInNetAmount, dbNumberFormat)) ;
+                                        DDHP_CA_OUT_AM = GetDouble(opT.PMix.TakeOutNetAmount, decimal.Parse(opT.PMix.TakeOutNetAmount, dbNumberFormat)) ;
                                     }
                                     if (opT.operationType == "PROMO")
                                     {
@@ -167,23 +185,23 @@ namespace Mcd.App.GetXmlRpc
                                         DDHP_DISCOUNT_OUT_QY = short.Parse(opT.PMix.QtyTakeOut);
                                         DDHP_EAT_IN_QY += short.Parse(opT.PMix.QtyEatIn);
                                         DDHP_TAKE_OUT_QY += short.Parse(opT.PMix.QtyTakeOut);
-                                        DDHP_CA_IN_AM += decimal.Parse(opT.PMix.EatInNetAmount.Replace(".", ","))/100;
-                                        DDHP_CA_OUT_AM += decimal.Parse(opT.PMix.TakeOutNetAmount.Replace(".", ","))/100;
+                                        DDHP_CA_IN_AM += GetDouble(opT.PMix.EatInNetAmount, decimal.Parse(opT.PMix.EatInNetAmount, dbNumberFormat)) ;
+                                        DDHP_CA_OUT_AM += GetDouble(opT.PMix.EatInNetAmount, decimal.Parse(opT.PMix.TakeOutNetAmount, dbNumberFormat)) ;
 
-                                        DDHS_DISCOUNT_IN_TAC_QY += short.Parse(opT.PMix.QtyEatIn); 
+                                        DDHS_DISCOUNT_IN_TAC_QY += short.Parse(opT.PMix.QtyEatIn);
                                         DDHS_DISCOUNT_OUT_TAC_QY += short.Parse(opT.PMix.QtyTakeOut);
-                                        DDHS_DISCOUNT_IN_SALES_AM += decimal.Parse(opT.PMix.EatInNetAmount.Replace(".", ",")) / 100; ;
-                                        DDHS_DISCOUNT_OUT_SALES_AM += decimal.Parse(opT.PMix.TakeOutNetAmount.Replace(".", ",")) / 100;
+                                        DDHS_DISCOUNT_IN_SALES_AM += GetDouble(opT.PMix.EatInNetAmount, decimal.Parse(opT.PMix.EatInNetAmount, dbNumberFormat)) ;
+                                        DDHS_DISCOUNT_OUT_SALES_AM += GetDouble(opT.PMix.TakeOutNetAmount,decimal.Parse(opT.PMix.TakeOutNetAmount, dbNumberFormat)) ;
 
 
                                     }
                                     if (opT.operationType == "CREW")
                                     {
                                         DDHP_EMPLOYEE_MEAL_QY = (short)(int.Parse(opT.PMix.QtyEatIn) + int.Parse(opT.PMix.QtyTakeOut));
-                                      
 
 
-                                        DDHP_EMPLOYEE_MEAL_AM = decimal.Parse(opT.PMix.EatInNetAmount.Replace(".", ","))/100 + decimal.Parse(opT.PMix.TakeOutNetAmount.Replace(".", ","))/100;
+
+                                        DDHP_EMPLOYEE_MEAL_AM = GetDouble(opT.PMix.EatInNetAmount, decimal.Parse(opT.PMix.EatInNetAmount, dbNumberFormat))  + GetDouble(opT.PMix.TakeOutNetAmount, decimal.Parse(opT.PMix.TakeOutNetAmount, dbNumberFormat)) ;
                                     }
                                     if (opT.operationType == "MANAGER")
                                     {
@@ -193,8 +211,8 @@ namespace Mcd.App.GetXmlRpc
                                     {
                                         DDHP_EAT_IN_QY -= short.Parse(opT.PMix.QtyEatIn);
                                         DDHP_TAKE_OUT_QY -= short.Parse(opT.PMix.QtyTakeOut);
-                                        DDHP_CA_IN_AM -= decimal.Parse(opT.PMix.EatInNetAmount.Replace(".", ","))/100;
-                                        DDHP_CA_OUT_AM -= decimal.Parse(opT.PMix.TakeOutNetAmount.Replace(".", ","))/100;
+                                        DDHP_CA_IN_AM -= GetDouble(opT.PMix.EatInNetAmount, decimal.Parse(opT.PMix.EatInNetAmount, dbNumberFormat)) ;
+                                        DDHP_CA_OUT_AM -=GetDouble(opT.PMix.TakeOutNetAmount, decimal.Parse(opT.PMix.TakeOutNetAmount, dbNumberFormat)) ;
                                     }
 
 
@@ -232,10 +250,10 @@ namespace Mcd.App.GetXmlRpc
                             DDHS_MVAL_SIR_ID = (short)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort).PDID_MVAL_SIR_ID : 0),
                             DDHS_LLVR_SIR_ID = (short)(Pod_SIR_ID.Any(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort) ? Pod_SIR_ID.FirstOrDefault(pod_sir => pod_sir.PDID_PODSHORT == pod.PodShort).PDID_LLVR_SIR_ID : 0),
                             DDHS_SALES_TM = short.Parse(hourlySales.DayPartitioning.Segment.FirstOrDefault(seg => seg.Id == sales.Id.ToString()).BegTime),
-                            DDHS_SALES_PROD_AM = decimal.Parse(sales.ProductNetAmount.Replace(".", ",")) / 100,
-                            DDHS_SALES_NON_PROD_AM = decimal.Parse(sales.NetAmount.Replace(".", ",")) / 100 - decimal.Parse(sales.ProductNetAmount.Replace(".", ",")) / 100,
-                            DDHS_EAT_IN_SALES_AM = decimal.Parse(sales.EatInNetAmount.Replace(".", ",")) / 100,
-                            DDHS_TAKE_OUT_SALES_AM = decimal.Parse(sales.TakeOutNetAmount.Replace(".", ",")) / 100,
+                            DDHS_SALES_PROD_AM = GetDouble(sales.ProductNetAmount, decimal.Parse(sales.ProductNetAmount, dbNumberFormat)) ,
+                            DDHS_SALES_NON_PROD_AM = GetDouble(sales.NetAmount,decimal.Parse(sales.NetAmount, dbNumberFormat))  -GetDouble(sales.ProductNetAmount, decimal.Parse(sales.ProductNetAmount, dbNumberFormat)) ,
+                            DDHS_EAT_IN_SALES_AM = GetDouble(sales.EatInNetAmount, decimal.Parse(sales.EatInNetAmount, dbNumberFormat) ),
+                            DDHS_TAKE_OUT_SALES_AM = GetDouble(sales.TakeOutNetAmount, decimal.Parse(sales.TakeOutNetAmount, dbNumberFormat)) ,
                             DDHS_EAT_IN_TAC_QY = Eat_In_Qy(sales.ExtTC, sales.EatInTC, sales.TakeOutTC),
                             DDHS_TAKE_OUT_TAC_QY = Take_Out_Qy(sales.ExtTC, sales.EatInTC, sales.TakeOutTC),
                             DDHS_DISCOUNT_IN_TAC_QY = DDHS_DISCOUNT_IN_TAC_QY,
@@ -254,18 +272,18 @@ namespace Mcd.App.GetXmlRpc
             });
             if (logXmlToData)
             {
-                _logger.Debug("Fin du parcours de l'objet HourlySales",numResto);
+                _logger.Debug("Fin du parcours de l'objet HourlySales", numResto);
             }
         }
 
-        
+
         //Conversion des données récupérées en table de données pour l'intégration dans la base de données
         private DataTable GenHsDataTable(List<APP_DDAY_HOURLY_SALES> hsList)
         {
             DataTable dtHs = new DataTable();
 
             DataColumn DDHS_SITE_ID = new DataColumn("DDHS_SITE_ID");
-            
+
             DataColumn DDHS_SALES_TM = new DataColumn("DDHS_SALES_TM");
             DataColumn DDHS_MCDE_SIR_ID = new DataColumn("DDHS_MCDE_SIR_ID");
             DataColumn DDHS_MVAL_SIR_ID = new DataColumn("DDHS_MVAL_SIR_ID");
@@ -281,10 +299,10 @@ namespace Mcd.App.GetXmlRpc
             DataColumn DDHS_DISCOUNT_IN_SALES_AM = new DataColumn("DDHS_DISCOUNT_IN_SALES_AM");
             DataColumn DDHS_DISCOUNT_OUT_SALES_AM = new DataColumn("DDHS_DISCOUNT_OUT_SALES_AM");
             DataColumn DDHS_CREW_HOURS_WORKED = new DataColumn("DDHS_CREW_HOURS_WORKED");
-            
+
 
             dtHs.Columns.Add(DDHS_SITE_ID);
-            
+
             dtHs.Columns.Add(DDHS_SALES_TM);
             dtHs.Columns.Add(DDHS_MCDE_SIR_ID);
             dtHs.Columns.Add(DDHS_MVAL_SIR_ID);
@@ -300,13 +318,13 @@ namespace Mcd.App.GetXmlRpc
             dtHs.Columns.Add(DDHS_DISCOUNT_IN_SALES_AM);
             dtHs.Columns.Add(DDHS_DISCOUNT_OUT_SALES_AM);
             dtHs.Columns.Add(DDHS_CREW_HOURS_WORKED);
-            
+
 
             hsList.ForEach((APP_DDAY_HOURLY_SALES hs) =>
             {
                 DataRow d = dtHs.NewRow();
                 d["DDHS_SITE_ID"] = hs.DDHS_SITE_ID;
-                
+
                 d["DDHS_SALES_TM"] = hs.DDHS_SALES_TM;
                 d["DDHS_MCDE_SIR_ID"] = hs.DDHS_MCDE_SIR_ID;
                 d["DDHS_MVAL_SIR_ID"] = hs.DDHS_MVAL_SIR_ID;
@@ -322,7 +340,7 @@ namespace Mcd.App.GetXmlRpc
                 d["DDHS_DISCOUNT_IN_SALES_AM"] = hs.DDHS_DISCOUNT_IN_SALES_AM;
                 d["DDHS_DISCOUNT_OUT_SALES_AM"] = hs.DDHS_DISCOUNT_OUT_SALES_AM;
                 d["DDHS_CREW_HOURS_WORKED"] = hs.DDHS_CREW_HOURS_WORKED;
-                
+
 
                 dtHs.Rows.Add(d);
 
@@ -335,7 +353,7 @@ namespace Mcd.App.GetXmlRpc
             DataTable dtHp = new DataTable();
 
             DataColumn DDHP_SITE_ID = new DataColumn("DDHP_SITE_ID");
-            
+
             DataColumn DDHP_PROD_ID = new DataColumn("DDHP_PROD_ID");
             DataColumn DDHP_SALES_TM = new DataColumn("DDHP_SALES_TM");
             DataColumn DDHP_MCDE_SIR_ID = new DataColumn("DDHP_MCDE_SIR_ID");
@@ -352,12 +370,12 @@ namespace Mcd.App.GetXmlRpc
             DataColumn DDHP_EMPLOYEE_MEAL_AM = new DataColumn("DDHP_EMPLOYEE_MEAL_AM");
             DataColumn DDHP_CA_IN_AM = new DataColumn("DDHP_CA_IN_AM");
             DataColumn DDHP_CA_OUT_AM = new DataColumn("DDHP_CA_OUT_AM");
-            
+
 
 
 
             dtHp.Columns.Add(DDHP_SITE_ID);
-            
+
             dtHp.Columns.Add(DDHP_PROD_ID);
             dtHp.Columns.Add(DDHP_SALES_TM);
             dtHp.Columns.Add(DDHP_MCDE_SIR_ID);
@@ -374,7 +392,7 @@ namespace Mcd.App.GetXmlRpc
             dtHp.Columns.Add(DDHP_EMPLOYEE_MEAL_AM);
             dtHp.Columns.Add(DDHP_CA_IN_AM);
             dtHp.Columns.Add(DDHP_CA_OUT_AM);
-            
+
 
 
 
@@ -382,7 +400,7 @@ namespace Mcd.App.GetXmlRpc
             {
                 DataRow d = dtHp.NewRow();
                 d["DDHP_SITE_ID"] = hp.DDHP_SITE_ID;
-                
+
                 d["DDHP_PROD_ID"] = hp.DDHP_PROD_ID;
                 d["DDHP_SALES_TM"] = hp.DDHP_SALES_TM;
                 d["DDHP_MCDE_SIR_ID"] = hp.DDHP_MCDE_SIR_ID;
@@ -399,7 +417,7 @@ namespace Mcd.App.GetXmlRpc
                 d["DDHP_EMPLOYEE_MEAL_AM"] = hp.DDHP_EMPLOYEE_MEAL_AM;
                 d["DDHP_CA_IN_AM"] = hp.DDHP_CA_IN_AM;
                 d["DDHP_CA_OUT_AM"] = hp.DDHP_CA_OUT_AM;
-                
+
 
                 dtHp.Rows.Add(d);
             });

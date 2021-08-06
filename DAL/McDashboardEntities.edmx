@@ -137,7 +137,7 @@
           <Property Name="SITE_UPDATE_DT" Type="datetime" />
           <Property Name="SITE_UPDATE_TYPE" Type="varchar" MaxLength="100" />
         </EntityType>
-        <EntityType Name="RFU_POD_SIR_ID">
+        <EntityType Name="RFA_POD_SIR_ID">
           <Key>
             <PropertyRef Name="PDID_PODSHORT" />
           </Key>
@@ -204,7 +204,7 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.VW_From_InfoSite4u_Resto_APP_
           <EntitySet Name="APP_DDAY_HOURLY_PMX" EntityType="Self.APP_DDAY_HOURLY_PMX" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APP_DDAY_HOURLY_SALES" EntityType="Self.APP_DDAY_HOURLY_SALES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="APP_SITE" EntityType="Self.APP_SITE" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RFU_POD_SIR_ID" EntityType="Self.RFU_POD_SIR_ID" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RFA_POD_SIR_ID" EntityType="Self.RFA_POD_SIR_ID" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TRA_LOG" EntityType="Self.TRA_LOG" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [TRA_LOG].[LOG_ID] AS [LOG_ID], 
@@ -377,7 +377,7 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.VW_From_InfoSite4u_Resto_APP_
           <Property Name="SITE_UPDATE_DT" Type="DateTime" Precision="3" />
           <Property Name="SITE_UPDATE_TYPE" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="RFU_POD_SIR_ID">
+        <EntityType Name="RFA_POD_SIR_ID">
           <Key>
             <PropertyRef Name="PDID_PODSHORT" />
           </Key>
@@ -436,7 +436,7 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.VW_From_InfoSite4u_Resto_APP_
           <EntitySet Name="APP_DDAY_HOURLY_PMX" EntityType="Self.APP_DDAY_HOURLY_PMX" />
           <EntitySet Name="APP_DDAY_HOURLY_SALES" EntityType="Self.APP_DDAY_HOURLY_SALES" />
           <EntitySet Name="APP_SITE" EntityType="Self.APP_SITE" />
-          <EntitySet Name="RFU_POD_SIR_ID" EntityType="Self.RFU_POD_SIR_ID" />
+          <EntitySet Name="RFA_POD_SIR_ID" EntityType="Self.RFA_POD_SIR_ID" />
           <EntitySet Name="TRA_LOG" EntityType="Self.TRA_LOG" />
           <EntitySet Name="VW_For_DatalakeExploit_APP_SITE" EntityType="Self.VW_For_DatalakeExploit_APP_SITE" />
           <EntitySet Name="VW_From_InfoSite4u_APP_SITE" EntityType="Self.VW_From_InfoSite4u_APP_SITE" />
@@ -583,9 +583,9 @@ warning 6002: The table/view 'McDashboard_Rect.dbo.VW_From_InfoSite4u_Resto_APP_
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="RFU_POD_SIR_ID">
-            <EntityTypeMapping TypeName="McDashboard_RectModel.RFU_POD_SIR_ID">
-              <MappingFragment StoreEntitySet="RFU_POD_SIR_ID">
+          <EntitySetMapping Name="RFA_POD_SIR_ID">
+            <EntityTypeMapping TypeName="McDashboard_RectModel.RFA_POD_SIR_ID">
+              <MappingFragment StoreEntitySet="RFA_POD_SIR_ID">
                 <ScalarProperty Name="PDID_PODSHORT" ColumnName="PDID_PODSHORT" />
                 <ScalarProperty Name="PDID_MCDE_SIR_ID" ColumnName="PDID_MCDE_SIR_ID" />
                 <ScalarProperty Name="PDID_MVAL_SIR_ID" ColumnName="PDID_MVAL_SIR_ID" />
